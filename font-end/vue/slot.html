@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>slot</title>
+</head>
+<body>
+    <div id="vue01">
+        <body-content>
+            <div class="footer" slot="footer">footer</div>
+        </body-content>
+    </div>
+    <div id="vue02">
+        <child>
+            <template slot-scope="props">
+                <h1>{{props.item}}</h1>
+            </template>
+        </child>
+    </div>
+    <script>
+        //插槽
+        /**
+         * slot 子组件模板可以使用父级组件的内容
+         *  slot="footer" 绑定名字之后变成了具名插槽
+         * 若父及组件没有传递对应的父及插槽，且子组件中有定义默认的内容，就会显示默认内容
+         * 作用域插槽
+         * 
+         * 
+         */ 
+        Vue.component('body-content', {
+            template: `<div>
+                        <slot name='header'>
+                            <h1>default header</h1>
+                        </slot>
+                        <div class='content'>content</div>
+                        <slot name='footer'></slot>
+                       </div>`
+        });
+        var vue01 = new Vue({
+            el: '#vue01',
+        });
+        // Vue.component('child', {
+        //     data: function() {
+        //         return {
+        //             list: [1, 2, 3, 4],
+        //         }
+        //     },
+        //     template: `<div>
+        //                     <ul>
+        //                         <slot 
+        //                             v-for="item of list"
+        //                             v-bind:item="item">
+        //                         </slot>
+        //                     </ul>
+        //                </div>`
+        // });
+
+        //作用域插槽
+        /**
+         * 在实例中声明组件之前，要先实例化组件，不然会找不到 
+         * 作用域插槽传递的插槽必须包含在<template></template>之中
+         * 同时，要用slot-scope="props" 属性接收插槽向上传递的数据
+         * 
+         */ 
+        var ChildComponent = {
+            data: function() {
+                return {
+                    list: [1, 2, 3, 4],
+                }
+            },
+            template: `<div>
+                            <ul>
+                                <slot
+                                    v-for="item of list"
+                                    v-bind:item="item">
+                                </slot>
+                            </ul>
+                       </div>`
+        }
+        var vue02 = new Vue({
+            el: '#vue02',
+            components: {
+                'child': ChildComponent
+            }
+        });
+
+        // var ChildComponent = {
+        //     data: function() {
+        //         return {
+        //             list: [1, 2, 3, 4],
+        //         }
+        //     },
+        //     template: `<div>
+        //                     <ul>
+        //                         <slot
+        //                             v-for="item of list"
+        //                             v-bind:item="item">
+        //                         </slot>
+        //                     </ul>
+        //                </div>`
+        // }
+
+    </script>
+</body>
+</html>

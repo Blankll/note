@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="vue01">
+        <table>
+            <tbody>
+                <tr is="row"></tr>
+                <row></row>
+            </tbody>
+        </table>
+    </div>
+    <div id="vue02">
+           <counter :count="0"></counter>
+           <counter :count="1"></counter>
+        </div>
+    <div id="vue03">
+        <child content="Del"></child>
+        <child content="Lee"></child>
+    </div>
+    <div id="vue04">
+        <component v-bind:is="type"></component>
+        <once-one v-if="type === 'once-one'" v-once></once-one>
+        <once-two v-if="type === 'once-two'" v-once></once-two>
+        <button v-on:click="btnClick">change</button>
+    </div>
+
+    <script>
+        //vue components
+        /**
+         * 写table时，可以使用is来指定template 解决模板的bug
+         * 在非根组件的component中定义数据时，数据是一个方法，返回保存数据
+         * 直接返回数据给调用的父级组件，可以结局数据的耦合问题
+         * 
+         * ref 在vue中操作dom
+         * 
+         */
+        Vue.component('row', {
+            template: '<tr> <td> this is a row</td></tr>'
+        });
+        var vue01 = new Vue({
+            el: '#vue01',
+            
+        });
+        //vue中父子组件的值传递
+        /**
+         * 父组件通过属性的形式向子组件传递数据
+         * 单向数据流 父组件可以修改子组件的值
+         * 子组件可以接收使用父组件传来的值，但不可以修改父组件的值
+         * 
+         * 
+         * 
+         * 
+         * 
+         */
+        //子组件
+        var counter = {
+            props:['count'],
+            template: '<div>{{count}}</div>',
+            methods: {
+
+            }
+        }
+
+        var vue02 = new Vue ({
+            el: '#vue02',
+            components: {
+                counter: counter,
+            }
+        });
+        //vue中非父子组件之间传值
+        /**
+         * 发布订阅机制 总线机制 bus
+         * 
+         * 
+         * 
+         * 
+         */ 
+        //在类上挂载了一个属性
+        Vue.prototype.bus = new Vue();
+        Vue.component('child', {
+            props: {
+                content: String
+            },
+            template: '<div v-on:click="handerClick">{{content}}</div>',
+            methods: {
+                handerClick: function() {
+                    //通过$emit向外触发事件，事件名称为change,携带内容content
+                    this.bus.$emit('change',this.content);
+                }
+            },
+            mounted: function() {
+                //监听change事件 实践发生时调用函数
+                this.bus.$on('change', function(data){
+                    alert(data);
+                });
+            }
+        });
+        var vue03 = new Vue({
+            el:'#vue03'
+        });
+
+        //动态组转件与v-once指令
+        /**
+         * 下面三元转换会在每次改变组件时销毁和创建组件，消耗资源
+         * 用<component v-bind:is="type"></component>来替换，效果一致，
+         * 根据is的变化动态加载组件
+         * v-once 
+         *  在第一次渲染中实例化组件，并将其存入内存中，再次调用时直接从内存中读取，提升速达
+         * 
+         */ 
+        var OnceOne = {
+            template: '<div>one</div>'
+        }
+        var OnceTwo = {
+            template: '<div>two</div>'
+        }
+        var vue04 = new Vue({
+            el: '#vue04',
+            data: {
+                type: 'once-one'
+            },
+            components: {
+                'once-one': OnceOne,
+                'once-two': OnceTwo
+            },
+            methods: {
+                btnClick: function() {
+                    this.type = this.type === 'once-one' ? 'once-two' : 'once-one';
+                }
+            }
+        });
+
+
+
+    </script>
+</body>
+</html>
