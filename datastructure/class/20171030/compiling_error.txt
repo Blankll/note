@@ -1,0 +1,6 @@
+/tmp/ccqNCDTt.o: In function `main':
+main.c:(.text+0x1f): undefined reference to `InitDoubleList'
+main.c:(.text+0x2b): undefined reference to `CreateDoubleListFromTail'
+main.c:(.text+0x37): undefined reference to `display'
+main.c:(.text+0x43): undefined reference to `destroy_list'
+collect2: error: ld returned 1 exit status
