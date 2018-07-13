@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TodoList</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <div>
+            <input type="text" v-model="inputValue"/>
+            <button v-on:click="handleSubmit">submit</button>
+        </div>
+        <ul>
+            <todo-item 
+                v-for="(item, index) of list"
+                :key="index"
+                :content="item"
+                :index="index"
+                v-on:delete="deleteHandle"
+            >
+            </todo-item>
+        </ul>
+    </div>
+    <script>
+        /**
+         * 全局组件
+         * 
+         */
+        // Vue.component('todo-item', {
+        //     props: ['content'],
+        //     template: '<li> {{content}} </li>'
+        // });
+
+
+        /**
+         * 注册组件
+         */
+        var TodoItem = {
+            props: ['content', 'index'],
+            template: '<li v-on:click="handelClick"> {{content}} </li>',
+            methods: {
+                handelClick: function() {
+                    //$emit  向父组件传递事件
+                    this.$emit('delete', this.index);
+                }
+            }
+        }
+        var todo = new Vue({
+            //挂载点
+            el: "#root",
+            data: {
+                inputValue: 'hello',
+                list: []
+            },
+            //绑定的方法
+            methods: {
+                handleSubmit: function() {
+                    this.list.push(this.inputValue);
+                    this.inputValue = '';
+                },
+                deleteHandle: function(index) {
+                    alert(index);
+                }
+            },
+            //注册组件
+            components: {
+                'todo-item': TodoItem
+            }
+        })
+        //vue的组件与实例的关系
+        /**
+         * 每个组件其实都是一个vue的实例
+         * 实例可以互相嵌套
+         * vue的项目由实例组建而成 
+         * 实例：
+         *     el:
+         *     props:
+         *     data:
+         *     template:
+         *     methods:
+         *     computed:
+         *     watch:
+         * 
+         * 对于一个根实例，如果不定义template,会将挂载点下的内容作为实例的template
+         * 
+         * vue的发布订阅
+         * $emit('event',data) 子组件发布事件可以被父组件监听到
+         */
+    </script>
+</body>
+</html>

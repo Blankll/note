@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="vue01">
+        <table>
+            <tbody>
+                <tr is="row"></tr>
+                <row></row>
+            </tbody>
+        </table>
+    </div>
+    <div id="vue02">
+           <counter :count="0"></counter>
+           <counter :count="1"></counter>
+        </div>
+
+    <script>
+        //vue components
+        /**
+         * 写table时，可以使用is来指定template 解决模板的bug
+         * 在非跟组件的component中定义数据时，数据是一个方法，返回保存数据
+         * 直接返回数据给调用的父级组件，可以结局数据的耦合问题
+         * 
+         * ref 在vue中操作dom
+         * 
+         */
+        Vue.component('row', {
+            template: '<tr> <td> this is a row</td></tr>'
+        });
+        var vue01 = new Vue({
+            el: '#vue01',
+            
+        });
+        //vue中父子组件的值传递
+        /**
+         * 父组件通过属性的形式向子组件传递数据
+         * 单向数据流 父组件可以修改子组件的值
+         * 子组件可以接收使用父组件传来的值，但不可以修改父组件的值
+         * 
+         * 
+         * 
+         * 
+         * 
+         */
+        //子组件
+        var counter = {
+            props:['count'],
+            template: '<div>{{count}}</div>',
+            methods: {
+
+            }
+        }
+
+        var vue02 = new Vue ({
+            el: '#vue02',
+            components: {
+                counter: counter,
+            }
+        })
+
+
+
+    </script>
+</body>
+</html>
