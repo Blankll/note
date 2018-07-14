@@ -131,7 +131,12 @@ sass、stylus、less
 4. 代码编写，包括样式清除、确定断点、基础布局
 
    - 清除默认样式 reset.css
+
    - 启动本地node服务器 anywhere 如果command not found 就 npm install -g anywhere
+
+   - 引入flexible， 在页面中直接将js代码放上，给定一个fontsize值
+
+     > npm install --save-dev gulp-postcss postcss-px2rem
 
 
 

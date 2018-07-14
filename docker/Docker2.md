@@ -16,6 +16,8 @@ docker exec  在启动的容器中运行新的进程
 
 docker stop docker kill 停止守护式进程容器
 
+docker tage 原来的镜像名 新镜像名 docker镜像重命名
+
 ## 在容器中部署静态网站
 
 1. 容器的端口映射
@@ -63,6 +65,14 @@ docker search 查找镜像 或去docker  hub
 
 推送镜像： docker push repository/imagename
 
+## 导入导出镜像
+
+docker save image > /home/image.tar.gz 导出镜像
+
+docker load < /home/image.tar.gz 导入镜像
+
+docker rmi images 删除镜像
+
  ## 构建docker镜像
 
 保存对容器的修改，并再次使用，
@@ -87,13 +97,13 @@ docker build     --用docker file来构建镜像
 
 ## docker的c/s模式
 
-![dockercs模式](C:\Users\Blank\Desktop\docker1.png)
+![dockercs模式](./docker1.png)
 
-![dockercs模式](C:\Users\Blank\Desktop\docker2.png)
+![dockercs模式](./docker2.png)
 
 ##remote API
 
-![remoteAPI](C:\Users\Blank\Desktop\remote.png)
+![remoteAPI](./remote.png)
 
 
 
@@ -247,7 +257,7 @@ docker history [image] 查看dockerfile构建过程
 
 docker0 Linux的网桥 -是数据链路层成的一种设备[osi]
 
-![](C:\Users\Blank\Desktop\osi.png)
+![](./osi.png)
 
 Linux虚拟网桥的特点
 
@@ -276,7 +286,7 @@ ip-forward 是否允许数据转发
 
 ipdtables 与Linux内核集成的包过滤防火墙系统
 
-![](C:\Users\Blank\Desktop\iptables.png)
+![](./iptables.png)
 
 ## docker容器的数据管理
 
@@ -286,7 +296,7 @@ docker数据卷是经过特殊设计的目录，可以绕过联合文件(ufs)，
 
 数据卷设计的目的，在于数据的永久化，它完全独立于容器的生命周期，因此docker不会再容器删除时删除其挂载的数据卷，也不会存在类似的垃圾收集机制，对容器引用的数据卷进行处理
 
-![](C:\Users\Blank\Desktop\datavulme.png)
+![](./datavulme.png)
 
 #### 数据卷的特点
 
@@ -304,5 +314,5 @@ docker数据卷是经过特殊设计的目录，可以绕过联合文件(ufs)，
 
 数据卷容器： 命名的容器挂载数据卷，其他容器通过挂载这个容器实现数据共享，挂载数据卷的容器，就叫做数据卷
 
-![img](file:///C:/Users/Blank/Desktop/volumecon.png?lastModify=1525057873)
+![img](./volumecon.png?lastModify=1525057873)
 
