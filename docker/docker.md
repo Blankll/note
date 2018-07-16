@@ -54,7 +54,7 @@ docker start -i name 启动容器
 
 docker rim name 删除容器
 
-docker tage 原来的镜像名 新镜像名 docker镜像重命名
+docker tage 原来的镜像名 新镜像名    docker镜像重命名
 
 docker network create name 创建docker实例内部网络
 

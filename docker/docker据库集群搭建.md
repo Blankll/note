@@ -184,8 +184,157 @@ keepalived 抢占虚拟ip，抢到IP的为主服务器，没抢到的就变成�
 
    - keepalived 配置文件``/etc/keepalived/leepalived.conf``
 
+     ```shell
+     vrrp_instance  VI_1 {
+     	#keepalived 的身份 master为主服务器，backup为备份服务器，主服务器要抢占虚拟IP，备份服务器不会抢占虚拟IP，
+     	# master服务器在没有抢到IP时会自动降级为slave
+         state  MASTER
+         # 规定虚拟网卡 eth0为docker的虚拟网卡
+         interface  eth0
+         # keepalived ID
+         virtual_router_id  51
+         # 权重，权重越大抢到的几率越大
+         priority  100
+         # 心跳检测间隔时间， 秒
+         advert_int  1
+         # 登录数据库服务器进行心跳检测，主从服务器验证方式，主备必须拥有相同的密码
+         authentication {
+             auth_type  PASS
+             auth_pass  123456
+         }
+         # 虚拟IP
+         virtual_ipaddress {
+             172.18.0.201
+         }
+     }
      ```
+
+2. 启动keepalived service keepalived start
+
+3. 将docker虚拟IP映射到局域网内
+
+   - 在宿主机上安装keepalived
+
+     > sudo apt-get update
+     > sudo apt-get install keepalived
+
+   - 宿主机的keepalived设置 ``/etc/keepalived/``
+
+     ```shell
+     vrrp_instance VI_1 {
+         state MASTER
+         # 宿主机网卡
+         interface ens33
+         virtual_router_id 51
+         priority 100
+         advert_int 1
+         authentication {
+             auth_type PASS
+             auth_pass 1111
+         }
+         #宿主机虚拟IP ip address
+         virtual_ipaddress {
+            	192.168.99.150
+         }
+     }
      
+     # 转发IP
+     virtual_server 192.168.99.150 8888 {
+     	# 心跳检测 每隔3秒
+         delay_loop 3
+         # 轮训转发
+         lb_algo rr 
+         # nat模式
+         lb_kind NAT
+         # 超时时间
+         persistence_timeout 50
+         # 协议
+         protocol TCP
+     	# 转发 目标IP
+         real_server 172.18.0.201 8888 {
+             weight 1
+         }
+     }
+     
+     # 数据库
+     virtual_server 192.168.99.150 3306 {
+     	# 心跳检测 每隔3秒
+         delay_loop 3
+         # 轮训转发
+         lb_algo rr
+         # nat模式
+         lb_kind NAT
+         # 超时时间
+         persistence_timeout 50
+         # 协议
+         protocol TCP
+     	# 转发 目标IP
+         real_server 172.18.0.201 3306 {
+             weight 1
+         }
+     }
      ```
 
      
+
+### 暂停PXC集群
+
+1. 在/etc/sysctl.conf 中添加
+
+   ```
+   net.ipv4.ip_forward=1
+   ```
+
+2. systemctl restart network
+
+## 热备份数据
+
+LVM Linux自带的备份技术 备份时对数据库枷锁，只能读数据，不能写数据
+
+XtraBackup 不需要锁表 免费的备份方案 percona 全量备份，增量备份 备份过程不会打断事物
+
+全量备份： 备份全部数据 第一次采用全量备份
+
+增量备份： 备份变化的数据， 给予第一次全量备份
+
+
+
+
+
+### 流程
+
+1. 删除原来的node1节点，重新挂载备份数据卷
+
+   ```shell
+   docker stop node1
+   docker rm nod1
+   docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -e CLUSTER_NAME=pxc -e XTRABACKUP_PASSWORD=xpassword -v v1:/var/lib/mysql -v backup:/data --privileged -e CLUSTER_JOIN=node2 --name=node1 --net=net1 --ip 172.18.0.2 pxc
+   ```
+
+2. 在数据库节点中安装XtraBackup因为节点数据都一样的，所以在哪一个节点安装都是可以的
+
+   ```shell
+   apt-get update
+   apt-get install percona-xtrabackup-24
+   # 进行第一次全量备份
+   # /data/backup/full 备份的路径
+   innobackupex --user=root --password=password /data/backup/full
+   ```
+
+3. 数据库可以热备份，但是不能进行热还原，
+
+   - 用空白的MySQL还原数据，再建立pxc集群
+   - 还原数据钱要将未提交的事物进行回滚， 还原数据之后重启MySQL
+
+4. 还原数据库
+
+   ```shell
+   # 删除数据库数据
+   rm -rf /var/lib/mysql/*
+   # 回滚未提交数据
+   innobackupex --user=root --password=password --apply-back /data/bacup/full/备份了的文件
+   # 还原数据
+   innobackupex --user=root --password=password --copy-back /data/bacup/full/备份了的文件
+   ```
+
+   
