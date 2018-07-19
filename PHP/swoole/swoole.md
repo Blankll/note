@@ -78,3 +78,56 @@ websocket 是基于TCP的一种新的网络协议，实现了浏览器与服务�
 - 持久化的网络通讯协议
 - 性能开销小，效率高
 
+```php
+<?php
+$serv = new swoole_websocket_server("0.0.0.0", 8000);
+//参数设置
+// $serv->set([
+
+// ]);
+
+/**
+ * @param object $request 请求的参数，包含唯一识别标志
+ * @param object $serv websocket对象
+ * 
+ */
+$serv->on('open', function(swoole_websocket_server $serv, $request) {
+    echo "sever: handshake success with fd {$request->fd}".PHP_EOL;
+});
+
+/**
+ * 监听websocket消息事件
+ */
+$serv->on('message', function(swoole_websocket_server $serv, $frame) {
+    echo "receive from {$frame->fd}:{$frame->data}".PHP_EOL;
+    echo "opcode:{$frame->opcode}".PHP_EOL;
+    echo "fin:{$frame->finish}".PHP_EOL;
+    //向连接的客户端主动发送数据
+    $serv->push($frame->fd, "this is server");
+});
+
+$serv->on('close', function($ser, $fd) {
+    echo "client {$fd} closetd".PHP_EOL;
+});
+
+$serv->start();
+
+?>
+```
+
+
+
+## task任务
+
+执行一些耗时的操作(发送邮件，广播等)
+
+使用task时task_worker_num必须设置
+
+```php
+ $this->ws = new swoole_websocket_server($this->HOST, $this->PORT);
+        $this->ws->set([
+            'worker_num' => 2,
+            'task_worker_num' => 2
+        ]);
+```
+
