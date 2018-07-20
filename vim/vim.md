@@ -20,27 +20,10 @@ vim ~/.vimrc
 
 ```
 " Specify a directory for plugins 
-
 call plug#begin('~/.vim/plugged')
-
-
-
  "以安装ycm插件为例
-
-
-
 Plug 'Valloric/YouCompleteMe'
-
-
-
- 
-
-
-
 " Initialize plugin system
-
-
-
 call plug#end()
 ```
 
