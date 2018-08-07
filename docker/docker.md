@@ -68,6 +68,14 @@ docker volume create --name name 创建docker卷
 
 docker volume rm name 删除数据卷
 
+
+
+docker commit -m  ""   -a  ""   容器ID（可以简写）  镜像名称 　将现有容器打包成镜像
+
+> -a 作者
+>
+> -m　提示信息
+
 ```shell
  docker run -it -d -p 80:80 -p 3306:3306 -p 6379:6379 -p 8000:8000 -p 8888:8888 -v /home/seven/dev/blog:/var/www/html --privileged --name blog2 ubuntu /bin/bash
 ```

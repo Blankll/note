@@ -22,7 +22,7 @@
 
 7. make
 
-8. make install`` /usr/local/php/lib/php/extensions/no-debug-non-zts-20160303/``
+8. make install`` /usr/local/lib/php/extensions/no-debug-non-zts-20160303/``
 
 9. vim /usr/local/php/etc/php.ini 末尾添加 
 
@@ -79,7 +79,7 @@ sudo iptables -t nat --list-rules DOCKER
 
 
 
-yaf_Route_Rewrite 可以很好的实现rest规范的路由
+yaf_Route_Rewrite 可以很好的实现RESTFUL规范的路由
 
 在Bootstrap中添加路由规则
 
@@ -147,7 +147,7 @@ ALTER  TABLE table_name RENAME TO new_table_name
 ## 短信发送
 
 1. 将第三方接口提供的库放在/application/library/thirdPaty/目录下
-2. ​
+2. 
 
 ###短信发送状态记录
 
@@ -162,6 +162,12 @@ ALTER  TABLE table_name RENAME TO new_table_name
 1. 访问来源统计 地址
 2. 小流量线上验证 指定某个特定区域可以访问接口
 3. 黑白名单 
+
+
+
+## 公共能力抽离
+
+将一些公共的方法抽离出controller，统一放到指定位置。在Yaf中，根目录下有一个library目录，可以将自定义的公共函数，第三方sdk等分类放到library中。
 
 
 ## DAO封装
@@ -207,3 +213,6 @@ ALTER  TABLE table_name RENAME TO new_table_name
 
 
 **list()** only works on numerical arrays and assumes the numerical indices start at 0.
+
+
+

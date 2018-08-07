@@ -131,3 +131,10 @@ $serv->start();
         ]);
 ```
 
+
+
+
+
+netstat –anp | grep 8080
+
+ps -aux | grep java，或者直接：ps -aux | grep pid 

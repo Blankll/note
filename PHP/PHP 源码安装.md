@@ -26,20 +26,20 @@ note 最好加上openssl、zlib这些库
 
 ##　openssl支持
 
-1.先源码安装ｏｐｅｎｓｓｌ，下载openssl，解压（安装的默认路径是/usr/local/ssl，如果你想更改目录，请加上–prefix=/yourpath）
+1. apt-get  install -y libtool perl-core zlib-devel
+2. 先源码安装ｏｐｅｎｓｓｌ，下载openssl，解压（安装的默认路径是/usr/local/ssl，如果你想更改目录，请加上–prefix=/yourpath）
 
 make
 
 make install
 
+移动文件或删除也可以
+
+- mv /usr/bin/openssl /root/
+
 创建符号链接
 
-- ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl  (将原来的备份即可）
-- ln -s /usr/local/ssl/include/openssl /usr/include/openssl
-
-刷新动态库配置 **vim /etc/ld.so.conf**
-
-在文件末尾加入   **/usr/local/ssl/lib** 
+- ln -s /usr/local/bin/openssl /usr/bin/openssl
 
 动态刷新  **ldconfig**
 
@@ -80,5 +80,9 @@ make install
 3. 运行　./configure --with-php-config=/usr/local/bin/php-config 
 
 4. make &&make install
+
+## phpize 
+
+源码安装是自带phpize的，但如果用apt-get等来安装是不带phpize的，所以要安apt-get install php-dev
 
  

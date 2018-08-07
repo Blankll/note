@@ -5,7 +5,7 @@ Redis是用C语言开发的一个开源，高性能的键值对的数据库，�
 1. 纯内存
 2. 非阻塞IO
 3. 避免线程切换和竞态消耗
-4. 一次只运行一条命令
+4. 一次只运行一条命do令
 5. 拒绝长慢命令 keys , flushall，  flushdb，  slow，  lua，  script，  mutil/exec，  opreate，  big value(collection)，
 
 **Redis应用场景：** 
