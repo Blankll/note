@@ -5,7 +5,12 @@
 3. ./configure --with-php-config=php的config文件
 4. 在php.ini中添加extension=swoole.so
 
+./configure --with-php-config=/usr/local/php
+/bin/php-config --enable-openssl --enable-swoole-debug --enable-sockets --enable-http2 --enable-async-redis
 
+## redis 源码安装
+
+https://segmentfault.com/a/1190000003084917
 
 ## swoole重新编译加载异步redis
 
@@ -15,3 +20,4 @@
 4. make -j
 5. make install
 6. php --ri swoole
+

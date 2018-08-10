@@ -117,6 +117,8 @@ $serv->start();
 
 
 
+**swoole_http_server,swoole_websocket_server都继承自swoole_server,**
+
 ## task任务
 
 执行一些耗时的操作(发送邮件，广播等)

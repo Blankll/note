@@ -29,7 +29,8 @@
    ```shell
    [Yaf]
    extension=yaf.so
-   yaf.environ="product"
+   yaf.environ="product" | "develop"
+   yaf.use_spl_autoload=1
    yaf.use_namespace=1
    ```
 
@@ -52,6 +53,12 @@
 13. 配置文件位于/usr/local/nginx/conf/vhost/yaf.com.conf
 
 ## 使用yaf
+
+### 生成Yaf的标准模板
+
+如果在php.ini中关闭了namespace，运行命令: ./yaf_cg project_name，就会在当前目录生成一个output目录，其中会有project_name的项目模板
+
+如果启用了命名空间,则运行命令：./yaf_cg project_name  ''  n
 
 所有请求都在bootstrap中初始化
 
@@ -106,7 +113,7 @@ public function _initRoute(Yaf\Dispatcher $dispatcher)
 修改表名
 
 ```sql
-ALTER  TABLE table_name RENAME TO new_table_name
+ALTER  T)ABLE table_name RENAME TO new_table_name
 ```
 
 ## api session

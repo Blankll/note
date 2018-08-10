@@ -8,6 +8,8 @@
 
 4. apt-get install libxml2-dev
 
+   还有许多扩展需要的库，参照：http://twosee.cn/2018/06/13/Ubuntu-PHP/
+
 5. make && make install
 
 6. 添加命令路径``~/.bash_profile``
