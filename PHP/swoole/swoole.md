@@ -1,5 +1,21 @@
 # swoole
 
+**``swoole_http_server ``继承自``swoole_server``, ``swoole_websocket_server``继承自``swoole_http_server``**
+
+swoole提供的服务：
+
+- Sswoole_server OCKET类型
+  - SWOOLE_SOCK_TCP
+  - SWOOLE_SOCK_UDP
+  - SWOOLE_SOCK_TCP6
+  - SWOOLE_SOCK_UDP6
+  - UNIX SOCKET 
+  - Stream/Dgram
+- swoole_http_server
+- swoole_websocket_server
+
+
+
 ## tcp服务
 
 1. server端
@@ -116,8 +132,6 @@ $serv->start();
 ```
 
 
-
-**swoole_http_server,swoole_websocket_server都继承自swoole_server,**
 
 ## task任务
 
