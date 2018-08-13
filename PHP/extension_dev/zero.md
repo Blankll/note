@@ -170,3 +170,109 @@ ZEND_API extern zend_string  *zend_one_char_string[256];
 ZEND_API extern zend_string **zend_known_strings;
 ```
 
+PHP扩展自动生成的c文件
+
+```c
+/**
+ * 头文件部分
+ */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+#include "php.h"
+#include "php_ini.h"
+#include "ext/standard/info.h"
+#include "php_myfirstext.h"
+
+static int le_myfirstext;
+
+/**
+ * 自定义函数部分，看到该函数的参数还熟吗？这里就是我们上面自定义函数的实现部分！
+ */
+PHP_FUNCTION(confirm_myfirstext_compiled)
+{
+    char *arg = NULL;
+    int arg_len, len;
+    char *strg;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &arg, &arg_len) == FAILURE) {
+        return;
+    }
+
+    len = spprintf(&strg, 0, "Congratulations! You have successfully modified ext/%.78s/config.m4. Module %.78s is now        compiled into PHP.", "myfirstext", arg);
+    RETURN_STRINGL(strg, len, 0);
+}
+
+/**
+ * Module初始化和Shutdown部分
+ */
+
+PHP_MINIT_FUNCTION(myfirstext)
+{   
+    return SUCCESS;
+}
+
+PHP_MSHUTDOWN_FUNCTION(myfirstext)
+{   
+    return SUCCESS;
+}
+
+/**
+ * Request初始化和shutdown部分
+ */
+PHP_RINIT_FUNCTION(myfirstext)
+{
+    return SUCCESS;
+}
+
+PHP_RSHUTDOWN_FUNCTION(myfirstext)
+{   
+    return SUCCESS;
+}
+
+/**
+ * Module Info部分，这里主要控制将扩展信息打印到phpinfo()中
+ */
+PHP_MINFO_FUNCTION(myfirstext)
+{
+    php_info_print_table_start();
+    php_info_print_table_header(2, "myfirstext support", "enabled");
+    php_info_print_table_end();
+
+    /* Remove comments if you have entries in php.ini
+    DISPLAY_INI_ENTRIES();
+    */
+}
+
+
+/**
+ * function_entry部分，这里主要对我们前面自定义的confirm_myfirstext_compiled函数做一个封装
+ */
+const zend_function_entry myfirstext_functions[] = {
+    PHP_FE(confirm_myfirstext_compiled, NULL)       /* For testing, remove later. */
+    {NULL, NULL, NULL}
+        /* Must be the last line in myfirstext_functions[] */
+};
+
+
+/**
+ * module_entry部分，这里应该算是整个文件最重要的部分了吧，属于我们扩展的CPU，这里将会告诉PHP如何初始化我们的扩展。
+ */
+zend_module_entry myfirstext_module_entry = {
+    STANDARD_MODULE_HEADER,
+    "myfirstext",
+    myfirstext_functions,
+    PHP_MINIT(myfirstext),
+    PHP_MSHUTDOWN(myfirstext),
+    PHP_RINIT(myfirstext),      /* Replace with NULL if there's nothing to do at request start */
+    PHP_RSHUTDOWN(myfirstext),  /* Replace with NULL if there's nothing to do at request end */
+    PHP_MINFO(myfirstext),
+    PHP_MYFIRSTEXT_VERSION,
+    STANDARD_MODULE_PROPERTIES
+};
+
+#ifdef COMPILE_DL_MYFIRSTEXT
+ZEND_GET_MODULE(myfirstext)
+#endif
+```
+
