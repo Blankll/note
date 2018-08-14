@@ -276,3 +276,10 @@ ZEND_GET_MODULE(myfirstext)
 #endif
 ```
 
+## 这个代码看的我有点迷呀
+
+```c
+#define Z_TYPE(zval)				zval_get_type(&(zval))
+#define Z_TYPE_P(zval_p)			Z_TYPE(*(zval_p))
+```
+
