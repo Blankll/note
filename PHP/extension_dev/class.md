@@ -16,3 +16,18 @@ call_user_function_ex(EG(function_table), NULL, fun, &retval, 1, args, 0, NULL);
 - 第六个参数：参数值。是一个zval数组。
 - 第七个参数：参数是否进行分离操作。详细的，你可以搜索下 PHP 参数分离。查看相关文章
 - 第八个参数：符号表。一般情况写设置为NULL即可。
+
+创建对象变量的一般步骤
+
+```c
+	/* 创建对象变量 */
+	zend_class_entry*   ce;
+	zend_string*        class_name;
+	class_name = zend_string_init("demo", 4, 0);
+	ce = zend_fetch_class(class_name, ZEND_FETCH_CLASS_AUTO);
+	object_init_ex(&val_value, ce);
+	zend_set_local_var_str("obj", 3, &val_value, 0);
+	zend_string_release(&class_name);
+	ZVAL_NULL(&var_value);
+```
+
