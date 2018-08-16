@@ -37,3 +37,17 @@ typedef struct _Bucket {
 } Bucket;
 ```
 
+`zend_hash_num_elements`获取数组的元素个数。
+
+`array_init_size(return_value, zend_hash_num_elements(Z_ARRVAL_P(arr)));` 初始化一个数组。在PHP扩展中，我们是通过`return_value`这个变量设置方法的返回值。因此，我们直接修改这个`return_value`变量即可。感兴趣的话，可以把宏方法`PHP_FUNCTION`展开看下。
+
+`ZEND_HASH_FOREACH_KEY_VAL` 和 `ZEND_HASH_FOREACH_END` 配合使用，实现foreach的效果。
+
+- `zend_hash_exists` 检测指定的key在哈希中是否存在。key为字符串。
+- `zend_hash_index_exists` 检测指定的key在哈希中是否存在。key为数字。
+- `zend_hash_find`	根据key查找指定的值。key为字符串。
+- `zend_hash_index_find` 根据key查找指定的值。key为数字。
+- `zend_hash_update`更新指定key的值。key为字符串。
+- `zend_hash_index_update` 更新指定key的值。key为数字。
+
+ 

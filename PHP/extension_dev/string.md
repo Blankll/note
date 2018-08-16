@@ -13,3 +13,8 @@ PHP源码为了实现对字符串的管理，会给字符串分类，利用zend_
 - IS_STR_INTERNED
 
   PHP代码中你所写的及所看到的任何字符串在底层存储时都会被打上IS_STR_INTERNED标签
+
+```c
+ZEND_API int ZEND_FASTCALL zend_binary_strncmp(const char *s1, size_t len1, const char *s2, size_t len2, size_t length);
+```
+
