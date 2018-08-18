@@ -78,6 +78,26 @@ create table 数据表名称（
     );
 ```
 
+## notice
+
+```sql
+-- ---------------------------------------------
+-- 翻译表　与单词表一对多 上面要有一个空格
+-- UNSIGNED要放到INT等类型的后面
+-- PRIMARY KEY　要放到AUTO_INCREMENT后面，不放好像也不报错，但有些时候又出错
+-- ---------------------------------------------
+CREATE TABLE `translations` (
+    `id` INT(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '翻译id',
+    `word_id` INT(11) UNSIGNED NOT NULL COMMENT '所属单词的id',
+    `trans` VARCHAR(100) NOT NULL COMMENT '翻译',
+    `property_id` TINYINT(4) UNSIGNED DEFAULT NULL COMMENT '词性',
+    CONSTRAINT property_key FOREIGN KEY(`property_id`) REFERENCES properties(`id`),
+    CONSTRAINT word_train_key FOREIGN KEY(`word_id`) REFERENCES words(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+
+
+
 ###3. 数据类型：
 
 1. 整型
