@@ -373,7 +373,7 @@ try{
   //?是占位符；
   // $sqladd = "INSERT INTO student (s_name,s_password,s_score,s_sex,s_age) VALUES(?,?,?,?,?)";
   //prepare():准备语句；
-  // $stmt = $db->prepare($sqladd);
+  // $stmt = $db->prepa,ere($sqladd);
   //绑定参数；
   // $stmt->bindParam(1,$s_name);
   // $stmt->bindParam(2,$s_password);
@@ -467,11 +467,6 @@ try{
 > 双引号会执行
 
 ```php
-作者：VeroFess
-链接：https://www.zhihu.com/question/22953267/answer/177010255
-来源：知乎
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-
 public function SQL_PREPARE_DATA($Name, $Data, $DataType){
         if(!self::$IsInit){
             return array("Status"=>"STATUS_SQL_NEED_INIT", "Data"=>"");
