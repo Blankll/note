@@ -429,8 +429,8 @@ try{
   第三个参数：变量的类型（一般不用写）；
 
   ``execute()``  执行预处理语句， 可以直接传参数，
-  ``fetch()``  提取一条数据时使用；
-  ``fetchAll()``  提取多条数据时；
+  ``fetch() `` 提取一条数据时使用；**执行fetch之前一定要先执行execute(),fetchAll则不需要**
+  fetchAll()  提取多条数据时；
   ``bindColumn()``  把查询的结果集绑定到一个变量上；
   ``rowCount()``  可以得到查询时结果集的数量或者增删改时影响函数；
 
@@ -445,6 +445,21 @@ try{
        $stmt->execute([':username' => $username, ':password' => $password]);
    }
    ```
+   占位符只能用在条件判断上，不能用在表名这些上
+
+   执行fetch要先执行execute()
+
+   ```php
+   $sql_find = "SELECT `name`, `flag_url` FROM ".self::$table." WHERE `id` = ?";
+   $stm = self::$link->prepare($sql_find);
+   // 不能用在表名上
+   // $stm->bindParam(1, self::$table);
+   $stm->bindParam(1, $id);
+   $stm->execute();
+   return $stm->fetch();
+   ```
+
+   
 
 2. ？号占位符
 
@@ -456,9 +471,10 @@ try{
        $stmt = $pdo->prepare($sql);
        $stmt->execute([$username, $password]);
    }
+   
    ```
 
-   ​
+   
 
 ## SQL注入
 
