@@ -2,12 +2,16 @@
 
 ##一，mysql基础；
 
+```
+mysql_secure_installation
+```
+
 表名：
 字段：
 
 2，数据库种类：关系型数据库
 
-​                              菲关系型数据库
+                              菲关系型数据库
 
 ##二，MySQL常用命令；
 
@@ -51,7 +55,7 @@
 
 create table 数据表名称（
 
-​	列定义
+	列定义
 ​	列名称 类型 [默认值][auto_increment(自增长)] [主索引 primary key]
 ​	列名称 类型 [默认值]
 ​	列名称 类型 [默认值]
@@ -244,7 +248,7 @@ desc 表名称；
 
 1. mysql_connect("主机名称/IP","用户名","密码"); 
 
-   >​    -->建立PHP与数据库的连接；返回资源
+   >    -->建立PHP与数据库的连接；返回资源
    >
    >   @-->错误抑制符
    >   die-->输出（）中的内容，终止程序；
@@ -257,7 +261,7 @@ desc 表名称；
 6. mysql_close(); 关闭数据库连接；
 7. mysql_fetch_array()从结果集中取得一行作为关联数组，或者数字数组，或者二者兼有；
 
-​    mysql_fetch_array(结果集，参数2)：从结果集中返回一条记录；
+    mysql_fetch_array(结果集，参数2)：从结果集中返回一条记录；
     MYSQL_ASSOC :关联数组
     MYSQL_NUM :索引数组
     MYSQL_BOTH :混合数组
