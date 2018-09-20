@@ -1,5 +1,7 @@
 # socket
 
+socket连接是全双工的
+
 ## 创建socket
 
 ````c
@@ -109,3 +111,43 @@ int shutdown(int sockfd, int howto);
 
 **成功时返回0,失败时返回-1并设置errno**
 
+## TCP数据读写
+
+### 读取数据
+
+```c
+#include<sys/types.h>
+#include<sys/socket.h>
+
+ssize_t recv(int sockfd, void* buf, size_t len, int flags);
+```
+
+recv读取sockfd上的数据，
+
+- buf 读缓冲区的位置
+- flags　通常设置为0
+
+成功时返回实际读取的长度
+
+返回0时表示连接关闭
+
+返回-1时表示出错并设置errno
+
+### 发送数据
+
+```c
+#include<sys/types.h>
+#include<sys/socket.h>
+
+ssize_t send(int sockfd, const void* buf, size_t len, int flags);
+```
+
+send向sockfd上写入数据，
+
+- buf 缓冲区的位置
+- len　缓冲区的大小
+- flags参数为数据收发提供额外的控制
+
+send成功时返回实际写入的数据长度
+
+send失败时返货-1并设置errno
