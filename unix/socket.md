@@ -15,6 +15,10 @@ int socket(int domain, int type, int protocol);
 
   > TCP/IP => PF_INET | PF_INET6
   >
+  > PF_INET
+  >
+  > PF_INET6
+  >
   > UNIX => PF_UNIX
 
 - type 指定服务类型
@@ -32,6 +36,30 @@ int socket(int domain, int type, int protocol);
   > 不过这个值通常都是唯一的，前两个参数已经完全决定了它的值，把他设置为０表示默认即可
 
 **socket系统调用成功时返回一个socket文件描述符,失败返回-1并设置errno**
+
+``地址族`` address family
+
+``协议族`` protocol family
+
+| protocol family | address protocol | description      |
+| --------------- | ---------------- | ---------------- |
+| PF_UNIX         | AF_UNIX          | UNIX本地域协议族 |
+| PF_INET         | AF_INET          | TCP/IPv4协议族   |
+| PF_INET6        | AF_INET6         | TCP/IPv６协议族  |
+
+AP_*,PF_*都在bits/socket.h
+
+SOCKET网络中表示socket地址的结构体sockaddr
+
+```c
+#include<bits/socket.h>
+struct socket sockaddr{
+    sa_family_t sa_family; //地址族类型，通常与协议族类型对应
+    char sa_data[14];
+}
+```
+
+tcp/ip协议中有socket_in和socket_in6连个专用socket结构体用于存放IPv4,IPv6地址，
 
 ## 命名socket
 
