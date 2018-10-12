@@ -14,7 +14,7 @@ typedef struct {
     int length;
 }seqlist;
 
-status init_list(seqlist *L);
+status init_list(seqlist **L);
 status list_empty(seqlist *L);
 status list_clear(seqlist *L);
 status list_get(seqlist *L, int index, ElemType *value);
@@ -26,14 +26,29 @@ status list_length(seqlist *L, int length);
 
 int main(void)
 {
+    seqlist *L;
+    int i;
+    ElemType value;
+    init_list(&L);
+    for(i = 0; i < MAX_SIZE; i++)
+    {
+        list_insert(L, i+1, i);
+    }
+    for(i = 0; i < MAX_SIZE; i++)
+    {
+        list_get(L, i + 1, &value);
+        printf("%d\n", value);
+    }
+    printf("%d\n", L->length);
+
     return 0;
 }
 
-status init_list(seqlist *L)
+status init_list(seqlist **L)
 {
-    L = malloc(sizeof(seqlist));
+    *L = (seqlist* )malloc(sizeof(seqlist));
     if(L == NULL) return FALSE;
-    L->length = 0;
+    (*L)->length = 0;
 
     return TRUE;
 }
