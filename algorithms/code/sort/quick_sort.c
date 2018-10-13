@@ -1,4 +1,10 @@
-
+/*************************************************
+* 递归调用排序
+* number 待排序的数组
+* low 开始位置下标　start 0
+* high 结束位置下标 
+*
+**************************************************/
 void quik_sort(int number[], int low, int high)
 {
     int point;
@@ -12,7 +18,12 @@ void quik_sort(int number[], int low, int high)
         quik_sort(number, point + 1, high);
     }
 }
-
+/*******************************************
+ * 切分number,找出一个标兵值，将low 到high中的值进行
+ * 交换排序，大于标兵值的放在标兵值的右边，小于标兵值
+ * 的放在左边
+ * 
+ * ****************************************/
 int partition(int number[], int low, int high)
 {
     int point = number[low];
@@ -26,7 +37,7 @@ int partition(int number[], int low, int high)
 
     return low; // now low == high
 }
-
+// 交换
 void swap(int number[], int low, int high)
 {
     int tmp = number[low];
