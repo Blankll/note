@@ -17,3 +17,4 @@ typedef struct {
 - data 数据存储空间，　
 - MAX_SIZE　顺序表的最大存储容量
 - length 顺序表当前存储长度
+
