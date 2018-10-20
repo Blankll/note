@@ -10,10 +10,18 @@
 #include<stdlib.h>
 
 int* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize);
-
 int main(void)
 {
+    int nums1[] = {4,9,5};
+    int nums2[] = {9,4,9,8,4};
+    int nums1Size = 3;
+    int nums2Size = 5;
+    int returnSize = 0;
+    int i;
 
+    int * r = intersection(nums1, nums1Size, nums2, nums2Size, &returnSize);
+    for(i = 0; i < returnSize; i++) printf("%d\t", *(r+i));
+    printf("\n"); 
     return 0;
 }
 
@@ -23,37 +31,36 @@ int main(void)
  */
 int* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize)
 {
-    int element = 0;
-    int result_length;
-    int length = nums1Size < nums2Size ? nums1Size : nums2Size;
-    int result[length];
-    int i, j;
-    if(nums1Size < nums2Size)
-    {
-        make_unque(nums1, nums1Size, result_length, result);
-    }
-    
-    else make_unque(nums2, nums2Size, result_length, result);
-
-    for(i = 0; i < )
-
-}
-void make_unque(int * collection[], int length, int *result_length, int result[])
-{
-    int i, j;
-    int *result_length = 0;
-    for(i = 0; i < length; i++)
-    {
-        int time = 0;
-        for(j = 0; j < *result_length; j++)
-        {
-            if(collection[i] == result[j])
-            {
-                time++;
-                break;
-            }
-        }
-        if(time == 0) result[*result_length++] = collection[i];
-    }
-   
+   int i, j;
+   int length = 0;
+   int *result = malloc(nums1Size * sizeof(int));
+   for(i = 0; i < nums1Size; i++)
+   {
+       for(j = 0; j < nums2Size; j++)
+       {
+           if(nums1[i] == nums2[j])
+           {
+               result[length++] = nums1[i];
+               break;
+           }
+       }
+   }
+   int *return_data = malloc(length * sizeof(int));
+   int time;
+   *returnSize = 0;
+   for(i = 0; i < length; i++)
+   {
+       time = 0;
+       for(j = 0; j < *returnSize; j++)
+       {
+           if(result[i] == return_data[j])
+           {
+               time++;
+               break;
+           }
+       }
+       if(0 == time) return_data[(*returnSize)++] = result[i];
+   }
+    free(result);
+   return return_data;
 }
