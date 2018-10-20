@@ -5,6 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "CodeLens (Launch) - Solution",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "Solution",
+            "args": ""
+        },
+        {
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",

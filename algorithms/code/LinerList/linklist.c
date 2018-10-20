@@ -32,6 +32,12 @@ int main(void)
     list_init(&L);
     list_create_tail(L, collection, length);
     list_print(L);
+    list_insert(L,3, 3);
+    list_print(L);
+    ElemType del_value;
+    list_delete(L, &del_value, 4);
+    list_print(L);
+
     list_destroy(&L);
 
     return 0;
