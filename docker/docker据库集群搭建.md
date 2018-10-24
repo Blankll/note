@@ -63,7 +63,6 @@ docker 中pxc无法映射目录文件，必须使用 docker卷
    以此类推
    ```
 
-   
 
 ## 数据库负载均衡[Paproxy]
 
@@ -109,7 +108,7 @@ docker 中pxc无法映射目录文件，必须使用 docker卷
          timeout server  50000
      
      #监控界面	
-     listen  admin_stats
+     listen  admin_stats # 监控的名称
      	#监控界面的访问的IP和端口
      	bind  0.0.0.0:8888
      	#访问协议
@@ -121,20 +120,21 @@ docker 中pxc无法映射目录文件，必须使用 docker卷
      	#登陆帐户信息
          stats auth  admin:abc123456
      #数据库负载均衡
-     listen  proxy-mysql
+     listen  proxy-mysql #本组负载均衡的名称
      	#访问的IP和端口
-     	bind  0.0.0.0:3306  
-         #网络协议
+     	bind  0.0.0.0:3306　#数据库集群访问入口  
+         #网络协议　只能是tcp的
      	mode  tcp
-     	#负载均衡算法（轮询算法）
+     	#负载均衡算法
      	#轮询算法：roundrobin
      	#权重算法：static-rr
      	#最少连接算法：leastconn
      	#请求源IP算法：source 
-         balance  roundrobin
+         balance  roundrobin #轮询算法
      	#日志格式
          option  tcplog
-     	#在MySQL中创建一个没有权限的haproxy用户，密码为空。Haproxy使用这个账户对MySQL数据库心跳检测
+     	#在MySQL中创建一个没有权限的haproxy用户，密码为空,
+     	#Haproxy使用这个账户对MySQL数据库心跳检测
          option  mysql-check user haproxy
          server  MySQL_1 172.18.0.2:3306 check weight 1 maxconn 2000  
          server  MySQL_2 172.18.0.3:3306 check weight 1 maxconn 2000  
@@ -275,7 +275,6 @@ keepalived 抢占虚拟ip，抢到IP的为主服务器，没抢到的就变成�
      }
      ```
 
-     
 
 ### 暂停PXC集群
 
@@ -336,5 +335,3 @@ XtraBackup 不需要锁表 免费的备份方案 percona 全量备份，增量�
    # 还原数据
    innobackupex --user=root --password=password --copy-back /data/bacup/full/备份了的文件
    ```
-
-   
