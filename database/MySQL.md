@@ -25,7 +25,48 @@ mysql_secure_installation
 打印当前时间： select curttime();
 查看当前用户： select user();
 常看MySQL版本： select version();
+
 ```
+创建用户
+
+```sql
+CREATE USER 'dog'@'localhost' IDENTIFIED BY '123456';
+CREATE USER 'pig'@'%' IDENTIFIED BY '123456';
+```
+
+授权
+
+```sql
+--授权格式--
+GRANT privileges ON databasename.tablename TO 'username'@'host'
+GRANT SELECT, INSERT ON test.user TO 'pig'@'%';
+GRANT ALL ON *.* TO 'pig'@'%';
+--使被授权的用户同样可以将拥有的权限授权给其他用户--
+GRANT privileges ON databasename.tablename TO 'username'@'host' WITH GRANT OPTION;
+```
+
+设置用户密码
+
+```sql
+SET PASSWORD FOR 'username'@'host' = PASSWORD('newpassword');
+--设置当前登录用户的密码--
+SET PASSWORD = PASSWORD("newpassword");
+```
+
+撤销用户权限
+
+```sql
+REVOKE privilege ON databasename.tablename FROM 'username'@'host';
+```
+
+删除用户
+
+```sql
+DROP USER 'username'@'host';
+```
+
+
+
 ##三，数据表和数据类型；
 
 ###1. 实用命令：
