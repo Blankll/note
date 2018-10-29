@@ -67,6 +67,15 @@ DROP USER 'username'@'host';
 
 设置用户权限以后，最好再加上一条flush privileges,刷新缓存立马生效；
 
+mariadb默认关闭远程连接，需要更改配置文件
+
+```sql
+--/etc/mysql/mariadb.conf.d/50-server.cnf--
+bind-address = 0.0.0.0
+```
+
+
+
 ##三，数据表和数据类型；
 
 ###1. 实用命令：
