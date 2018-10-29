@@ -65,7 +65,7 @@ REVOKE privilege ON databasename.tablename FROM 'username'@'host';
 DROP USER 'username'@'host';
 ```
 
-
+设置用户权限以后，最好再加上一条flush privileges,刷新缓存立马生效；
 
 ##三，数据表和数据类型；
 
