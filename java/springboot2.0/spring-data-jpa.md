@@ -75,3 +75,75 @@ JPA提供的四种标准用法为TABLE,SEQUENCE,IDENTITY,AUTO.
 TABLE：使用一个特定的数据库表格来保存主键。 
 SEQUENCE：根据底层数据库的序列来生成主键，条件是数据库支持序列。 
 IDENTITY：主键由数据库自动生成（主要是自动增长型）
+
+### 定义对象关联
+
+```java
+package com.lab.dataobjects;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.Min;
+
+@Entity // 与数据表关联
+public class Girl{
+    @Id // primary key
+    @GeneratedValue(strategy = GenerationType.AUTO) // id自增
+    private Integer id;
+    private String name;
+    @Min(value=18, message="年龄小于18")
+    private Integer age;
+
+}
+```
+
+jpa的默认数据表类名与数据表名相对应product_master 对应类ProductMaster,也可以通过注解
+
+@Table(name="product_master")来指定。
+
+### 建立dao
+
+在工程的目录下建立一个dao目录或repositories目录
+
+```java
+// 对应数据库关系模型中的类名　primary key的类型
+public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Integer>{
+
+}
+```
+
+在进行数据更新时，思路是先找出待更新的目标记录，进行跟新，如果时间没有进行手动输入，将不会在数据库中自动更新跟新时间，因为只有在时间输入为空时才会默认获取当前时间，所以需要在对象关联中加入动态更新的注解。
+
+```java
+package com.lab.dataobjects;
+
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.DynamicUpdate;
+
+import lombok.Data;
+@Entity
+@DynamicUpdate // 动态更新更新时间
+@Data
+public class ProductCategory {
+    /**分类id自增 */
+    @Id
+    @GeneratedValue
+    private Integer categoryId;
+    /**分类名称 */
+    private String categoryName;
+    /**类目编号 */
+    private Integer categoryType;
+    /**时间 */
+    private Date createTime;
+    private Date updateTime;
+}
+```
+
+**开发流程dao-> service -> controller**
