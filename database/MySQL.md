@@ -11,7 +11,7 @@ mysql_secure_installation
 
 2，数据库种类：关系型数据库
 
-                              菲关系型数据库
+​			     菲关系型数据库
 
 ##二，MySQL常用命令；
 
@@ -131,6 +131,66 @@ create table 数据表名称（
       s_password char(32) not null default ''
     );
 ```
+
+
+
+### 修改表名
+
+```sql
+ALTER  TABLE table_name RENAME TO new_table_name
+```
+
+### 字段操作
+
+```sql
+-- 增加一个默认字段
+ALTER TABLE table_name ADD COLUMN name constrant;
+-- 修改一个字段 修改时如果不带完整性约束条件，原有的约束条件将丢失
+ALTER TABLE table_name MODIFY name constrant;
+ALTER TABLE tb_name MODIFY 字段名称 字段类型 [完整性约束条件]
+-- 修改字段名称
+ALTER TABLE table_name CHANGE old_name new_name contrant;
+-- ALTER TABLE 表名 CHANGE 原字段名 新字段名 字段类型 约束条件
+ALTER TABLE table_name CHANGE old_name new_name CHAR(32) NOT NULL DEFAULT '123';
+-- 删除一个字段
+ALTER TABLE table_name DROP COLUMN name;
+```
+
+## 约束条件操作
+
+```sql
+-- 修改自增长的值
+-- ALTER TABLE tb_name AUTO_INCREMENT=值
+ALTER TABLE table_name AUTO_INCREMENT=100;
+-- 修改表的存储引擎
+-- ALTER TABLE tb_name ENGINE=存储引擎名称
+ALTER TABLE table_name ENGINE=MyISAM;
+ALTER TABLE table_name ENGINE=INNODB;
+
+-- 添加唯一性约束
+-- ALTER TABLE tb_name ADD [CONSTANT [symbol]] UNIQUE [INDEX | KEY] [索引名称](字段名称,...)
+-- username添加唯一性约束，如果没有指定索引名称，系统会以字段名建立索引
+ALTER TABLE user12 ADD UNIQUE(username);
+-- car添加唯一性约束
+ALTER TABLE user12 ADD CONSTRAINT symbol UNIQUE KEY uni_card(card);
+
+-- test,test1添加联合unique
+ALTER TABLE user12 ADD CONSTRAINT symbol UNIQUE INDEX mulUni_test_test1(test, test1);
+
+-- 删除唯一
+-- ALTER TABLE tb_name DROP {INDEX|KEY} index_name;
+-- 删除刚刚添加的唯一索引
+ALTER TABLE user12 DROP INDEX username;
+ALTER TABLE user12 DROP KEY uni_card;
+ALTER TABLE user12 DROP KEY mulUni_test_test1;
+
+-- 修改表的存储引擎
+-- ALTER TABLE tb_name ENGINE=存储引擎名称
+ALTER TABLE user12 ENGINE=MyISAM;
+ALTER TABLE user12 ENGINE=INNODB;
+```
+
+
 
 ## notice
 
