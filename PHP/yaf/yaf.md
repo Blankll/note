@@ -187,6 +187,29 @@ ALTER  T)ABLE table_name RENAME TO new_table_name
 
 
 
+## 错误字典
+
+第一位对应到接口，后三位确定错误详情
+
+```php
+class ErrMap{
+    const ERRMAP = [
+        1001 => '用户名不正却',
+        1002 => '用户名与用户密码不匹配'
+    ];
+    public static function get($code)
+    {
+		if(isset(ERRMAP[$code])) return ['code' = $code, 'message' => ERRMAP[$code]];
+        else return ['code' = $code, 'message' => 'errorcode undifined'];
+    }
+}
+```
+
+## 统一api异常处理
+
+1. 在入口文件上包一个try catch进行处理　最中级的异常兜底，但是无法精准定位异常位置
+2. 在进行model操作时进行trycatch，然后通过统一异常处理的aop层进行异常向前端的回复内容
+
 
 
 

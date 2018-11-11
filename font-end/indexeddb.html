@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>IndexedDB</title>
+</head>
+
+<body>
+  <script>
+    // 兼容
+    window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
+    
+    /**
+    * 打开数据库
+    */
+    let request = window.indexedDB.open('testDB');
+    let db, tx, store, index;
+    
+    /**
+     * 获取数据库实例
+     */
+    request.onsuccess = (event) => {
+      db = request.result
+      tx = db.transaction('login', 'readwrite')
+      store = tx.objectStore('login')
+      index = store.index('value')
+      // // // store data
+      // store.put({token: 'token4', value: 'tokenvalue'})
+      // store.put({token: 'token3', value: 'tokenvalue2'})
+      let q1 = store.get('token')
+      let q2 = index.get('tokenvalue2')
+      q1.onsuccess = () => console.log(q1.result)
+      q2.onsuccess = () => console.log(q2.result)
+ 
+      db.onerror = (e) => console.log('db error: '+e)
+      
+      tx.oncomplete = () => db.close()
+    }
+    /**
+     *　新建数据库与打开数据库是同一个操作。如果指定的数据库不存在，就会新建。
+     * 创建或版本更新时执行，先执行这个，在执行onsuccess
+     * @see 数据库升级事件
+     */
+    request.onupgradeneeded = (event) => {
+      let db = request.result;
+      let store = db.createObjectStore('login', {keyPath: 'token'})
+      let index = store.createIndex('value', 'value', {unique: true})
+    }
+  </script>
+</body>
+
+</html>

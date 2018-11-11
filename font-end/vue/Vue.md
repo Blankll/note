@@ -1,5 +1,14 @@
 # Vue
 
+## 初始化vue项目
+
+```bash
+## 1安装vue-cli
+sudo npm install --global vue-cli
+## 初始化
+vue init webpack name
+```
+
 
 
 ## vue中的单文件组件与路由
@@ -96,7 +105,7 @@
 
    重新npm run start
 
-   ​
+   
 
    ##vue中首页轮播的实现
 
@@ -131,6 +140,19 @@ zaiconfig/index.js中设置代理
 ```
 
 重启服务器
+
+### axios全局拦截器
+
+```javascript
+// 请求拦截
+axios.interceptors.request.use(function(config){
+	return config;
+});
+// 响应拦截
+axios.interceptors.response.use(function(response){
+    return response;
+});
+```
 
 
 

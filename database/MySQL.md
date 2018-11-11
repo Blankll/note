@@ -208,6 +208,7 @@ CREATE TABLE `translations` (
     CONSTRAINT property_key FOREIGN KEY(`property_id`) REFERENCES properties(`id`),
     CONSTRAINT word_train_key FOREIGN KEY(`word_id`) REFERENCES words(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ဝီကီပီးဒီးယား
 ```
 
 

@@ -63,5 +63,9 @@ model层除了处理业务之外，还有ORM模型的实现功能，service可�
 
 **TP5默认缓存文件位置 /runtime/cache中**
 
+
+
+
+
 [^1]: 有效期五分钟 
 

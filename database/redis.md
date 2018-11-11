@@ -39,6 +39,25 @@ sudo apt-get install redis-server
 
 启用daemon 将配置文件 /etc/redis/redis.conf中的daemonize no 改为daemonize yes 启用后端加载
 
+## phpredis 
+
+https://segmentfault.com/a/1190000003084917
+
+## swoole重新编译加载异步redis
+
+1. 进入之前解压好的源代码文件
+2. ./configure --with-php-config=php的config文件　--enable-redis
+3. make clean 清除上次编译产生的object文件
+4. make -j
+5. make install
+6. php --ri swoole
+
+
+
+启动redis ``redis-server``
+
+
+
 
 
 单实例
