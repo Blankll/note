@@ -18,6 +18,13 @@ int main(void)
 
     return 0;
 }
+/**
+ * 冒泡排序
+ * 最外层循环遍历一遍数组，内层循环每次从后往前，
+ * 每次单词前元素与前一个元素进行比较，如果当前元素与前一个元素为逆序
+ * 将当前元素与他前面的元素交换，直到排序完毕
+ * 与选择排序相比，冒泡排序的交换次数增多
+ */ 
 void bubble_sort(int collection[], int length)
 {
     int i, j;
@@ -31,6 +38,10 @@ void bubble_sort(int collection[], int length)
             if(collection[j - 1] > collection[j])
             {
                 swap(collection, j - 1, j);
+                /**
+                 * 如果遍历一遍之后并没有发生任何交换，
+                 * 说明从结尾到i(当前元素)已经是排好序的元素了，不需要再进行排序
+                 */ 
                 flag = TRUE;
                 time++;
             }
