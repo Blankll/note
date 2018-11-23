@@ -26,7 +26,7 @@ typedef union _zend_value {
 } zend_value;
 ```
 
-zval
+zval``占用16个字节``
 
 ```c
 typedef struct _zval_struct     zval;
@@ -73,7 +73,7 @@ PHP内部类型：内部类型是对外无感知的，只在内部使用
 
 PHP执行过程中将局部变量存储在zend_execute_data相邻的内存中，静态变量存在_zend_op_array.static_variables中，局部变量在函数执行结束后被销毁，静态变量不会被销毁。
 
-全局变量的结构中有zend_canstants的HashRable,类和对象中的constants_tableHashTble用来存放类中定义的常量，常量可引用，可可拷贝，但是不能被回收。
+全局变量的结构中有zend_canstants的HashTable,类和对象中的constants_tableHashTble用来存放类中定义的常量，常量可引用，可可拷贝，但是不能被回收。
 
 PHP7中复杂类型的引用计数都维护在各个结构体头部的gc中。
 
@@ -82,10 +82,11 @@ PHP7中复杂类型的引用计数都维护在各个结构体头部的gc中。
 ```c
 struct _zend_string {
 	zend_refcounted_h gc;
-	zend_ulong        h;                /* hash value */
+	zend_ulong        h;                /* hash value redundance*/
 	size_t            len;             //8字节，字符串的长度
 	char              val[1];          //柔性数组，占１字节，字符串的存储位置
 };
+// 字符串通过zval.str指向zend_string结构体
 ```
 
 柔性数组：
@@ -98,7 +99,7 @@ struct _zend_string {
 typedef struct test {
     int a;
     double b;
-    char c[0];
+    char c[0]; // 柔性数组
 };
 //给结构体分配内存
 test *stp_test = (test*)malloc(sizeof(test) + 100*sizeof(char));
@@ -108,7 +109,7 @@ free(stp_test);
 
 内存对齐规则
 
-1. 结构体变量的首地址是有效对齐值（对齐单位），的整数倍。
+1. 结构体变量的首地址是有效对齐值（对齐单位）的整数倍。
 2. 结构体第一个成员偏移量为０，之后的每个结构体成员相对于结构体首地址的offset都是对齐单位的整数倍，如有需要编译器会在成员之间加上填充字节。
 3. 结构体的总大小为对齐单位的整数倍如有需要编译器会在最末一个成员之后加上填充字节。
 4. 结构体内类型相同的连续元素将在连续的空间内，和数组一样。
@@ -187,7 +188,7 @@ PHP扩展自动生成的c文件
 static int le_myfirstext;
 
 /**
- * 自定义函数部分，看到该函数的参数还熟吗？这里就是我们上面自定义函数的实现部分！
+ * 自定义函数部分
  */
 PHP_FUNCTION(confirm_myfirstext_compiled)
 {
@@ -282,4 +283,14 @@ ZEND_GET_MODULE(myfirstext)
 #define Z_TYPE(zval)				zval_get_type(&(zval))
 #define Z_TYPE_P(zval_p)			Z_TYPE(*(zval_p))
 ```
+
+## 堆栈基本常识
+
+1. stack 存储参数值、局部变量、维护函数调用关系等
+
+2. heap动态内存区域，随时申请和释放，程序自身要对内存泄露负责
+
+3. 全局区(静态区) 存储全局变量和静态变量
+4. 字面量区 常量字符串存储区
+5. 程序代码区　存储二进制代码
 

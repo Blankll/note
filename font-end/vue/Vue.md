@@ -174,9 +174,9 @@ axios.interceptors.response.use(function(response){
    ```javascript
    import Vue from 'vue'
    import Vuex from 'vuex'
-
+   
    Vue.use(Vuex)
-
+   
    export default new Vuex.Store({
        state: {
            // 共用数据名称
@@ -184,4 +184,28 @@ axios.interceptors.response.use(function(response){
    })
    ```
 
-   ​
+
+
+
+## vue的事件监听
+
+```javascript
+var example2 = new Vue({
+  el: '#example-2',
+  data: {
+    name: 'Vue.js'
+  },
+  // 在 `methods` 对象中定义方法
+  methods: {
+    greet: function (event) {
+      // `this` 在方法里指向当前 Vue 实例
+      alert('Hello ' + this.name + '!')
+      // `event` 是原生 DOM 事件
+      if (event) {
+        alert(event.target.tagName)
+      }
+    }
+  }
+})
+```
+
