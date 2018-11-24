@@ -26,7 +26,10 @@ void shell_sort(int collection[], int length)
             if(collection[i - gap] > collection[i])
             {
                 tmp = collection[i];
-                for(j = i - gap; j >= 0 && collection[j] > tmp; j -= gap) collection[j + gap] = collection[j];
+                for(j = i - gap; j >= 0 && collection[j] > tmp; j -= gap)
+                {
+                    collection[j + gap] = collection[j];
+                }
                 collection[j + gap] = tmp;
             }
         }

@@ -190,7 +190,29 @@ ALTER TABLE user12 ENGINE=MyISAM;
 ALTER TABLE user12 ENGINE=INNODB;
 ```
 
+### 外键关联
 
+外键约束对子表的含义: 　如果在父表中找不到候选键,则不允许在子表上进行insert/update 
+
+外键约束对父表的含义: 　在父表上进行update/delete在子表中有一条或多条对应匹配行的候选键时,父表的行为取决于在定义子表的外键时指定的on update/on delete子句
+
+InnoDB支持５种方式： CASCAD ，NO ACTION ，Restrict  ，SET NULL  
+
+#### CASCADE
+
+在父表上update/delete记录时，同步update/delete掉子表的匹配记录 
+
+#### SET NULL
+
+在父表上update/delete记录时，将子表上匹配记录的列设为null ,注意子表的外键列不能为not null
+
+#### NO ACTION 
+
+如果子表中有匹配的记录,则不允许对父表对应候选键进行update/delete操作 
+
+#### RESTRICT
+
+同　NO ACTION,当取值为No Action或者Restrict时在父表中删除对应记录，首先检测子表是否有对应的关联，如果有则阻止删除。
 
 ## notice
 
