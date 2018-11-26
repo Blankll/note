@@ -21,6 +21,9 @@ int main(void)
 void merg_sort(ElemType sr[], ElemType tr[], int start, int end)
 {
     int mid;
+    /**
+     * 暂存空间将本次递归的排序结果保存在其中
+     */ 
     ElemType tr2[MAX + 1];
     if(start == end)
     {
