@@ -1,6 +1,7 @@
 ## 安装PHP Redis 扩展包
 
 ```bash
+git clone https://github.com/phpredis/phpredis.git
 unzip phpredis-develop.zip
 cd phpredis-develop
 
@@ -34,9 +35,15 @@ extension = redis.so
 /etc/init.d/php-fpm restart
 ```
 
-在php测试下是否成功
+### redis后台以服务进程启动
 
-​                            
+1. 把配置文件中的daemonize设置为yes   （默认/etc/redis/redis.conf）
+
+2. 运行redis-server /etc/redis/redis.conf 
+
+
+
+### 在php测试下是否成功               
 
 ```php
 <?php
@@ -45,3 +52,4 @@ $redis->connect('192.168.25.129', 6379);
 $redis->set('key', 'test');
 echo $redis->get('key');
 ```
+

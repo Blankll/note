@@ -22,9 +22,11 @@
 
 7. make
 
-8. make install`` /usr/local/lib/php/extensions/no-debug-non-zts-20160303/``
+8. php -i | grep Configuration
 
-9. vim /usr/local/php/etc/php.ini 末尾添加 
+9. make install`` /usr/local/lib/php/extensions/no-debug-non-zts-20160303/``
+
+10. vim /usr/local/php/etc/php.ini 末尾添加 
 
    ```shell
    [Yaf]
@@ -34,11 +36,11 @@
    yaf.use_namespace=1
    ```
 
-10. 重启服务
+11. 重启服务
 
-11. lnmp vhost add
+12. lnmp vhost add
 
-12. 选择设置规则
+13. 选择设置规则
 
     ```bash
     Virtualhost infomation:
@@ -50,7 +52,7 @@
     Create ftp account: no
     ```
 
-13. 配置文件位于/usr/local/nginx/conf/vhost/yaf.com.conf
+14. 配置文件位于/usr/local/nginx/conf/vhost/yaf.com.conf
 
 ## 使用yaf
 

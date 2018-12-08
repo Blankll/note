@@ -74,6 +74,29 @@ mariadb默认关闭远程连接，需要更改配置文件
 bind-address = 0.0.0.0
 ```
 
+## MySQL备份与还原
+
+### mysqldump备份数据
+
+```sql
+-- 导出所有数据库
+mysqldump -uroot -p --all-databases
+-- 导出特定数据库
+mysqldump -h132.72.192.432 -P3307 -uroot -p8888 htgl > bak.sql;
+-- 备份数据库表
+mysqldump -hhostname -uusername -ppassword databasename  specific_table1   specific_table2 > backupfile.sql
+```
+
+### 恢复导出的数据
+
+```sql
+-- 非登录状态下导入数据
+mysql -h ip -u username -p password db1 <tb1tb2.sql
+-- 登录到数据库中恢复数据
+mysql> use translate
+source ~/translate/sql.sql;
+```
+
 
 
 ##三，数据表和数据类型；
@@ -230,7 +253,6 @@ CREATE TABLE `translations` (
     CONSTRAINT property_key FOREIGN KEY(`property_id`) REFERENCES properties(`id`),
     CONSTRAINT word_train_key FOREIGN KEY(`word_id`) REFERENCES words(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-ဝီကီပီးဒီးယား
 ```
 
 
