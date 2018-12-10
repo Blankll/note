@@ -391,3 +391,10 @@ SADD + SINTER = SocialGraph
 
 
 
+## 上线与踩坑
+
+解决redis connection refused: connect遇到的坑
+
+- redis.conf配置文件中 注释 bind 127.0.0.1
+
+- ecs上开放访问的端口
