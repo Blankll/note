@@ -4,23 +4,29 @@
 
 2. 解压 tar   xjvf 包名 
 
-3. ./configure
+3. sudo apt-get install  sudo apt-get install libcurl3-openssl-dev
 
-4. apt-get install libxml2-dev
+4. ./configure
+
+   > ./configure --enable-mbstring --with-openssl
+   >
+   > 他会自己区找openssl的配置
+
+5. apt-get install libxml2-dev
 
    还有许多扩展需要的库，参照：http://twosee.cn/2018/06/13/Ubuntu-PHP/
 
-5. make && make install
+6. make && make install
 
-6. 添加命令路径``~/.bash_profile``
+7. 添加命令路径``~/.bash_profile``
 
    ```shell 
    alias php=目录/php/bin/php
    ```
 
-7. 运行 source ~/.bash_profile
+8. 运行 source ~/.bash_profile
 
-8. 在PHP安装好后可能没有php.ini文件，查看php.ini文件需要放置的位置 php -i | grep php.ini， 要将源码中的php.ini-development 复制到查到的目录下面，并重命名为php.ini
+9. 在PHP安装好后可能没有php.ini文件，查看php.ini文件需要放置的位置 php -i | grep php.ini， 要将源码中的php.ini-development 复制到查到的目录下面，并重命名为php.ini
 
 
 

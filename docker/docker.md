@@ -52,7 +52,9 @@ docker stop name 停止容器
 
 docker start -i name 启动容器
 
-docker rim name 删除容器
+docker rm name 删除容器
+
+docker rmi name 删除镜像
 
 docker tage 原来的镜像名 新镜像名    docker镜像重命名
 
@@ -78,5 +80,9 @@ docker commit -m  ""   -a  ""   容器ID（可以简写）  镜像名称 �
 
 ```shell
  docker run -it -d -p 80:80 -p 3306:3306 -p 6379:6379 -p 8000:8000 -p 8888:8888 -v /home/seven/dev/blog:/var/www/html --privileged --name blog2 ubuntu /bin/bash
+```
+
+```bash
+docker run -it -d -p 80:80 -p 3306:3306 -p 6379:6379 -p 8811:8811 -v /home/seven/dev/blog2:/var/www/html --privileged --name blog seven/blog /bin/bash
 ```
 

@@ -83,7 +83,7 @@ vue init webpack name
    ### 在项目中使用stylus
 
    1. npm install stylus --save
-   2. nmp install stylus-loader --save
+   2. npm install stylus-loader --save
    3. 使用 l在要使用的地芳加lang="stylus"
    4. 局部化 加scoped
 
