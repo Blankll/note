@@ -24,7 +24,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
     
     public void put(Key key, Value value) {
         int i = rank(key);
-        if(i < N; && keys[i].compareTo(key) == 0) {
+        if(i < N && keys[i].compareTo(key) == 0) {
             values[i] = value;
             return;
         }
@@ -43,9 +43,9 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         int mid = low + (high - low) / 2;
         int cmp = key.compareTo(keys[mid]);
         if(0 < cmp) return rank(key, mid+1, high);
-        if(0 > cmp) return rank(key, low, mid);
+        else if(0 > cmp) return rank(key, low, mid);
         // find key
-        if(0 == cmp) return mid;
+        else return mid;
     }
 
     //find index use loop
