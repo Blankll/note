@@ -23,9 +23,9 @@ int socket(int domain, int type, int protocol);
 
 - type 指定服务类型
 
-  > TCP/IP => SOCKET_STREAM
+  > TCP/IP => SOCK_STREAM
   >
-  > UDP => SOCKET_UGRAM
+  > UDP => SOCK_UGRAM
   >
   > SOCK_NONBLOCK 将创建的socket设置为非阻塞
   >
