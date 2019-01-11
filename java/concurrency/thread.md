@@ -99,3 +99,106 @@ Terminated
 
 
 
+###  timer定时器
+
+定时进行某项工作
+
+指定一个定时器要做的任务，写在run 方法中
+
+```java
+package study.seven.concurrency;
+
+import java.util.TimerTask;
+
+public class MyTimer extends TimerTask {
+    @Override
+    public void run() {
+        System.out.println("this is timer task");
+    }
+}
+```
+
+调用timer实例的schedule方法，传入我们定义的继承TimerTask类的实例，第二个参数为延时多少毫秒后开始，第三个参数为每隔多长的间隔执行一次定时器的run方法。
+
+```java
+package study.seven.concurrency;
+
+import java.util.Timer;
+
+public class TimerTest {
+   public static void main(String[] args) {
+       Timer timer = new Timer();
+       timer.schedule(new MyTimer(), 2000, 3000);
+       timer.cancel();// quit timer
+   }
+}
+```
+
+### 线程间的通讯
+
+object.wait()等待
+
+object.notify()通知线程继续执行
+
+```java
+package study.seven.concurrency;
+
+import java.util.stream.Stream;
+
+public class ThreadContact {
+    private Object lock = new Object();
+    private boolean isProduced = false;
+    private int i = 100;
+
+    public void produce() {
+        synchronized (lock) {
+            if(isProduced) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                i++;
+                System.out.println("p->" + i);
+                lock.notify();
+                isProduced = true;
+            }
+        }
+    }
+    public void consume() {
+        synchronized (lock) {
+            if(isProduced) {
+                System.out.println("c->" + i);
+                lock.notify();
+                isProduced = false;
+            }else {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    // jvm没有对notify的目标没有进行定义,导致后面全部都在wait
+    public static void main(String[] args) {
+        final ThreadContact contact = new ThreadContact();
+        Stream.of("p1", "p2").forEach(n ->
+            new Thread(() -> {
+                while (true) {
+                    contact.produce();
+                }
+            }).start()
+        );
+        Stream.of("c1", "c2").forEach(n ->
+                new Thread(() -> {
+                    while (true) {
+                        contact.consume();
+                    }
+                }).start()
+        );
+    }
+}
+```
+
