@@ -202,3 +202,10 @@ public class ThreadContact {
 }
 ```
 
+## sleep和wait的区别
+
+1. sleep is the method of thread, but the wait is the method of object.
+
+2. sleep will not release the object monitor(lock),but the wait will release the monitor and add to the object monitor waitiong queue;
+3. use sleep not depend ont the monitor,but wait need.
+4. the sleep method not need be wakeup, but wait need(notify)
