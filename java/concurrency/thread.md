@@ -209,3 +209,92 @@ public class ThreadContact {
 2. sleep will not release the object monitor(lock),but the wait will release the monitor and add to the object monitor waitiong queue;
 3. use sleep not depend ont the monitor,but wait need.
 4. the sleep method not need be wakeup, but wait need(notify)
+
+``Runtime.getRuntime().addshutdownHook(new thread(somthing))`` 可以监听线程中断事件，可以在启动的线程中添加业务逻辑，如释放之前申请而没有释放的资源。
+
+kill -9 时没有任何机会执行hook,会强制被杀死。
+
+## 线程运行时异常捕获
+
+```java
+public class ThreadException {
+    private final static int A = 10;
+    private final static int B = 0;
+
+    public static void main(String[] args) {
+        Thread t = new Thread(() -> {
+            try {
+                Thread.sleep(5_000L);
+                int result = A / B;
+                System.out.println(result);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // handle thread runtime exception
+        t.setUncaughtExceptionHandler((thread, e) -> {
+            System.out.println(e);
+            System.out.println(thread);
+        });
+
+        t.start();
+    }
+}
+```
+
+## Thread group
+
+when java application run，jvm create a thread automaticly to run method of main, and this thread name is ``main`` , the group main blong to is also named ``main``
+
+when any thread created the defalult group this inheretence his father's thread group.
+
+thread group exsample
+
+```java
+package study.seven.concurrency;
+
+/**
+ * @Auther: Blank
+ * @Description: study.seven.concurrency
+ * @Date: 1/12/19
+ * @Version: 1.0
+ */
+public class ThreadGroup {
+
+    public static void main(String[] args) {
+        java.lang.ThreadGroup threadGroupOne = new java.lang.ThreadGroup("groupOne");
+        java.lang.ThreadGroup threadGroupTwo = new java.lang.ThreadGroup("groupTwo");
+
+        Thread threadOne = new Thread(threadGroupOne, "threadOne") {
+            @Override
+            public void run() {
+                System.out.println(getThreadGroup().getName());
+                System.out.println(getThreadGroup().getParent());
+                try {
+                    Thread.sleep(10_000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        Thread threadTwo = new Thread(threadGroupTwo, "threadTwo") {
+            @Override
+            public void run() {
+                // thread group can browser brother group's info
+                System.out.println("brother info:");
+                System.out.println(threadGroupOne.getName());
+                Thread[] threads = new Thread[threadGroupOne.activeCount()];
+                int num = threadGroupOne.enumerate(threads);
+                System.out.println("num:" + num);
+
+            }
+        };
+        threadOne.start();
+        threadTwo.start();
+    }
+}
+```
+
+## ThreadPool
+
