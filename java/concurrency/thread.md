@@ -298,3 +298,152 @@ public class ThreadGroup {
 
 ## ThreadPool
 
+1. thread queue
+
+2. reject strategy: throw exception, abandon synconized, tmp queue
+3. init(min) init min number of threads
+4. active threads number
+5. max of threads number
+
+example of thread pool
+
+```java
+package study.seven.concurrency;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * @Auther: Blank
+ * @Description: study.seven.concurrency
+ * @Date: 1/12/19
+ * @Version: 1.0
+ */
+public class ThreadPoolOne {
+    // size of thread number
+    private final int size;
+    // default thread number
+    private final static int DEFAULT_SIZE = 10;
+    private static volatile int seq = 0;
+    // thread name prefix
+    private final static String THREAD_PREFIX = "SIMPLE_THREAD_POOL-";
+    // task queue to store tasks
+    private final static LinkedList<Runnable> TASK_QUEUE = new LinkedList<>();
+    // thread group
+    private final static java.lang.ThreadGroup GROUP = new java.lang.ThreadGroup("poolGroup");
+    // store thread prepare to do thread pool
+    private final static List<WorkerThread> THREAD_QUEUE = new ArrayList<>();
+
+
+    public ThreadPoolOne(int size) {
+        this.size = size;
+    }
+    public ThreadPoolOne() {
+        this(DEFAULT_SIZE);
+        this.init();
+    }
+    private void init() {
+        // creat default threads into thread pool
+        for(int i = 0; i < size; i++) {
+            createWorkerThread();
+        }
+    }
+
+    /**
+     * submit task wait to do
+     * @param runnable
+     */
+    public void submit(Runnable runnable) {
+        synchronized(TASK_QUEUE) {
+            TASK_QUEUE.addLast(runnable);
+            TASK_QUEUE.notifyAll();
+        }
+    }
+
+    private enum TaskState {
+        FREE, RUNNING, BLOCKED, DEAD
+    }
+
+    // define a self thread to define store thread info, concurrency strategy
+    private static class WorkerThread extends Thread {
+        // setting thread's default state
+        private volatile TaskState taskState = TaskState.FREE;
+
+        /**
+         * constructor to define thread name, thread group
+         * @param group thread group
+         * @param name thread's name
+         */
+        public WorkerThread(java.lang.ThreadGroup group, String name) {
+            // setting thread's name and group
+            super(group, name);
+        }
+        public TaskState getTaskState() {
+            return this.taskState;
+        }
+
+        @Override
+        public void run() {
+            OUTER:
+            // thread get task to run, except DEAD task(DEAD meanings unable to run)
+            while(this.taskState != TaskState.DEAD) {
+                Runnable runnable = null;
+                // only  one thread can get task at the same time
+                synchronized(TASK_QUEUE) {
+                    // if task is empty  block here, wait add some task give thread to do
+                    while(TASK_QUEUE.isEmpty()) {
+                        taskState = TaskState.BLOCKED;
+                        try {
+                            TASK_QUEUE.wait();
+                        } catch (InterruptedException e) {
+                            break OUTER;
+                        }
+                    }
+                    // task queue not empty and get task
+                    runnable = TASK_QUEUE.removeFirst();
+                }
+
+                // run the task
+                if(null != runnable) {
+                    taskState =TaskState.RUNNING;
+                    // run the task's mission
+                    runnable.run();
+                    taskState = TaskState.FREE;
+                }
+            }
+        }
+
+        public void close() {
+            this.taskState = TaskState.DEAD;
+        }
+    }
+
+    private void createWorkerThread() {
+        // create a new WorkerThread
+        WorkerThread thread = new WorkerThread(GROUP, THREAD_PREFIX + (seq++));
+        // start this task
+        thread.start();
+        // add current thread to thread queue
+        THREAD_QUEUE.add(thread);
+    }
+
+    public static void main(String[] args) {
+        ThreadPoolOne poolOne = new ThreadPoolOne();
+        // add task to TASK_QUEUE
+        for(int i = 0; i < 40; i++) {
+            poolOne.submit(() -> {
+                System.out.println("runnable be serviced by:" + Thread.currentThread().getName() + "START");
+                try {
+                    // define task's mission here
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("runnable be serviced by:" + Thread.currentThread().getName() + "FINISHED");
+            });
+        }
+    }
+}
+```
+
