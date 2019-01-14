@@ -64,7 +64,7 @@
    }
    ```
 
-3. singleton with a efficiency elegant and thread safety solution
+3. singleton with a efficiency, elegant and thread safety solution
 
    ```java
    package study.seven.concurrency.desginpartten;
@@ -123,10 +123,3 @@
    }
    ```
 
-
-## wait set
-
-1. all of object have a wait set to store the thread which invoked it's own object wait method and into block state. and free the lock it's get
-2. when thread in wait set get notify, they may not exeute immediately
-3. thread in wait set wakeuped by notify sequence is random
-4.  once wait set thread notified, it need to reapply lock, but this thread would start execute the place it waited before instead to start from the place it applied lock, because thread already had it's own execute context.
