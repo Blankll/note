@@ -86,3 +86,8 @@ docker commit -m  ""   -a  ""   容器ID（可以简写）  镜像名称 �
 docker run -it -d -p 80:80 -p 3306:3306 -p 6379:6379 -p 8811:8811 -v /home/seven/dev/blog2:/var/www/html --privileged --name blog seven/blog /bin/bash
 ```
 
+```bash
+seven@Blank:~$ docker run --name yunjie-mysql -v /home/seven/dev/YunJie3.7.1_for_linux/mysqldocker:/etc/mysql/conf.d --privileged -p 33060:3306 -e MYSQL_ROOT_PASSWORD=0707 -d mysql:5.7
+
+```
+
