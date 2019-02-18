@@ -24,11 +24,6 @@ public class Test{
 > - RetentionPolicy.SOURCE 注解只在源码阶段保留，在编译器进行编译时它将被丢弃忽视。
 > - RetentionPolicy.CLASS 注解只被保留到编译进行的时候，它并不会被加载到 JVM 中。
 > - RetentionPolicy.RUNTIME 注解可以保留到程序运行的时候，它会被加载进入到 JVM 中，所以在程序运行时可以获取到它们。
-> ---------------------
-> 作者：frank909 
-> 来源：CSDN 
-> 原文：https://blog.csdn.net/briblue/article/details/73824058 
-> 版权声明：本文为博主原创文章，转载请附上博文链接！
 
 ```java
 @retention(RetentionPolicy.RUNTIME)
