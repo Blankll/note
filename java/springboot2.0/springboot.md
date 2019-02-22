@@ -20,6 +20,8 @@ mvn spring-boot:run
 
 @RequestMapping:  配置url映射
 
+＠Bean注解将方法返回的对象放入spring的环境,方便其他方法使用
+
 ## url参数
 
 @PathVariable 获取url中的数据　``/paht/1/name``
