@@ -330,4 +330,35 @@ private FacultyMapper facultyMapper;
      spring.datasource.zongce.jdbc-url=jdbc:mysql://localhost:3306/zongce?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false
      ```
 
+  3. mapper接口中不能有重载的方法(OVERLOADING), 否则会报下面的错误，所以每一个方法参数都是唯一的.
+
+     ```bash
+     Mapped Statements collection already contains value for ...
+     ```
+
      
+
+
+## mybatis批量插入数据
+
+```java
+Insert({
+ "<script>",
+ "insert into table_name(column1, column2, column3) values ",
+ "<foreach collection='testLists' item='item' index='index' separator=','>",
+ "(#{item.实体属性1}, #{item.实体属性2}, #{item.实体属性3})",
+ "</foreach>",
+ "</script>"
+})
+int insertCollectList(@Param(value="testLists") List<Test> testLists);
+```
+
+
+
+> collection： 指定要遍历的集合（三种情况 list，array，map） ！！！！在这种使用注解sql的情况下，这里请填写mapper方法中集合的名称
+>    
+> item：将当前遍历出的元素赋值给指定的变量 （相当于for循环中的i）
+> separator:每个元素之间的分隔符 
+> index:索引。遍历list的时候是index就是索引，item就是当前值 
+>
+> {变量名}就能取出变量的值也就是当前遍历出的元素
