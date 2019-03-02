@@ -115,7 +115,7 @@
       $banner = BannerModel::with(['items','items.image'])->find($id);
       ```
 
-      ​
+      
 
       ### 通过闭包对关联模型的子模型进行排序
 
@@ -145,7 +145,7 @@
            }
       ```
 
-      ​
+      
 
       ##模型关联的数据的CRUD 操作
 
@@ -191,7 +191,7 @@
 
       ```
 
-      ​
+      
 
       ## TP5自动写入时间戳及自定义时间戳字段
 
@@ -204,7 +204,7 @@
       protected $createTime = 'create_timestamp';
       ```
 
-      ​
+      
 
       ### 隐藏模型字段[^2]
 
@@ -233,7 +233,7 @@
       $products = collection($products)->hidden(['summary']);
       ```
 
-      ​
+      
 
       #### 仅显示指定字段名
 

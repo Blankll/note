@@ -34,7 +34,7 @@ $cat->bark();
 
 
 
-3. 一个类可以组合多个trait 当不同的trait中，却有着同名的方法或属性，会产生冲突，可以使用insteadof或as进行解决，insteadof 是进行替代，而as是给它取别名
+3. 一个类可以组合多个trait,  当不同的trait中有着同名的方法或属性，会产生冲突，可以使用insteadof或as进行解决，insteadof 是进行替代，而as是给它取别名。
 
 ```php
 trait trait1{
