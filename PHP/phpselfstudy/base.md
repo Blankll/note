@@ -111,29 +111,25 @@ bool in_array(mixed $needle, array $haystack); //检查数组中是否含有某�
 array array_reverse(array $array); //反转数组；
 ```
 
-
+二维数组：
 
 ```php
-数组函数
-				
-		二维数组：
-		   定义：
-		   		$frr = array(
-						array("alen", 15, "man"),
-						array("bob", 16, "man"),
-						array("cici", 17, "woman"),
-						array("david", 18, "man"),
-						array("eson", 29. "man"),
-		   		);
-		   	输出：
-		   		echo $frr[0][1];
-
-   foreach循环：PHP专为数组设定的循环--用于遍历数组；
-   		格式：forearch(数组名称 as $key => $var)
-   		{
-			循环体
-   		}
-   		$key 依次遍历数组的下标；
-   		$var 依次遍历数组的值；
+// 定义：
+$frr = array(
+	array("alen", 15, "man"),
+	array("bob", 16, "man"),
+	array("cici", 17, "woman"),
+	array("david", 18, "man"),
+	array("eson", 29. "man"),
+);
+// 输出：
+echo $frr[0][1];
+// foreach循环：PHP专为数组设定的循环--用于遍历数组；
+foreach($arr as $key => $var)
+{
+	// do something
+}
+// $key 依次遍历数组的下标；
+// $var 依次遍历数组的值；
 ```
 
