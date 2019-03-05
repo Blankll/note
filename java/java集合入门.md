@@ -1,0 +1,30 @@
+# java集合入门
+
+ ## java.util.Collection 
+
+可以存放一组独立的对象
+
+ ## java.util.List 
+
+存放有序可重复集合
+
+实现：
+
+- ArrayList 数组实现（插入删除慢）
+- LinkList 双向链表实现（查找慢）
+- Vector 线程安全
+
+## java.util.Set 
+
+存放无序可重复集合
+
+## java.util.Map
+
+存放Hash键值对对象
+
+key both unique
+
+实现:
+
+- HashTable 不允许有null值（key和value）线程安全
+- HashMap 允许有null值（key 和value都可以）非线程安全
