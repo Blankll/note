@@ -152,13 +152,18 @@ define不能定义类的常量，const可以
 
 ```php
 <?php
- __FILE__;
-__LINE__;
-__DIR__;
-__FUNCTION__;
-__CLASS__;
-__TRAIT__;
-__METHOD__;
-__NAMESPACE__;
+// 系统常量
+    PHP_OS; //操作系统；
+	PHP_VERSION; // PHP版本；
+	PHP_ASPI; //PHP运行方式；
+// 魔术常量
+__FILE__; // 当前文件的物理路径
+__LINE__; // 当前行号
+__DIR__; // 当前目录
+__FUNCTION__; // 当前函数
+__CLASS__; // 当前类名
+__TRAIT__; // 当前trait
+__METHOD__; // 当前方法
+__NAMESPACE__;　// 当前命名空间
  ?>
 ```
