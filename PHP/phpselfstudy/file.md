@@ -71,3 +71,35 @@ string serialize  (mixed  $value)
 // 反序列化 unserialize：
 mixed  unserialize  (string $str)
 ```
+
+
+
+
+
+## 文件引入
+
+###  include
+
+- include（被包含文件的URL）；
+- 若未找到被包含文件或不存在，提示错误是一个警告，继续执行后面的代码；
+
+### require
+
+- require（被包含文件的URL）；
+- 若未找到被包含文件或不存在，提示错误是一个致命，停止执行后面的代码；
+
+区别：　
+
+- require 引入的文件有错误时，执行会中断，并返回一个致命错误；
+- include 引入的文件有错误时，会继续执行，并返回一个警告（E_WARNING），
+- require 一般放在 PHP 文件的最前面，程序在执行前就会先导入要引用的文件；
+- include 一般放在程序的流程控制中，当程序执行时碰到才会引用，简化程序的执行流程。
+
+		include_once(被包含文件的URL):如果引入文件重复多次，提示错误是一个警告，
+		继续执行后面的代码；包含重复文件只执行一次；
+		require_once(被包含文件的URL):如果引入文件重复多次，提示错误是一个致命，
+		停止执行后面的代码；包含重复文件只执行一次；
+	
+		set_include_path():设定默认的包含路径；
+			string set_include_path  ( string $new_include_path  )；
+		被包含文件遵循相对路径规则；

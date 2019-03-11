@@ -410,10 +410,15 @@ desc 表名称；
 
 
 2. mysql_error();返回上一个MySQL操作的文本错误信息；
+
 3. mysql_select_db("数据库名称",$link);选择数据库；
+
 4. mysql_query();向数据库发送一条SQL命令；执行SQL语句；
+
 5. mysql_affected_rows();取得前一条sql返回受影响的行数；insert update delete；
+
 6. mysql_close(); 关闭数据库连接；
+
 7. mysql_fetch_array()从结果集中取得一行作为关联数组，或者数字数组，或者二者兼有；
 
     mysql_fetch_array(结果集，参数2)：从结果集中返回一条记录；
@@ -421,127 +426,67 @@ desc 表名称；
     MYSQL_NUM :索引数组
     MYSQL_BOTH :混合数组
 
-8. mysql_fetch_assoc():mysql_fetch_assoc($result) == mysql_fetch_array($result,MYSQL_ASSOC);
-9. mysql_fetch_row(): mysql_fetch_row($result) == mysql_fetch_array($result,MYSQL_NUM);
-10. mysql_num_rows():获取select语句执行后的结果集中记录的条数；
+    ```php
+    // mysql_fetch_assoc()
+        mysql_fetch_assoc($result) == mysql_fetch_array($result,MYSQL_ASSOC);
+    // mysql_fetch_row()
+        mysql_fetch_row($result) == mysql_fetch_array($result,MYSQL_NUM);
+    ```
+
+8. mysql_num_rows():获取select语句执行后的结果集中记录的条数；
 
 SQL语句：sql语句在PHP中是以字符串的形式存在的；
 
+example:
+
 ```php
 //连接数据库
-
 $link = @mysql_connect("localhost","root","root") or die("连接错误".mysql_error());
-
 echo $link."<hr />";
-
 //选择数据库
-
 mysql_select_db("test",$link);
-
 //设置编码格式
-
 mysql_query("set names utf8");
-
-//执行SQL语句 sql语句在PHP中是以字符串的形式存在的；
-
-//增加数据库中的信息
-
-/*
-
+// 插入数据
 $sql = "INSERT INTO student(s_name,s_password,s_score,s_sex,s_age)
-
         VALUES('李四','002','77','2','19')";
-
 mysql_query($sql);
-
-*/
 
 //修改数据库表中的信息
-
-/*
-
 $sql = "UPDATE student SET s_name='lisi' WHERE s_id=2";
-
 mysql_query($sql);
-
-*/
 
 //删除数据库中的信息
-
-/*
-
 $sql = "DELETE FROM student WHERE s_id=2";
-
 mysql_query($sql);
 
-*/
-
 //查询数据库中的信息
-
-//查询student表中的所有信息
-
 $sql = "SELECT *FROM student";
 
 //执行查询语句mysql_query()返回资源；
-
-result = mysql_query(sql);
+$result = mysql_query(sql);
 
 //查询返回的结果集中记录的条数
-
-count = mysql_num_rows(result);
-
+count = mysql_num_rows($result);
 echo "student表中的信息条数：{$count}<hr />";
 
 //截取一条返回的信息
-
 rs = mysql_fetch_array(result,MYSQL_ASSOC);
-
 print_r($rs);
 
-echo "<hr/ >";
-
-//显示部分信息，单双引号效果一致
-
-echo rs['s_id']."==>".rs['s_name']."<br/>";
-
-echo rs["s_id"]."==>".rs["s_score"]."<br/>";
-
-echo "<hr />";
-
-while(rs = mysql_fetch_array(result,MYSQL_ASSOC))
-
+while($rs = mysql_fetch_array(result,MYSQL_ASSOC))
 {
-
   print_r($rs);
-
   echo "<br />";
-
 }
 
 echo "<hr />";
 
 //查看受影响的数据条数
-
 echo mysql_affected_rows();
 
 //关闭数据库连接；
-
 mysql_close($link);
-
-echo "<hr />";
-
-//正则表达式
-
-preg_match("/[0-9]+/","you have 42 magic beans",$captured);
-
-print_r($captured);
-
-echo "<br />";
-
-$ll = preg_match("/[[:<:]]gun[[:>:]]/","gun");
-
-echo $ll;
-
 ```
 
 ## mysql大小写问题
