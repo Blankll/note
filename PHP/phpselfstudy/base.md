@@ -77,10 +77,33 @@ string substr(string $sting, int $start ，[int $length]); //截取字符串；
 /*
   int $start：开始截取的位置；
   int $length;截取字符的个数；
+  start若为负则从末端开始计，最后一个字符位置是-1，向前依次减小。
+  length若为正数表示从start开始的长度，
+  若为负数表示从末端略去的字符长度，例如-2表示从末尾开始略去两个字符。
 */
+$rest = substr("abcdef", -1);    // 返回 "f"
+$rest = substr("abcdef", -2);    // 返回 "ef"
+$rest = substr("abcdef", -3, 1); // 返回 "d"
+
 string md5(string $str); //加密字符串；
 void unset(mixed $var1,mixed $var2...); //释放变量；
 ```
+
+  validating过滤器： 
+
+  1.用于验证用户输入。 
+
+  2.严格的格式规则。（比如 URL 或 E-Mail 验证）  
+
+  3.如果成功则返回预期的类型，失败则返回 false。 
+
+  sanitizing过滤器： 
+
+  1.用于允许或禁止字符串中指定的字符。 
+
+  2.无数据格式规则。 
+
+  3.始终返回字符串。
 
 数组
 
@@ -133,3 +156,13 @@ foreach($arr as $key => $var)
 // $var 依次遍历数组的值；
 ```
 
+数组函数
+
+```php
+$x=array(1,3,2,3,7,8,9,7,3); 
+$y= array_count_values($x) //统计$x数组中所有值出现的次数,得出一个新的数组$y,
+// $y的键为$x数组中的值,键为$x数组的值出现的次数
+$y = [1=>1,3=>3,2=>1,7=>2,8=>1,9=>1];
+```
+
+如果不设置cookie结束时间，他会在关闭浏览器的时候销毁～

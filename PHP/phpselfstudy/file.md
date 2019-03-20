@@ -40,7 +40,7 @@ int fwrite  ( resource $handle  , string $string  [, int $length  ] )；
 bool fclose  ( resource $handle  )；
 ```
 
-``fread`` 读取文件（可安全用于二进制文件）
+``fread`` 读取文件（可安全用于二进制文件）最大一次性能读取8k长度的字节数
 
 ```php
 string fread  ( resource $handle  , int $length  )
@@ -62,6 +62,22 @@ $str = fread($handle,5);
 echo $str;
 fclose($handle)
 ```
+
+``readfile``不需要PHP预读到内存，直接把文件的处理交由服务器。缺点就是不能控制负载。
+
+文件后缀也是文件名的一部分
+
+```php
+int readfile(string $filename);
+```
+
+``basename`` 给出一个包含有指向一个文件的全路径的字符串，本函数返回基本的文件名。
+
+```php
+ basename ( string $path [, string $suffix ] ) : string
+```
+
+
 
 序列化化以后的数据可以放入文件中，方便其他文件读取和调用
 

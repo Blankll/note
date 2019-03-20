@@ -122,6 +122,8 @@ ALTER  T)ABLE table_name RENAME TO new_table_name
 
 登录用户状态保持
 
+## yaf集成composer
+
 
 
 ##发送邮件
@@ -139,7 +141,7 @@ ALTER  T)ABLE table_name RENAME TO new_table_name
    ./composer require nette/mail
    ```
 
-   ​
+   
 
 2. 对PHPMailer配置smtp服务
 
