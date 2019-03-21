@@ -6,10 +6,29 @@ final方法---不可被覆盖
 
 php和Java不同，Java中类属性是可以用final修饰表示的是常量，PHP不能，因为PHP的常量只能用define定义
 
+
+
+
+
+## 权限控制
+
+public
+
+所有成员均可使用
+
+protected
+
+类和类的子类可以使用
+
+private
+
+只能在类的内部使用
+
 ## static 
 
 static 关键字用来定义静态属性和方法，同时static 也可以定义静态变量以及后期静态绑定
 
 静态属性不能通过一个类已实例化的对象来访问（但静态方法可以）。
 
-为了兼容 PHP 4，如果没有指定[访问控制](http://php.net/manual/zh/language.oop5.visibility.php)，属性和方法默认为公有。
+为了兼容 PHP 4，如果没有指定[访问控制](http://php.net/manual/zh/language.oop5.visibility.php)，属性和方法默认为公有
+

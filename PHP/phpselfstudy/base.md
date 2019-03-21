@@ -166,3 +166,12 @@ $y = [1=>1,3=>3,2=>1,7=>2,8=>1,9=>1];
 ```
 
 如果不设置cookie结束时间，他会在关闭浏览器的时候销毁～
+
+print只能打印一个，echo可以打印多个，通过逗号隔开，都是语言结构
+
+printf与C语言一类似， sprintf会返回结果，而不是直接输出
+
+print_r, var_dump都是打印整个结构，但是print_r在null等就会输出空白
+
+serialize，unserialize 序列化和反序列化
+

@@ -94,6 +94,19 @@ mixed  unserialize  (string $str)
 
 ## 文件引入
 
+include/require语句包含并运行指定文件
+
+如果给出路径，则按照文件路径来查找，否则从include_path中查找，如果include_path中也没有，则从调用脚本文件所在的目录和当前工作目录下查找
+
+当一个文件被包含时，其中所包含的代码继承了include所在行的变量范围。``相当于复制粘贴进来``
+
+```php
+set_include_path(); //设定默认的包含路径；
+string set_include_path(string $new_include_path);//被包含文件遵循相对路径规则；
+```
+
+
+
 ###  include
 
 - include（被包含文件的URL）；
@@ -111,11 +124,7 @@ mixed  unserialize  (string $str)
 - require 一般放在 PHP 文件的最前面，程序在执行前就会先导入要引用的文件；
 - include 一般放在程序的流程控制中，当程序执行时碰到才会引用，简化程序的执行流程。
 
-		include_once(被包含文件的URL):如果引入文件重复多次，提示错误是一个警告，
-		继续执行后面的代码；包含重复文件只执行一次；
-		require_once(被包含文件的URL):如果引入文件重复多次，提示错误是一个致命，
-		停止执行后面的代码；包含重复文件只执行一次；
-	
-		set_include_path():设定默认的包含路径；
-			string set_include_path  ( string $new_include_path  )；
-		被包含文件遵循相对路径规则；
+   include_once(被包含文件的URL):如果引入文件重复多次，提示错误是一个警告，
+   	继续执行后面的代码；包含重复文件只执行一次；
+   	require_once(被包含文件的URL):如果引入文件重复多次，提示错误是一个致命，
+   	停止执行后面的代码；包含重复文件只执行一次；

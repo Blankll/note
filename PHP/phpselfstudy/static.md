@@ -59,3 +59,52 @@ Human::tell();
 ?>
 ```
 
+## 变量的作用域和静态变量
+
+如下函数并不会输出5，因为$count是全局变量，函数中无法直接使用全局变量的必须使用global或者``\$GLOBALS['counter']``来引用全局变量。
+
+```PHP
+$count = 5;
+function get_count()
+{
+ 	echo $count;
+}
+function get_count()
+{
+    global $count;
+ 	echo $count;
+}
+```
+
+函数中的静态变量仅在局部函数域中存在，但在执行程序离开此作用域时，值并不会消失，所有调用此函数的方法都共享同一个静态变量
+
+static变量只会被赋值一次
+
+默认情况下，函数通过值传递，如果函数要修改变量的值，需要需要传递引用
+
+### 返回引用
+
+标明引用的函数在调用时如果不添加引用符号，还是会以普通的函数来调用，如果添加了引用，则会返回函数返回值的引用。如果函数在声明时不指定为引用函数，那么在调用过程中添加引用符号调用并不会报错，但是依旧只会返回返回值。
+
+```php
+function &mgfunc()
+{
+	static $b = 10;
+	return $b;
+}
+$a = mgfunc();
+echo $a.PHP_EOL;
+$a = 50;
+echo mgfunc().PHP_EOL;
+$c = &mgfunc();
+echo $c.PHP_EOL;
+$c = 100;
+echo mgfunc().PHP_EOL;
+/*
+10
+10
+10
+100
+*/
+```
+

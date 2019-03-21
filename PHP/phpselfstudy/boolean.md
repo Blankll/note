@@ -11,3 +11,4 @@
     所有其它值都被认为是 **TRUE**（包括任何[资源](http://php.net/manual/zh/language.types.resource.php) 和  **NAN**）。   
 
 Warning *-1* 和其它非零值（不论正负）一样，被认为是 **TRUE**！    
+
