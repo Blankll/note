@@ -52,3 +52,9 @@ SELECT * FROM table_name WHERE b = 2;
 
 
 
+复合索引遵循前缀原则
+
+like查询，%在前面就无法使用索引
+
+索引列可以为NULL值
+

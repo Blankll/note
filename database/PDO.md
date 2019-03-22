@@ -519,6 +519,8 @@ public function SQL_PREPARE_DATA($Name, $Data, $DataType){
     }
 ```
 
+
+
 ## 常见攻击方式
 
 一般说来，在Web安全领域，常见的攻击方式大概有以下几种：
@@ -535,13 +537,22 @@ public function SQL_PREPARE_DATA($Name, $Data, $DataType){
 
    只要是有固定格式的变量，在SQL语句执行前，应该严格按照固定格式去检查，确保变量是我们预想的格式
 
-2. 过滤特殊符号
+2. 过滤特殊符号,特殊字符转义
 
    对于无法确定固定格式的变量，一定要进行特殊符号过滤或转义处理。以PHP为例，通常是采用addslashes函数，它会在指定的预定义字符前添加反斜杠转义，这些预定义的字符是：单引号 (') 双引号 (") 反斜杠 (\) NULL。
 
 3. 绑定变量，使用预编译语句
 
-   **实际上，绑定变量使用预编译语句是预防SQL注入的最佳方式**，使用预编译的SQL语句语义不会发生改变，在SQL语句中，变量用问号?表示，黑客即使本事再大，也无法改变SQL语句的结构，像上面例子中，username变量传递的 *plhwin' AND 1=1-- hack* 参数，也只会当作username字符串来解释查询，从根本上杜绝了SQL注入攻击的发生。作者：[潘良虎链接] (https://www.zhihu.com/question/22953267/answer/80141632)来源：知乎著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+   **实际上，绑定变量使用预编译语句是预防SQL注入的最佳方式**，使用预编译的SQL语句语义不会发生改变，在SQL语句中，变量用问号?表示，黑客即使本事再大，也无法改变SQL语句的结构。
+
+   ```sql
+   -- user/delete?id=1
+   DELETE FROM user WHERE id = 1;
+   -- user/delete?id=1 or 1=1
+   DELETE FROM user WHERE id = i OR 1 = 1;
+   ```
+
+   
 
 ###小结
 
