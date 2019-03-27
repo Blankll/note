@@ -18,13 +18,5 @@
 
 存放无序可重复集合
 
-## java.util.Map
+- 
 
-存放Hash键值对对象
-
-key both unique
-
-实现:
-
-- HashTable 不允许有null值（key和value）线程安全
-- HashMap 允许有null值（key 和value都可以）非线程安全

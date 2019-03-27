@@ -44,7 +44,7 @@ public class CreateThread {
     public static void main(String[] args) {
         System.out.println("hello");
         Runnable r1 = new MyRunnable();
-        // define thread run Runnable and this thread name
+        // define thread run Runnable and the name of this thread
         Thread thread1 = new Thread(r1, "threadNameOne");
         Thread thread2 = new Thread(r1, "threadNameTwo");
         // thread start and both of them use same varable of name

@@ -87,8 +87,13 @@ public class ListDemo02 {
 在进行迭代输出时一定不能使用集合自带的remove方法，要用迭代输出自带的remove进行操作;
 如果由多个迭代器同时对同一个集合进行操作，如果有一个使用了迭代器的remove方法，也会抛出异常;
 
-## Map接口  
-- 保存形式：key--->value的形式
-- 常用子类：
- - [ ] HashMap：无序存放，key值不允许重复
- - [ ] Hashtable：无序存放，key不允许重复
+## java.util.Map
+
+存放Hash键值对对象
+
+key both unique
+
+实现:
+
+- HashTable 不允许有null值（key和value）线程安全
+- HashMap 允许有null值（key 和value都可以）非线程安全
