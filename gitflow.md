@@ -4,7 +4,7 @@
 
 2. git clone项目到自己的本地目录中
 
-3. 进入到目录中添加上游地址
+3. 进入到目录中添加上的游地址
 
    ```shell
    git remote add upstream upstreamaddress
