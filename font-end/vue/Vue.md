@@ -78,7 +78,7 @@ vue init webpack name
    6. 删除class
    7. 全局引入iconfont  在main.js中 import './asset/styles/iconfont.css'
 
-   ​
+   
 
    ### 在项目中使用stylus
 
@@ -207,5 +207,34 @@ var example2 = new Vue({
     }
   }
 })
+```
+
+### vue-router路由传参
+
+```javascript
+// 路由
+bookInfo (id) {
+  this.$router.push({ path: '/book/info/' + id })
+}
+// 接收路由参数
+data () {
+   return {
+      id: this.$route.params.id,
+   }
+}
+```
+
+方法2
+
+```javascript
+bookSelect (book) {
+      console.log(book)
+      this.$router.push({ path: '/bookinfo', query: { id: book.id }})
+    }
+data () {
+    return {
+      id: this.$route.query.id
+    }
+  }
 ```
 
