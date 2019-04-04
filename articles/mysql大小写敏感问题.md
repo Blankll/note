@@ -27,7 +27,7 @@ lower_case_table_names=1
 
 也可以在conf.d目录下创建一个以.cnf结尾的文件，然后将上面的配置写入到这个文件中，重启mysql，mysql在重启之后就会读入这个配置，我们可以在mysql的终端输入如下命令查看配置是否载入成功。
 
-```
+```sql
 show variables like '%lower%'
 ```
 

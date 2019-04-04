@@ -213,6 +213,23 @@ ALTER TABLE user12 ENGINE=MyISAM;
 ALTER TABLE user12 ENGINE=INNODB;
 ```
 
+### 联合约束
+
+```sql
+-- 在建表时添加
+UNIQUE KEY `resource_name` (`resource_name`,`resource_type`)
+-- 在已存在的表上添加
+ALTER TABLE jw_resource ADD UNIQUE KEY(resource_name, resource_type);
+-- 唯一键约束添加后，在建表的元数据中，默认的唯一键约束名称为第一列的名称。
+-- 查看表约束
+show index from jw_resource;
+-- 删除约束
+ALTER TABLE jw_resource DROP INDEX `resource_name`;
+-- 唯一键约束添加后，实际上建立了一个索引，将该索引删除后，就等于删除了联合唯一约束。
+```
+
+
+
 ### 外键关联
 
 外键约束对子表的含义: 　如果在父表中找不到候选键,则不允许在子表上进行insert/update 

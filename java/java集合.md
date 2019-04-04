@@ -97,3 +97,31 @@ key both unique
 
 - HashTable 不允许有null值（key和value）线程安全
 - HashMap 允许有null值（key 和value都可以）非线程安全
+
+## Queue
+
+队列是一种特殊的线性表，它只允许在表的前端进行删除操作，而在表的后端进行插入操作。
+
+LinkedList类实现了Queue接口，因此我们可以把LinkedList当成Queue来用。
+
+```java
+//add()和remove()方法在失败的时候会抛出异常(不推荐)
+Queue<String> queue = new LinkedList<String>();
+ //添加元素
+queue.offer("a");
+queue.offer("b");
+// 可以循环输出队列中的元素
+for(String q : queue){
+     System.out.println(q);
+}
+System.out.println("poll="+queue.poll()); //返回第一个元素，并在队列中删除
+System.out.println("element="+queue.element()); //返回第一个元素 
+System.out.println("===");
+System.out.println("peek="+queue.peek()); //返回第一个元素 
+```
+
+  * ArrayBlockingQueue ：一个由数组支持的有界队列。
+  * LinkedBlockingQueue ：一个由链接节点支持的可选有界队列。
+  * PriorityBlockingQueue ：一个由优先级堆支持的无界优先级队列。
+  * DelayQueue ：一个由优先级堆支持的、基于时间的调度队列。
+  * SynchronousQueue ：一个利用 BlockingQueue 接口的简单聚集（rendezvous）机制。
