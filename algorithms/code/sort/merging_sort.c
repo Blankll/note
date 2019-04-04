@@ -8,7 +8,9 @@ int main(void)
 {
     int length = 16;
     int i;
+    // 源集合
     ElemType sr[] = {16,7,13,10,9,15,3,2,5,8,12,1,11,4,6,14};
+    // 结果集
     ElemType tr[length];
     merg_sort(sr, tr, 0, length-1);
     for(i = 0; i < length; i++) printf("%d\t", tr[i]);
@@ -17,7 +19,13 @@ int main(void)
     return 0;
 }
 
-
+/**
+ * 归并排序
+ * @param ElemType[] sr 待排序集合
+ * @param ElemType[] tr 排序结果集合
+ * @param int start 开始位置
+ * @param int end 结束位置 
+ */
 void merg_sort(ElemType sr[], ElemType tr[], int start, int end)
 {
     int mid;
@@ -49,6 +57,7 @@ void merge(ElemType sr[], ElemType tr[], int start, int mid, int end)
         if(sr[start] > sr[j]) tr[i] = sr[j++];
         else tr[i] = sr[start++];
     }
+    // 比较归并完成后将剩余元素存入已排序的数组尾部
     if(start <= mid)
     {
         for(k = 0; k <= mid-start; k++) tr[i+k] = sr[start+k];

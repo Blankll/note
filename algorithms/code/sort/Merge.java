@@ -21,7 +21,9 @@ public class Merge {
         for(int k = start; k <= end; k++) { aux[k] = a[k]; }
         // 将拷贝的成员变量数组进行排序，结果放入传入的原数组中
         for(int k = start; k <= end; k++) {
+            // 待归并的两个数组归并完毕时，将剩余元素放入归并后的数组尾部 i已经完毕
             if(i > mid) { a[k] = aux[j++]; }
+            // j已完毕, 将i剩余数组成员拷贝到已排序数组中
             else if(j > end) { a[k] = aux[i++]; }
             else if(less(aux[j], aux[i])) { a[k] = aux[j++]; }
             else { a[k] = aux[i++]; }
