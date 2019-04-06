@@ -1,4 +1,9 @@
 
+/**
+ * 基于有序数组的二分查找
+ * @param <Key>
+ * @param <Value>
+ */
 public class BinarySearchST<Key extends Comparable<Key>, Value> {
     private Key[] keys;
     private Value[] values;
