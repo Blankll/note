@@ -26,3 +26,13 @@ overflow: hidden;
 - background
 - clip-path
 
+
+
+```css
+E {box-shadow: <length> <length> <length>?<length>?||<color>}
+也就是：
+E {box-shadow:inset x-offset y-offset blur-radius spread-radius color}
+换句说：
+对象选择器 {box-shadow:投影方式 X轴偏移量 Y轴偏移量 阴影模糊半径 阴影扩展半径 阴影颜色}
+```
+
