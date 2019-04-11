@@ -157,57 +157,6 @@ axios.interceptors.response.use(function(response){
 
 
 
-
-## vuex
-
-1. 安装vuex
-
-2. npm install vuex --save
-
-3. 重启服务器
-
-4. 引入vuex
-   1. 在src下创建stroe目录
-
-   2. 在store目录下创建index.js文件
-
-       ```javascript
-       import Vue from 'vue'
-       import Vuex from 'vuex'
-       
-       Vue.use(Vuex)
-       
-       export default new Vuex.Store({
-           state: {
-               // 共用数据名称
-           }
-       })
-       ```
-
-       
-
-5. 在main.js中引入
-
-     ```javascript
-  import store from './store'
-       ...
-       new Vue({
-           el:'#app',
-           router,
-           store,
-           ...
-       })
-     ```
-
-6. 使用
-
-    ```javascript
-   this.$store.somevalue
-    ```
-
-  
-
-
 ## vue的事件监听
 
 ```javascript
@@ -259,3 +208,225 @@ data () {
   }
 ```
 
+
+
+## vuex
+
+1. 安装vuex
+
+2. npm install vuex --save
+
+3. 重启服务器
+
+4. 引入vuex
+   1. 在src下创建stroe目录
+   2. 在store目录下创建index.js文件     
+
+     ```javascript
+     import Vue from 'vue'
+     import Vuex from 'vuex'
+      
+     Vue.use(Vuex)
+     
+     export default new Vuex.Store({
+          state: {
+              // 共用数据名称
+          }
+      })
+     ```
+
+5. 在main.js中引入
+
+       ```javascript
+      import store from './store'
+         ...
+         new Vue({
+             el:'#app',
+             router,
+             store,
+             ...
+         })
+       ```
+
+6. 使用
+
+  - 动作 actions
+
+    actions相当于定义了一系列操作mutaions的动作
+
+    actions
+    在actions中定义提供给前端调用的action
+
+    ```javascript
+    import Vue from 'vue'
+    import Vuex from 'vuex'
+    
+    Vue.use(Vuex)
+    
+    export default new Vuex.Store(
+        state: {
+        city: '上海'
+        },
+        actions: {
+            changeCity (context, city) {
+                context.commit('changeCity', city)
+            }
+        },
+    // 创建mutations
+            mutations: {
+                changeCity (state, city) {
+                    state.city = city
+                }
+            }
+    )
+    ```
+
+    在前端需要通过调用dispatch来调用actions的方法，进而使得actions中获取状态或者是通过commit更改状态
+
+    **综上，组件调用actions，actions调用mutations，mutations改变state**
+
+    ```javascript
+    // 在vue中调用
+    methods: {
+        handleCityClick (city) {
+          // changeCity 派发一个changeCity的action， 传递的参数为city
+          this.$store.dispatch('changeCity', city)
+    }
+    }
+    ```
+
+    mutations中不能存在异步操作而actions中可以存在，如果不涉及复复杂操作或者异步操作，也可以不经过actions，直接在前端调用mutations的方法来获取或更新状态
+
+    ```javascript
+    // 在前端直接调用mutations中的方法
+    this.$store.commit('changeCity', city)
+    ```
+
+    
+
+  - 创建状态 state
+
+  - mutations
+
+  - getters
+
+    
+
+  ### vuex高级操作
+
+  修改项目结构
+
+  可以将state，mutations，actions对象分别新建state.js, mutations.js, actions.js将对象分别定义在这三个模块中，然后在store/index.js中将他们引入
+
+  ```javascript
+  import Vue from 'vue'
+  import Vuex from 'vuex'
+  import state from './state'
+  import actions from './actions'
+  import mutations from './mutations'
+  
+  Vue.use(Vuex)
+  
+  export default new Vuex.Store({
+      state:state,
+      actions: actions,
+  	// 创建mutations
+     mutations: mutations
+  })
+  ```
+
+  
+
+  以上key与value的值相同，可以进一步简化
+
+  ```javascript
+  import Vue from 'vue'
+  import Vuex from 'vuex'
+  import state from './state'
+  import actions from './actions'
+  import mutations from './mutations'
+  
+  Vue.use(Vuex)
+  
+  export default new Vuex.Store({
+      state,
+      actions,
+     mutations
+  })
+  ```
+
+  这样就可以将数据分块进行处理避免代码混乱,提高可维护性
+
+  子啊视图中直接使用state数据
+
+  ```vue
+  <div>
+    {{this.$store.state.city}}
+  </div>
+  ```
+
+  可以使用展开运算符简化上述操作
+
+  ```js
+  import { mapState } from 'vuex'
+  export default {
+      name: 'HomeHeader',
+      computed: {
+          // 将state中的状态city映射到computed的city属性中, 调用时就相当于调用vue的computed属性一样
+          ...mapState(['city'])
+      }
+  }
+  ```
+
+  若要在computed中使用不同的属性名字进行映射，可以使用如下方法
+
+  ```javascript
+  import { mapState } from 'vuex'
+  export default {
+      name: 'HomeHeader',
+      computed: {
+          // 将state中的状态city映射到computed的currentCity属性中, 调用时就可以通过currentCity来获得city的状态
+          ...mapState({
+              currentCity: 'city'
+          })
+      }
+  }
+  ```
+
+  同样可以通过使用展开运算符来映射mutations
+
+  ```javascript
+  
+      import { mapMutations } from 'vuex'
+      export default {
+          name: 'HomeHeader',
+          methods: {
+              // 将changeCity的mutation映射到methods中，方法名称同样为changeCity
+              ...mapMutations(['changeCity'])
+          }
+      }
+  
+  ```
+
+  在前端调用mutation时就可以将``this.$store.commit('changeCity', city)`` 直接向调用``this.changeCity(city)``来调用mutations中定义的方法
+
+  getters类似于computed方法，可以将状态进行一定计算后将结果返回给前端
+
+  ```javascript
+  import { mapState, mapGetters } from 'vuex'
+  export default {
+      name: 'HomeHeader',
+      computed: {
+          // 将state中的状态city映射到computed的currentCity属性中, 调用时就可以通过currentCity来获得city的状态
+          ...mapState({
+              currentCity: 'city'
+          }),
+          // 同样的，在前端中就可以直接像调用computed属性一样使用了，
+          ...mapGetters(['doubleCity'])
+      }
+  }
+  ```
+
+  ### module
+
+  复杂vuex分模块
