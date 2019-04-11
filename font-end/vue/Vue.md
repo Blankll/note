@@ -167,24 +167,45 @@ axios.interceptors.response.use(function(response){
 3. 重启服务器
 
 4. 引入vuex
+   1. 在src下创建stroe目录
 
-   > 1. 在src下创建stroe目录
-   > 2. 在store目录下创建index.js文件
+   2. 在store目录下创建index.js文件
 
-   ```javascript
-   import Vue from 'vue'
-   import Vuex from 'vuex'
-   
-   Vue.use(Vuex)
-   
-   export default new Vuex.Store({
-       state: {
-           // 共用数据名称
-       }
-   })
-   ```
+       ```javascript
+       import Vue from 'vue'
+       import Vuex from 'vuex'
+       
+       Vue.use(Vuex)
+       
+       export default new Vuex.Store({
+           state: {
+               // 共用数据名称
+           }
+       })
+       ```
 
+       
 
+5. 在main.js中引入
+
+     ```javascript
+  import store from './store'
+       ...
+       new Vue({
+           el:'#app',
+           router,
+           store,
+           ...
+       })
+     ```
+
+6. 使用
+
+    ```javascript
+   this.$store.somevalue
+    ```
+
+  
 
 
 ## vue的事件监听
