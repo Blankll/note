@@ -37,3 +37,4 @@
 12. 先提交到自己folk的代码仓库中git push origin 分支名称
 
 13. 在github中点击compare && pull request
+

@@ -17,3 +17,4 @@ STD_PHP_INI_BOOLEAN("yaf.use_namespace",   	"0", PHP_INI_SYSTEM, OnUpdateBool, u
 - 第七个参数：全局变量名称。
 
 `SAY_G()`用于读取全局变量的值。
+

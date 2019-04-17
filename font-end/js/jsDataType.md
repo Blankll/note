@@ -46,7 +46,22 @@ var y = new String("John");
  2 个不包含任何值的数据类型：
 
 - null
+
 - undefined
+
+  未定义的值和定义未赋值的为undefined，null是一种特殊的object,NaN是一种特殊的number。
+
+  null 表示无值，而 undefined 表示一个未声明的变量，或已声明但没有赋值的变量，或一个并不存在的对象属性,只能用 === 运算来测试某个值是否是未定义的，因为 == 运算符认为 undefined 值等价于 null。
+
+  ```javascript
+  var a1;         //a1的值为undefined
+  var a2 = null;
+  var a3 = NaN;
+  alert(a1 == a2); //显示"true"
+  alert(a1 == a3); //显示"false"
+  alert(a2 == a3); //显示"false"
+  alert(a3 == a3); //显示"false"
+  ```
 
 JavaScript 中，变量可以在使用后声明，也就是变量可以先使用再声明。
 

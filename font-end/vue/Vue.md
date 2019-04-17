@@ -310,7 +310,11 @@ data () {
 
   - getters
 
-    
+  
+
+  mutations 有一个固有参数 state，接收的是 Vuex 中的 state 对象
+
+  action 也有一个固有参数 context，但是 **context 是 state 的父级**，包含  state、getters
 
   ### vuex高级操作
 
