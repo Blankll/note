@@ -141,11 +141,30 @@ redis-cli -h 10.10.79.150 -p 6384
    - 返回-2表示key已经不存在了
 7. ``O(1)``persist key 去掉key的过期时间
 8. ``O(1)``type key 查看key的数据类型 返回key的类型
-   - string
+   - string 
+   
+     ``简单的键值对``
+   
    - hash
+   
+     Redis hash 是一个string类型的field和value的映射表，hash特别适合用于存储对象。``键值对，值又是一个简单的键值对`
+   
    - list
+   
+     Redis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）``如同队列``有序可重复
+   
    - set
+   
+     Set 是 String 类型的无序集合。集合成员是唯一,集合中不能出现重复的数据。
+   
    - zset
+   
+     有序集合，根据score排序，member不可重复，score可重复
+   
+     ```bash
+     ZADD key score1 member1 [score2 member2]
+     ```
+   
    - none
 
 
@@ -386,8 +405,6 @@ SADD + SINTER = SocialGraph
 ``zinterstore``
 
 ``zunionstore``
-
-   
 
 
 

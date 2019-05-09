@@ -2,8 +2,15 @@
 
 ##一，mysql基础；
 
-```
+```bash
 mysql_secure_installation
+```
+
+mysql 关闭密码长度规则校验
+
+```bash
+set global validate_password_policy=0;
+set global validate_password_length=0;
 ```
 
 表名：

@@ -26,6 +26,19 @@ client: [ACK] Seq => server
 
 
 
+## HTTP方法
+
+- GET
+- HEAD
+- POST
+- PUT
+- DELETE
+- CONNECT
+- OPTIONS
+- TRACE
+
+
+
 在资源移动之后还能找到
 
 ## HTTP  报文
