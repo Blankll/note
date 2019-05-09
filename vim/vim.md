@@ -2,46 +2,77 @@
 
 ## 安装vim plug
 
-直接下载到指定目录即可
+- 官方推荐方法
+
+  ```
+  $ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  ```
+
+- 直接下载到指定目录即可
+
+  ```
+  mkdir ~/.vim/autoload/
+  cd ~/.vim/autoload/
+  wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  ```
+
+  
+
+### 安装
+
+安装和使用起来非常容易。你只需打开终端并运行以下命令：
+ `$ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
+
+Neovim 用户可以使用以下命令安装 Vim-plug：
+ `$ curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
+
+### 用法
+
+#### 安装插件
+
+要安装插件，先在 Vim 配置文件中声明它们。一般 Vim 的配置文件是 `~/.vimrc`
 
 ```
-mkdir ~/.vim/autoload/
-cd ~/.vim/autoload/
-wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-```
-
-配置
-
-```
-vim ~/.vimrc
-```
-
-将要安装的插件写入~/.vimrc，这里以ycm插件为例：
-
-```
-" Specify a directory for plugins 
 call plug#begin('~/.vim/plugged')
- "以安装ycm插件为例
-Plug 'Valloric/YouCompleteMe'
-" Initialize plugin system
+Plug 'itchyny/lightline.vim'
 call plug#end()
 ```
 
+添加后重新加载插件
+ `:source ~/.vimrc`
+ 或者在vim命令中安装：
+
+```
+# 检查状态
+:PlugStatus
+# 安装插件
+:PlugInstall
+# 更新插件
+:PlugUpdate
+```
+
+更新插件后，按下 `d` 查看更改。或者， `:PlugDiff`。
+
+#### 审查插件
+
+如果更新的插件无法使用, 可以简单地回滚有问题的插件。输入 `:PlugDiff` 命令，然后按回车键查看上次 `:PlugUpdate`的更改，并在每个段落上按 `X` 将每个插件回滚到更新前的前一个状态。
+
+#### 删除插件
+
+注释掉 vim 配置文件中添加的 `plug` 命令。然后，运行 `:source ~/.vimrc` 或重启 Vim 编辑器。最后，运行以下命令卸载插件：
+
+```
+PlugClean #命令将删除 vim 配置文件中所有未声明的插件
+```
+
+#### 升级 Vim-plug
+
+要升级vim-plug本身，请输入：
+ `:PlugUpgrade`
+
 ```
 vim ~/.vimrc
 ```
-
-PlugStatus
-PlugInstall
-
-使用vim plug可以方便的管理插件
-
-查看插件类型：
- ：PlugStatus
- 安装插件：
- ：PlugInstall
- 更新插件：:PlugUpdate
- vim-plug本身更新：:PlugUpgrade
 
 
 
