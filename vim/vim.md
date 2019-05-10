@@ -133,3 +133,60 @@ vim中使用 :s来进行字符的替换和
 /super从上往下搜索super？super从下往上搜索super
 
 如果查找特殊字符，如 ^、$、*、/ 和 .，需要在前面加 \ 来转义。
+
+## vim分屏
+
+### 打开文件时分屏
+
+vim -o fileone  filetwo 水平分屏打开两个文件
+
+vim -O fileone  filetwo 垂直分屏打开两个文件
+
+**ctrl + w + j**  切换
+
+**ctrl + w + w** 切换
+
+**ctrl + w + k** 切换
+
+### 在已经打状态添加分屏
+
+- 垂直添加
+
+  :vsplit filename
+
+  :vnew newfilename
+
+- 水平添加
+
+  :split filename
+
+  :new filename
+
+###　切换和尺寸调整
+
+分屏切换
+　　ctrl+w 和 w   ``大写时为移动窗口``
+　　ctrl+w 和 h(H) 左
+　　ctrl+w 和 j(J) 下
+　　ctrl+w 和 k(K) 上
+　　ctrl+w 和 l(L) 右
+
+改变分屏尺寸
+　　ctrl+w 和 < 左
+　　ctrl+w 和 > 右
+　　ctrl+w 和 + 上
+　　ctrl+w 和 - 下
+　　ctrl+w 和 = 恢复均等
+
+### 关闭分屏
+
+:only 或者 ctrl+w 和 o取消其它分屏，只保留当前分屏
+关闭当前分屏 ctrl+w + c(close) 
+
+只剩最后一个分屏以后推出： ctrl+w 和 q(quit)
+
+
+
+## 坑
+
+- airline 显示git branch 必须安装 fugitive这个插件，官方文档里面一个屁都没放，mdzz
