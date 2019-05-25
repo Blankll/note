@@ -13,7 +13,7 @@ int socket(int domain, int type, int protocol);
 
 - domain 指定使用的底层协议族
 
-  > TCP/IP => PF_INET | PF_INET6
+  > TCP/IP => AF_INET | AF_INET6
   >
   > PF_INET
   >
@@ -49,6 +49,8 @@ int socket(int domain, int type, int protocol);
 
 AP_*,PF_*都在bits/socket.h
 
+## 命名socket
+
 SOCKET网络中表示socket地址的结构体sockaddr
 
 ```c
@@ -61,7 +63,11 @@ struct socket sockaddr{
 
 tcp/ip协议中有socket_in和socket_in6连个专用socket结构体用于存放IPv4,IPv6地址，
 
-## 命名socket
+```c
+struct sockaddr_in serv;
+serv.port = htons(port);
+serv.IP = htonl(IP);// INADDR_ANY 
+```
 
 创建socket时给定了地址族但并未指定使用哪一个具体socket地址，将一个socket与socket地址绑定称为socket命名。
 
@@ -97,7 +103,7 @@ int listen(int sockfd, int backlog);
 - backlog提示内核监听队列的最大长度，超出不再受理新连接，发送ECONNREFUSED错误信息，典型数值是５
 - listen成功时返回０，失败时返回-1并设置errno
 
-## 接受连接
+## 接受连接(等待并接受)
 
 **从listen队列中接受一个连接**
 
@@ -179,3 +185,43 @@ send向sockfd上写入数据，
 send成功时返回实际写入的数据长度
 
 send失败时返货-1并设置errno
+
+
+
+## 客户端
+
+### 创建套接字
+
+int fd = socket
+
+### 连接服务器
+
+```
+struct sockaddr_in serveer;
+server.port;
+server.IP
+server.family
+connect(fd, &server, sizeof(server));
+```
+
+```c
+int inet_pton(int af, const char* src. void dest);
+```
+
+> 本地ip转为网络字节序
+>
+> af 协议族
+>
+> src 点分十进制ip
+>
+> dest 网络字节序
+
+```
+
+```
+
+
+
+### 读写数据
+
+### 断开连接

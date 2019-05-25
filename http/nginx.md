@@ -139,3 +139,88 @@ sudo service nginx restart
 nginx重定向的文章https://bjornjohansen.no/nginx-redirect
 
 官方文档http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_split_path_info
+
+
+
+## example1
+
+在一台服务器和只有一个域名,将MySQL,redis,vue的spa程序,api全部放在了一台上面,由于只有一个域名且无法分出子域名,所以采取了vue spa默认使用80端口,请求直接倒过去,如果请求的是待``/api``的接口地址,将他rewrite到另一个端口,如8000,所以可以通过两个nginx的配置文件,在``/etc/nginx/sites/available``下
+
+```nginx
+# defalut的nginx配置
+# 如果是/api开头,代理到8000端口
+server {
+        listen 80;
+
+        server_name domain_name;
+
+        root /var/www/html/vuespa;
+
+        # Add index.php to the list if you are using PHP
+        index index.html index.js;
+
+        location /api {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                add_header 'Access-Control-Allow-Origin' '*';
+                # 末尾不加/会将匹配的/api也加在后面，即代理后的uri和请求的uri一致
+                # 末尾加/就会将匹配到的/api去除，重定向后的uri为本次请求的uri去掉/api
+                proxy_pass http://127.0.0.1:8000;
+                #rewrite ^/api(.*) $1 permanent;
+        }
+
+}
+```
+
+
+
+```nginx
+# api 配置
+# 在8000端口监听了一个php的api服务
+server {
+        listen 8000;
+
+        server_name domain_name;
+
+        root /var/www/html/api;
+
+        # Add index.php to the list if you are using PHP
+        index index.php index.html index.htm;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ /index.php?$query_string;
+        }
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        location ~ \.php$ {
+                try_files $uri /index.php =404;
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                #include snippets/fastcgi-php.conf;
+                # With php7.2-fpm:
+                fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+                fastcgi_index index.php;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                include fastcgi_params;
+        }
+}
+
+```
+
+添加符号链接到``sites-enabled`` 必须使用绝对路径
+
+```bash
+ln -s /etc/nginx/sites-available/api /etc/nginx/sites-enabled/
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+```
+
+老套路, 测试配置，加载配置，重启服务器
+
+```bash
+sudo nginx -t
+sudo nginx -s reload
+sudo service nginx restart
+```
+

@@ -51,6 +51,14 @@ model层除了处理业务之外，还有ORM模型的实现功能，service可�
 
 **在application/common.php**中编写的所有函数可以在框架内直接调用
 
+安装curl
+
+```bash
+apt-cache search curl | grep php
+```
+
+
+
 ### 实现Token身份权限体系
 
 1. 配置小程序[在.env中或在application目录下建一个extra文件下编写配置文件]```appid``` ```appsecret``` ```login_url``` 

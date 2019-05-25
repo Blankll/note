@@ -105,14 +105,25 @@ vue init webpack name
 
    重新npm run start
 
+   ```
+// 发送
+   this.$axios.get('/api/user/index', {
+        params: {
+             id: this.id
+        }
+         })
+```
    
-
+   
+   
+   
+   
    ##vue中首页轮播的实现
-
+   
    ### 创建git分支
-
+   
    ### 轮播
-
+   
    vue-awesome-swiper
 
 ## axios数据请求

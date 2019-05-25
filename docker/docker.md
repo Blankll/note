@@ -72,6 +72,8 @@ docker volume rm name 删除数据卷
 
 
 
+container => image
+
 docker commit -m  ""   -a  ""   容器ID（可以简写）  镜像名称 　将现有容器打包成镜像
 
 > -a 作者
@@ -88,6 +90,44 @@ docker run -it -d -p 80:80 -p 3306:3306 -p 6379:6379 -p 8811:8811 -v /home/seven
 
 ```bash
 seven@Blank:~$ docker run --name yunjie-mysql -v /home/seven/dev/YunJie3.7.1_for_linux/mysqldocker:/etc/mysql/conf.d --privileged -p 33060:3306 -e MYSQL_ROOT_PASSWORD=0707 -d mysql:5.7
-
 ```
 
+```bash
+docker run -it -d -p 8000:80 -p 33060:3306 -v /home/ubuntu/dev/translation/translate-backend/translate:/var/www/html --privileged --name translate-backend translate:v1 /bin/bash
+```
+
+
+
+## 导入导出镜像
+
+container => image
+
+```bash
+docker commit -a 'seven' -m 'translate container' ecca74dd9a76 translate:v1
+```
+
+image => tar
+
+```bash
+docker save image_name > name.tar # 导出镜像,在当前文件夹
+docker save translate:v1 > dockertaes.tar
+docker save -o target_dir/name.tar image_name:tag # 导出镜像到指定文件夹
+docker save -o /home/seven/dockerimages/mytest.tar translate:v1 
+
+
+docker export -o name.tar container_id
+docker export -o /home/seven/dockerimages/port.tar ecca74dd9a76
+```
+
+## dockerfile
+
+- 每条保留字指令都必须为大写字母且后面要跟至少一个参数
+- 指令从上到下,顺序执行
+- \#表示注释
+- 每条指令都会创建一个新的镜像层,并对镜像进行提交 
+
+ 
+
+> add 拷贝加解压
+>
+> copy 只拷贝,不解压

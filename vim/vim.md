@@ -1,5 +1,13 @@
 # vim
 
+## textObject
+
+commod ``[number]<command>[text object or motion]``
+
+- number 作用在多少个文本对象上
+- command 执行的具体命令 如``删除d``, ``修改c``, ``选择v``
+- text object or motion 要操作的文本对象范围``i(inner)``, ``a(a word也就是包含前后单词)`` 如``单词w``,``句子s``,``段落p``
+
 ## 安装vim plug
 
 - 官方推荐方法
@@ -84,7 +92,7 @@ Crtl-b    即 PageUp 翻页。
 ```
 0  是数目字 0 而不是英文字母 o。或是 Hmoe 键，移至行首，
    （含空白字元）。
-^  移至第一个非空白字元，注意，要 Shift 键。
+^  移至第一个非空白字元
 $  移至行尾，或 End 键。要 Shift 键。
 以上两个按键是源自规则表示式（regular expression），在 regexp 中 ^ 是匹配行首，$ 是匹配行尾。
  G  移至档尾（最后一行的第一个非空白字元处）
@@ -185,8 +193,51 @@ vim -O fileone  filetwo 垂直分屏打开两个文件
 
 只剩最后一个分屏以后推出： ctrl+w 和 q(quit)
 
+## vim插件
 
+- vim-surround
+
+  成对编辑
+
+  - 成双添加 ``<ys textobject text>`` ys 文本编辑对象iw,aw
+  - 成双替换 ``<cs oldtext newtext>`` 左括号加内空格,右括号什么都不加
+  - 成双删除 ``<ds text>``
+
+- easy-motion
+
+  ``<leader><leader>w` 向后跳转
+
+  ``<leader><leader>b`` 向前跳转
+
+  ``<leader><leader>s word``搜索单词跳转
+
+  配置
+
+  ```.vimrc
+  " 行级跳转
+  map <Leader><Leader>j <Plug>(easymotion-j)
+  map <Leader><Leader>k <Plug>(easymotion-k)
+  " 行内跳转
+  map <Leader><leader>h <Plug>(easymotion-linebackward)
+  map <Leader><leader>l <Plug>(easymotion-lineforward)
+  " 重复上一次动作
+  map <Leader><leader>. <Plug>(easymotion-repeat)
+  ```
+
+  
+
+- ctrlp
+
+  - 进行文件查找 <c p>
+  - ``<ctrl + j/k> `` 进行上下选择
+  - ``ctrl + x ``在当前窗口水平分屏打开文件
+  - ``ctrl + v`` 同上, 垂直分屏
+  - ``ctrl + t`` 在tab中打开
+
+  
 
 ## 坑
 
 - airline 显示git branch 必须安装 fugitive这个插件，官方文档里面一个屁都没放，mdzz
+
+- ctrl+s 终止屏幕输出（即停止回显）ctrl+q 恢复屏幕输出，

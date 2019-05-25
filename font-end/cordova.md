@@ -107,3 +107,30 @@
   ```
 
 打包教程 https://www.jianshu.com/p/2e9bebb73d37
+
+- 查看配置
+
+  ```bash
+  cordova requirements
+  ```
+
+- Androidstudio在更新后会更新gradle但是~/.bashrc文件下的配置并不会更新,需要手动更新配置文件
+
+- 使用 `cordova run android` 运行时，出现错误
+
+  ```bash
+  A problem occurred configuring root project 'android'. > Could not resolve all files for configuration ':classpath'. > Could not resolve com.android.tools.build:gradle:3.0.0. Required by: project : > Could not resolve com.android.tools.build:gradle:3.0.0. > Could not get resource 'https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle/3.0.0/gradle-3.0.0.pom'. > Could not HEAD 'https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle/3.0.0/gradle-3.0.0.pom'. > dl.google.com
+  ```
+
+  将 `android/build.gradle`  `android/app/build.gradle` `android/CordovaLib/build.gradle`中 的所有 `repositories`改为
+
+  ```bash
+  repositories {
+      jcenter()
+         maven {
+             url "http://maven.aliyun.com/nexus/content/groups/public/"
+      }
+  }
+  ```
+
+  
