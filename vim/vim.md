@@ -1,5 +1,7 @@
 # vim
 
+<shift> + k (K) 跳转到函数的定义
+
 ## textObject
 
 commod ``[number]<command>[text object or motion]``
@@ -211,7 +213,7 @@ vim -O fileone  filetwo 垂直分屏打开两个文件
 
   ``<leader><leader>s word``搜索单词跳转
 
-  配置
+  ,,个`配置,,
 
   ```.vimrc
   " 行级跳转
@@ -234,7 +236,26 @@ vim -O fileone  filetwo 垂直分屏打开两个文件
   - ``ctrl + v`` 同上, 垂直分屏
   - ``ctrl + t`` 在tab中打开
 
+- nerdTree
+
+  - <leader>v 定位当前编辑的文件在文件夹中的位置
+  - <leader>g 打开和关闭nerdTree
   
+- vim-abolish 装换命名法
+
+  - ``crs ``(coerce snacke_case)转换为下划线
+  - ``cru``(UPPER_CASE) 转化为大写
+  - ``cr-``(dash-case) 转为-
+  - ``cr.`` (dot.case) 转为.
+  - ``cr<spance>``转为空格
+  - ``crm`` (MixedCase)转换为大骆驼命名
+  - ``crc`` (camelCase) 转换为小驼峰命名法
+
+- tagbar代码大纲
+
+- vim-go
+
+  - 
 
 ## 坑
 

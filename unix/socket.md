@@ -2,6 +2,14 @@
 
 socket连接是全双工的
 
+bash发起socket连接
+
+```bash
+nc ip port
+```
+
+
+
 ## 创建socket
 
 ````c
@@ -225,3 +233,143 @@ int inet_pton(int af, const char* src. void dest);
 ### 读写数据
 
 ### 断开连接
+
+
+
+
+
+## UDP
+
+- 创建套接字
+
+  ```c
+  int fd = socket(af_inet, sock_dgram, 0);
+  ```
+
+- 绑定本地IP
+
+  ```c
+  bind();
+  ```
+
+- 通信
+
+  ```c
+  recv();
+  ```
+
+
+
+客户端
+
+- 创建套接字
+
+  ```
+  int fd = socket(af_inet, sock_dgram, 0);
+  ```
+
+- 通信
+
+  ```c
+  recv();
+  ```
+
+- 发送数据
+
+  ```
+  send
+  ```
+
+
+
+
+
+
+
+## 本地套接字
+
+```c
+#include<sys/un.h>
+#define UNIX_PATH_MAX 108
+struct sockaddr_un {
+    _kernel_sa_family_t sun_family;
+    char sun_path[UNIX_PATH_MAX];
+};
+```
+
+- 创建套接字
+
+  ```c
+  int lfd = socket(AF_LOCAL, sock_stream, 0);
+  ```
+
+- 绑定
+
+  ```c
+  struct sockaddr_un serv;
+  serv.sun_family = af_unix;
+  strcpy(serv.sun_path, "./sev.socket");
+  bind(lfd, (struct sockaddr*)&serv, len); // 绑定成功之后serv文件才会被创建
+  ```
+
+- 设置监听
+
+  ```c
+  listen();
+  ```
+
+- 等待接收连接请求
+
+  ```c
+  struct sockaddr_un client;
+  int len = sizeof(client);
+  int cfd = accept(lfd, &client, &len);
+  ```
+
+- 通信
+
+  ```
+  send();
+  recv();
+  ```
+
+  
+
+- 断开连接
+
+  ```c
+  close(cfd);
+  close(lfd);
+  ```
+
+
+
+### 客户端
+
+- 创建套接字
+
+  ```c
+  int fd = socket(af_local, sock_stream, 0);
+  ```
+
+- 绑定一个套接字文件
+
+  ```c
+  struct sockaddr_un client;
+  client.sun_family = af_local;
+  strcpy(client.sun_path, "client.socket");
+  bind(lfd, (struct sockaddr*)&client, len); // 绑定成功 文件建立
+  ```
+
+  
+
+- 连接到服务器
+
+  ```c
+  struct sockaddr_un serv;
+  serv.sun_family = af_local;
+  strcpy(serv.sun_path, "server.socket");
+  connect(fd, &serv, sizeof(serv));
+  ```
+
+  

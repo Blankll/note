@@ -20,6 +20,8 @@
 
 6. ./configure --with-php-config=/usr/local/php/bin/php-config
 
+    /usr/bin/php-config
+
 7. make
 
 8. php -i | grep Configuration
@@ -28,13 +30,13 @@
 
 10. vim /usr/local/php/etc/php.ini 末尾添加 
 
-   ```shell
-   [Yaf]
-   extension=yaf.so
-   yaf.environ="product" | "develop"
-   yaf.use_spl_autoload=1
-   yaf.use_namespace=1
-   ```
+  ```shell
+  [Yaf]
+  extension=yaf.so
+  yaf.environ="product" | "develop"
+  yaf.use_spl_autoload=1
+  yaf.use_namespace=1
+  ```
 
 11. 重启服务
 
@@ -215,6 +217,16 @@ class ErrMap{
 2. 在进行model操作时进行trycatch，然后通过统一异常处理的aop层进行异常向前端的回复内容
 
 
+
+
+
+
+
+# org.freedesktop.PolicyKit1 was not provided by any .service files
+
+```
+sudo apt install policykit-1
+```
 
 
 

@@ -1,5 +1,7 @@
 # ZVAL
 
+总共16个字节
+
 ```C
 // 16byte
 struct _zval_struct {
@@ -7,8 +9,8 @@ struct _zval_struct {
 	union {
 		struct {
 			ZEND_ENDIAN_LOHI_3(
-				zend_uchar    type,			/* active type */
-				zend_uchar    type_flags,
+				zend_uchar    type,			/* active type 区分变量类型 */
+				zend_uchar    type_flags, /* 特有标记,常量,需要引用计数 */
 				union {
 					uint16_t  call_info;    /* call info for EX(This) */
 					uint16_t  extra;        /* not further specified */

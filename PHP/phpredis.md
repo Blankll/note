@@ -10,6 +10,7 @@ cd phpredis-develop
 
 # 编译Redis
 ./configure --with-php-config=/usr/local/php/bin/php-config
+/usr/bin/php-config
 make
 make install
 
