@@ -406,6 +406,14 @@ SADD + SINTER = SocialGraph
 
 ``zunionstore``
 
+## redis备份
+
+### redis-check-aof (append only file)
+
+
+
+### redis-check-rdb(redis database) default
+
 
 
 ## 上线与踩坑

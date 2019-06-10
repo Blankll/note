@@ -24,4 +24,6 @@ zend_alloc_sizes.h
 内存分类
 
 - Small(30种规格)  size <= 3KB
-- 
+- Large(3KB < size <= 2MB-4KB)
+- Huge(size > 2MB-4KB)
+
