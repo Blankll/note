@@ -1,18 +1,18 @@
 ﻿# java集合
 
-标签（空格分隔）： 未分类
+## List接口
 
----
-##List接口
 1. List接口可以存放任意的数据，而且List接口中的内容是可以重复的
 2. List接口常用的子类  
 
- - [ ] ArrayList
- - [ ] Vector   
+- ArrayList 数组实现（插入删除慢）
+
+- LinkList 双向链表实现（查找慢）
+- Vector 线程安全
 
 ### 常用操作
 - [ ] 判断集合是否为空：boolean isEmpty();
-- [ ] 查找指定婧对象是否存在： int indexOf(Object o);
+- [ ] 查找指定对象是否存在： int indexOf(Object o);
 ```java
 package cn.ynnu.corejava.collection;
 

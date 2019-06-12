@@ -253,9 +253,23 @@ vim -O fileone  filetwo 垂直分屏打开两个文件
 
 - tagbar代码大纲
 
+  - 安装ctags 
+
+    ```bash
+    sudo apt-get install exuberant-ctags
+    ```
+
+  - 安装tagbar
+
+    ```
+    majutsushi/tagbar.git
+    ```
+
+  - ``<leader>t`` togak打开与关闭
+
 - vim-go
 
-  - 
+- deoplete.nvim 代码补全
 
 ## 坑
 

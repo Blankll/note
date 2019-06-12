@@ -1,0 +1,12 @@
+skiplist 用在zset中
+
+redis是单进程单线程运行,但是在redis4.0之后在进程人多不和懒删除的时候,会再启动两个进程去处理操作,防止在进程过长的操作时请求饿死
+
+zset中如果元素少于128个使用的是ziplist结构,如果多余128个,就会转换成skiplist,但一个sikplist存储的zset在元素少于128个时不会直接转存到ziplist而是在对这个zset和另一个zset求交集时检测元素,如果少于128个就会将他转存为ziplist
+
+## ziplist
+
+为了省内存 
+
+使用hash,zset,list中会使用到ziplist
+

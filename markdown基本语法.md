@@ -3,6 +3,11 @@
 
 
 对文字的特殊标注
+
+# sdfdsfs
+
+## sdfdsf
+
 一级标题~六级标题~
 
 下划线
@@ -37,6 +42,7 @@ $x^2$
 有序列表
 1.+space
 无序列表
+
 +or-or*➕space
 Todo list
 -space【space】space
@@ -51,6 +57,7 @@ command+T
 数学公式
 $$回车
 或者行内$f(x)=$
+
 代码
 
 ```回车，右下输入语言
