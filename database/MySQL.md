@@ -13,6 +13,21 @@ set global validate_password_policy=0;
 set global validate_password_length=0;
 ```
 
+mysql会在安装过程中自动生成一个初始化密码,默认在/var/log/mysqld.log中
+
+```bash
+grep "password" /var/log/mysqld.log
+```
+
+初始密码在第一次登录之后就会失效,所以登录后要重新设置密码
+
+```mysql
+-- 在登录MySQL之后执行
+set password for 'root'@'localhost'=password('password'); 
+```
+
+
+
 表名：
 字段：
 
@@ -39,6 +54,7 @@ set global validate_password_length=0;
 ```sql
 CREATE USER 'dog'@'localhost' IDENTIFIED BY '123456';
 CREATE USER 'pig'@'%' IDENTIFIED BY '123456';
+flush privileges;
 ```
 
 授权
@@ -50,6 +66,7 @@ GRANT SELECT, INSERT ON test.user TO 'pig'@'%';
 GRANT ALL ON *.* TO 'pig'@'%';
 --使被授权的用户同样可以将拥有的权限授权给其他用户--
 GRANT privileges ON databasename.tablename TO 'username'@'host' WITH GRANT OPTION;
+flush privileges;
 ```
 
 设置用户密码

@@ -1,10 +1,12 @@
-﻿# java集合
+# Java集合归纳
+
+在做一些算法题目的时候,java可能是一个比较好的选择,速度比Python快,还内置了很多数据结构,不用像c自己写一个list还好,要是写个什么HashTable或者tree之类的就比较耗时间了.所以为了好好刷题,总结了一下常用的javaCollection,并不是很完善和深入,但是可以在忘记的时候翻阅一下.
 
 集合框架主要包括两种类型的容器，一种是集合（Collection），存储一个元素集合，另一种是图（Map），存储键/值对映射。Collection接口又有 3 种子类型，List、Set 和 Queue，常用的有 具体实现类ArrayList、LinkedList、HashSet、LinkedHashSet、HashMap、LinkedHashMap等.
 
-List,Set,Queue实现了Collection接口
+- List,Set,Queue实现了Collection接口
 
-HashMap,TreeMap实现了Map接口
+- HashMap,TreeMap实现了Map接口
 
 ## List接口 java.util.List
 
@@ -12,13 +14,14 @@ HashMap,TreeMap实现了Map接口
 2. List接口常用的子类  
 
 - ArrayList 数组实现（插入删除慢）
-
 - LinkList 双向链表实现（查找慢）
 - Vector 线程安全
 
 ### 常用操作
+
 - [ ] 判断集合是否为空：boolean isEmpty();
 - [ ] 查找指定对象是否存在： int indexOf(Object o);
+
 ```java
 package cn.ynnu.corejava.collection;
 
@@ -39,19 +42,22 @@ public class LIstDemo01 {
 }
 
 ```
+
 #### 比较
-| 比较        | ArrayList     | Vector     |
-| ----------- |:-------------:| -----:     |
-| 推出时间    | JDK1.2        | JDK1.0     |
-| 性能        | 采用异步处理方式，高性能|       采用同步处理方式，低性能|
-| 线程安全    |属于非线程安全| 属于线程安全|
+
+| 比较     |        ArrayList         |                   Vector |
+| -------- | :----------------------: | -----------------------: |
+| 推出时间 |          JDK1.2          |                   JDK1.0 |
+| 性能     | 采用异步处理方式，高性能 | 采用同步处理方式，低性能 |
+| 线程安全 |      属于非线程安全      |             属于线程安全 |
 
 ## Set接口
+
 1. Set接口中不能加入重复的元素，但是可以排序
 2. Set接口中常用的子类
 
- - 散列存放：HashSet
- - 有序存放：TreeSet  
+- 散列存放：HashSet
+- 有序存放：TreeSet  
 
 ```java
 import java.util.Set;
@@ -74,10 +80,12 @@ public class CollectionTest {
 
 
 ## Iterator接口
+
 - 集合输出的标准操作
 - 操作原理： Iterator专门的迭代输出接口，迭代输出就是将元素一个个进行判断，判断其是否有内容，如果有内容则把内容取出
 - Collection接口扩展了Iterator接口，所以对于标准类库中的任何集合都可以使用for each循环;
-常用操作：isRmputy, indexOf()
+  常用操作：isRmputy, indexOf()
+
 ```java
 package cn.ynnu.corejava.collection;
 
@@ -109,6 +117,7 @@ public class ListDemo02 {
 }
 
 ```
+
 **注意**： List，Collection，Set都有一个remove方法，
 在进行迭代输出时一定不能使用集合自带的remove方法，要用迭代输出自带的remove进行操作;
 如果由多个迭代器同时对同一个集合进行操作，如果有一个使用了迭代器的remove方法，也会抛出异常;
@@ -134,7 +143,6 @@ public class ListDemo02 {
 map的遍历
 
 ```java
-
 import java.util.*;
  
 public class Test{
@@ -200,8 +208,12 @@ System.out.println("===");
 System.out.println("peek="+queue.peek()); //返回第一个元素 
 ```
 
-  * ArrayBlockingQueue ：一个由数组支持的有界队列。
-  * LinkedBlockingQueue ：一个由链接节点支持的可选有界队列。
-  * PriorityBlockingQueue ：一个由优先级堆支持的无界优先级队列。优先队列中元素被赋予优先级，拥有高优先级的先被删除
-  * DelayQueue ：一个由优先级堆支持的、基于时间的调度队列。
-  * SynchronousQueue ：一个利用 BlockingQueue 接口的简单聚集（rendezvous）机制。
+- ArrayBlockingQueue ：一个由数组支持的有界队列。
+- LinkedBlockingQueue ：一个由链接节点支持的可选有界队列。
+- PriorityBlockingQueue ：一个由优先级堆支持的无界优先级队列。优先队列中元素被赋予优先级，拥有高优先级的先被删除
+- DelayQueue ：一个由优先级堆支持的、基于时间的调度队列。
+- SynchronousQueue ：一个利用 BlockingQueue 接口的简单聚集（rendezvous）机制。
+
+
+
+水平有限,日后再来优化.

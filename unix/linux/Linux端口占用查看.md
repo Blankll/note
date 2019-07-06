@@ -9,5 +9,6 @@ lsof -i:8000
 netstat -tunlp |grep 端口号
 
 ```
-netstat -apn | grep 8080
+netstat -ntulp |grep 80
 ```
+
