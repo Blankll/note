@@ -131,12 +131,13 @@ redis-cli -h 10.10.79.150 -p 6384
 
 ## redis通用命令
 
-1. ``O(n)``keys  计算所有的键
+1. ``O(n)``keys *  计算所有的键
 2. ``O(1)``dbsize 计算key的总数
 3. ``O(1)``exists key 查看key是否存在(0|1)
 4. ``O(1)``del key 删除key(0|1)
 5. ``O(1)``expire key seconds 设置过期时间秒级
 6. ``O(1)``ttl key 查看key剩余的过期时间
+   
    - 返回-1时表示key存在，并且没有过期时间
    - 返回-2表示key已经不存在了
 7. ``O(1)``persist key 去掉key的过期时间
