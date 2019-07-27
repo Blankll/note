@@ -175,3 +175,6 @@ print_r, var_dump都是打印整个结构，但是print_r在null等就会输出�
 
 serialize，unserialize 序列化和反序列化
 
+
+
+当  HTTP POST 请求的 Content-Type 是 *application/x-www-form-urlencoded* 或 *multipart/form-data* 时，会将变量以关联数组形式传入当前脚本。

@@ -471,6 +471,16 @@ try{
    }
    
    ```
+   
+3. 绑定参数类型
+
+   ```php
+   $stm->bindParam(2, $pageinfo->size, PDO::PARAM_INT);
+   $stm->bindParam(3, $ofset_num, PDO::PARAM_INT);
+   $stm->execute();
+   ```
+
+   
 
 
 ## SQL注入
