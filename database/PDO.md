@@ -42,6 +42,9 @@ try{
   echo "错误行：".$e->getLine()."<br />";
   echo "错误码：".$e->getCode()."<br />";
 }
+$sql = "SELECT COUNT(*) AS `count` FROM ".self::$table;
+$data = self::$link->query($sql)->fetch(PDO::FETCH_ASSOC);
+$data['count'];
 ```
 
 建立pdo连接时

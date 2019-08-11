@@ -112,6 +112,7 @@ vue init webpack name
              id: this.id
         }
          })
+   ```
 ```
    
    
@@ -139,7 +140,7 @@ vue项目中只有static目录可以被外部访问
 
 zaiconfig/index.js中设置代理
 
-```javascript
+​```javascript
     proxyTable: {
       '/api': {
         target: 'http://localhost:8080',
@@ -193,10 +194,10 @@ var example2 = new Vue({
 ### vue-router路由传参
 
 ```javascript
+// defination
+path: '/book/info/:id'
 // 路由
-bookInfo (id) {
-  this.$router.push({ path: '/book/info/' + id })
-}
+this.$router.push({ path: '/book/info/' + id })
 // 接收路由参数
 data () {
    return {
@@ -208,10 +209,11 @@ data () {
 方法2
 
 ```javascript
-bookSelect (book) {
-      console.log(book)
-      this.$router.push({ path: '/bookinfo', query: { id: book.id }})
-    }
+// defination
+path: '/bookinfo'
+// 路由
+this.$router.push({ path: '/bookinfo', query: { id: book.id }})
+// 接收数据
 data () {
     return {
       id: this.$route.query.id
