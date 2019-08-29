@@ -36,9 +36,114 @@ docker Registry
 
 控制互联网和程序访问
 
-## 容器创建于操作
+## docker 守护进程
+
+status docker 查看docker守护进程
+
+sudo service docker start、restart 
+
+docer启动配种文件  /etc/default/docker
+
+ps -ef | grep docker
+
+## image
+
+1. docker rmi 删除镜像 一个一个的删除标签，删除完标签后，images也会被删除
+2. docker rmi 删除镜像 一个一个的删除标签，删除完标签后，images也会被删除
+3. docker rmi id 就会删除镜像，同时删除镜像对应的所有标签
+4. dicker inspect 查看镜像的详细信息
+5. docker tage 原来的镜像名 新镜像名 docker镜像重命名
+6. docker rmi name 删除镜像
+
+## 导入导出镜像
+
+-a autthor
+
+-m message
+
+-p 不暂停运行的容器提交容器镜像
+
+docker commit -a author -m smd name repository/images
+
+docker build     --用docker file来构建镜像
+
+## container => image
+
+docker commit -m  ""   -a  ""   容器ID（可以简写）或容器名称 镜像名称:版本 　将现有容器打包成镜像
+
+> -a 作者
+>
+> -m　提示信息
+
+```shell
+ docker run -it -d -p 80:80 -p 3306:3306 -p 6379:6379 -p 8000:8000 -p 8888:8888 -v /home/seven/dev/blog:/var/www/html --privileged --name blog2 ubuntu /bin/bash
+```
+
+```bash
+docker run -it -d -p 80:80 -p 3306:3306 -p 6379:6379 -p 8811:8811 -v /home/seven/dev/blog2:/var/www/html --privileged --name blog seven/blog /bin/bash
+```
+
+```bash
+seven@Blank:~$ docker run --name yunjie-mysql -v /home/seven/dev/YunJie3.7.1_for_linux/mysqldocker:/etc/mysql/conf.d --privileged -p 33060:3306 -e MYSQL_ROOT_PASSWORD=0707 -d mysql:5.7
+```
+
+```bash
+docker run -it -d -p 8000:80 -p 33060:3306 -v /home/ubuntu/dev/translation/translate-backend/translate:/var/www/html --privileged --name translate-backend translate:v1 /bin/bash
+```
+
+### container => image
+
+```bash
+docker commit -a 'seven' -m 'translate container' ecca74dd9a76 translate:v1
+```
+
+image => tar
+
+```bash
+docker save image_name > name.tar # 导出镜像,在当前文件夹
+docker save translate:v1 > dockertaes.tar
+docker save -o target_dir/name.tar image_name:tag # 导出镜像到指定文件夹
+docker save -o /home/seven/dockerimages/mytest.tar translate:v1 
+
+docker export -o name.tar container_id
+docker export -o /home/seven/dockerimages/port.tar ecca74dd9a76
+```
+
+导入镜像
+
+```bash
+docker import image.tar
+docker import可以重新指定镜像的名字，docker load不可以
+docker save image > /home/image.tar.gz 导出镜像
+
+docker load < /home/image.tar.gz 导入镜像
+
+docker rmi images 删除镜像
+```
+
+
+
+## 获取和推送镜像
+
+docker search 查找镜像 或去docker  hub
+
+推送镜像： docker push repository/imagename
+
+
+
+## container
 
 docker run -it -p 8000:80  -d image --name name  /bin/bash P(大写) 随机映射宿主机端口和容器端口
+
+>  -d：启动守护式容器
+>
+> 守护式进程启动，--name为容器命名
+>
+>  -p -P 容器的端口映射
+>
+> -p: 指定映射端口 -p host:container
+>
+> -P 
 
 docker run -it --name name -d -p 宿主机端口:容器端口 p(小写) 将指定的宿主机端口映射到容器端口上
 
@@ -70,54 +175,19 @@ docker volume create --name name 创建docker卷
 
 docker volume rm name 删除数据卷
 
+docker top  name 查看运行中容器的情况
 
+docker port web 查看web容器的端口映射
 
-container => image
+docker inspect web 查看容器的ip地址 
 
-docker commit -m  ""   -a  ""   容器ID（可以简写）  镜像名称 　将现有容器打包成镜像
+docker exec  在启动的容器中运行新的进程
 
-> -a 作者
->
-> -m　提示信息
-
-```shell
- docker run -it -d -p 80:80 -p 3306:3306 -p 6379:6379 -p 8000:8000 -p 8888:8888 -v /home/seven/dev/blog:/var/www/html --privileged --name blog2 ubuntu /bin/bash
-```
-
-```bash
-docker run -it -d -p 80:80 -p 3306:3306 -p 6379:6379 -p 8811:8811 -v /home/seven/dev/blog2:/var/www/html --privileged --name blog seven/blog /bin/bash
-```
-
-```bash
-seven@Blank:~$ docker run --name yunjie-mysql -v /home/seven/dev/YunJie3.7.1_for_linux/mysqldocker:/etc/mysql/conf.d --privileged -p 33060:3306 -e MYSQL_ROOT_PASSWORD=0707 -d mysql:5.7
-```
-
-```bash
-docker run -it -d -p 8000:80 -p 33060:3306 -v /home/ubuntu/dev/translation/translate-backend/translate:/var/www/html --privileged --name translate-backend translate:v1 /bin/bash
-```
+docker stop docker kill 停止守护式进程容器
 
 
 
-## 导入导出镜像
 
-container => image
-
-```bash
-docker commit -a 'seven' -m 'translate container' ecca74dd9a76 translate:v1
-```
-
-image => tar
-
-```bash
-docker save image_name > name.tar # 导出镜像,在当前文件夹
-docker save translate:v1 > dockertaes.tar
-docker save -o target_dir/name.tar image_name:tag # 导出镜像到指定文件夹
-docker save -o /home/seven/dockerimages/mytest.tar translate:v1 
-
-
-docker export -o name.tar container_id
-docker export -o /home/seven/dockerimages/port.tar ecca74dd9a76
-```
 
 ## dockerfile
 

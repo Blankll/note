@@ -99,3 +99,8 @@ default-character-set = utf8
 connect-timeout = 3
 [mysqld_safe]
 open-files-limit  = 8192#可打开文件数量
+
+
+
+- sync_binlog 控制MySQL如何向磁盘刷新binlog 默认为0,有操作系统缓存策略进行同步
+- max_connections 100 控制允许的最大连接数量
