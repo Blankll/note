@@ -1,6 +1,6 @@
 # mybates
 
-## springboot 集成mybates
+## springboot 集成mybatis
 
 ### 导入依赖
 

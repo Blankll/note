@@ -1,6 +1,4 @@
-# concurrency design partten
-
-## singleton
+# singleton concurrency design partten
 
 1. hungry man mode
 

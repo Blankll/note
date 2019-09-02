@@ -150,5 +150,3 @@ data 将数据传入模板中
    	url:'/pages/cart/cart',
    });
    ```
-
-   ​
