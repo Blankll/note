@@ -2,8 +2,16 @@
 
 这是我在自学的过程中记录的一些内容,方便复习和加深记忆
 1. datastructure&algorithms
-1. database
-   1. [MySQL on hand](database/MySQL.md)
+    1. [zero](algorithms&datastructure/zero.md)
+    2. [List](algorithms&datastructure/List.md)
+    3. [queue](algorithms&datastructure/queue.md)
+    4. [stack](algorithms&datastructure/stack.md)
+    5. [HashTable](algorithms&datastructure/HashTable.md)
+    6. [find](algorithms&datastructure/find.md)
+    7. [sort](algorithms&datastructure/sort.md)
+    8. [Recursion](algorithms&datastructure/Recursion.md)
+2. database
+   1. [zero](database/zero.md)
    2. [MySQL ENGINE](database/ENGINE.md)
    3. [MySQL INDEX](database/index.md)
    4. [MySQL HA](database/MySQL-HA.md)
@@ -13,8 +21,11 @@
    8. [Redis](database/redis.md)
    9. [Redis internal](database/redis-internal.md)
    10. [评论和点赞的数据库设计](database/评论和点赞数据库设计.md)
-2. datastructure
 3. designpattern
+    1. [singleton](design-pattern/singleton.md)
+    2. [context](design-pattern/context.md)
+    3. [observer](design-pattern/observer.md)
+    4. [IOC](design-pattern/IOC.md)
 4. docker
    1. [dokcer](docker/docker.md)
    2. [theory](docker/docker2.md)
@@ -93,6 +104,7 @@
         1. [env](java.dubbo/env.md)
         1. [deploement](java.dubbo/deploement.md)
 9. os
+    1. [first](os/first.md)
 10. php
     1. language
         1. [install](PHP/PHP-install-source.md.md)
@@ -129,7 +141,7 @@
         1. [installation](PHP/swoole/swoole-install.md)
         2. [swoole](PHP/swoole/swoole.md)
         3. [swoole coroutine](PHP/swoole/coroutine.md)
-        4. [swoole process memory](php/swoole/swoole-process-memory.md)
+        4. [swoole process memory](PHP/swoole/swoole-process-memory.md)
         5. [swoole NIO](PHP/swoole/swooleNIO.md)
         6. [swoole async TCP](PHP/swoole/swoole-acync-TCP.md)
     5. Yaf
