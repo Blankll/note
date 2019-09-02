@@ -130,9 +130,3 @@ swoole_async_dns_lookup('www.baidu.com', function($host, $ip) {
   ```
 
   创建的进程生命周期结束后，表和内容也会被销毁
-
-
-
-## 协程coroutine
-
-同步的代码实现异步的效果，协程必须在onRequest, 等事件的回调方法中
