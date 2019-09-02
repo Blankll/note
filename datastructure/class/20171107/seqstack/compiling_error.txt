@@ -1,7 +1,0 @@
-/tmp/cc0TKkot.o: In function `main':
-main.c:(.text+0x2a): undefined reference to `display_option'
-main.c:(.text+0x89): undefined reference to `InitStack'
-main.c:(.text+0x9a): undefined reference to `option_two'
-main.c:(.text+0xab): undefined reference to `option_three'
-main.c:(.text+0xbc): undefined reference to `option_four'
-collect2: error: ld returned 1 exit status
