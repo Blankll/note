@@ -56,6 +56,12 @@ https://segmentfault.com/a/1190000003084917
 
 启动redis ``redis-server``
 
+```bash
+/etc/init.d/redis-server stop
+/etc/init.d/redis-server start
+/etc/init.d/redis-server restart
+```
+
 
 
 
@@ -76,14 +82,15 @@ https://segmentfault.com/a/1190000003084917
   - redis将所有数据保存在内存中，对数据的更新将异步的保存到磁盘上
   - rdb， aof
 - 多种数据结构
-  - 字符串类型
-  - 哈希类型
-  - 列表类型
-  - 集合类型
-  - 有序集合类型
+  - ``string``字符串类型
+  - ``hash``哈希类型
+  - ``list``列表类型
+  - ``set``集合类型
+  - ``zset``有序集合类型
   - BitMap
   - HyperLogLog 超小内存唯一值计数
   - GEO 地理信息定位
+  - stream(redis5)
 - 支持多种语言
 - 功能丰富
 - 简单
@@ -137,7 +144,7 @@ redis-cli -h 10.10.79.150 -p 6384
 4. ``O(1)``del key 删除key(0|1)
 5. ``O(1)``expire key seconds 设置过期时间秒级
 6. ``O(1)``ttl key 查看key剩余的过期时间
-   
+  
    - 返回-1时表示key存在，并且没有过期时间
    - 返回-2表示key已经不存在了
 7. ``O(1)``persist key 去掉key的过期时间
@@ -543,7 +550,21 @@ pipeline只能作用在一个Redis节点上
 
 - ``zrem key member`` 删除
 
+### Stream
 
+- xadd key ID field string 创建一个stream
+- ``xlen`` 返回记录数量
+- ``xdel`` 删除一个id
+- ``xrange key start end`` start起始id end 结束id
+- xread [COUNT count] [BLOCK milliseconds] STREAMS key [key] [id]
+- xgroup create key group_name id
+- xreadgroup group group_name consumer STREAMS key id[>]
+
+```bash
+xadd one * name string
+xlen key
+xdel key id
+```
 
 
 
