@@ -62,13 +62,13 @@
    }
    ```
 
-3. singleton with a efficiency, elegant and thread safety solution
+3. singleton with an efficiency, elegant and thread safety solution
 
    ```java
    package study.seven.concurrency.desginpartten;
    
    /**
-    * singleton with a efficiency elegant and thread safety solution
+    * singleton with an efficiency elegant and thread safety solution
     * @Auther: Blank
     * @Description: study.seven.concurrency.desginpartten
     * @Date: 1/13/19

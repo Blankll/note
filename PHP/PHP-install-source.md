@@ -11,6 +11,7 @@
    > ./configure --enable-mbstring --with-openssl
    >
    > 他会自己区找openssl的配置
+   > --enable-debug关闭系统编译优化
 
 5. apt-get install libxml2-dev
 

@@ -68,7 +68,7 @@ class dog{
         trait1::eat insteadof trait2; 
         trait1::drive insteadof trait2; 
         trait2::eat as eaten; 
-        trait2::drive as driven; 
+        trait2::drive as driven;
     } 
 } 
 $cat = new cat(); 
