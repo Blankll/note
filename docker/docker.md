@@ -91,6 +91,12 @@ seven@Blank:~$ docker run --name yunjie-mysql -v /home/seven/dev/YunJie3.7.1_for
 docker run -it -d -p 8000:80 -p 33060:3306 -v /home/ubuntu/dev/translation/translate-backend/translate:/var/www/html --privileged --name translate-backend translate:v1 /bin/bash
 ```
 
+```bash
+docker run -d -it -p 8000:80 -p 33060:3306 -p 63790:6379 -p 8811:8811 -v /home/blank/code/translation/translate-backend:/var/www/html --privileged --name translate-dev translate:v2
+```
+
+
+
 ### container => image
 
 ```bash

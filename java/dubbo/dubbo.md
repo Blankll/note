@@ -180,3 +180,52 @@ dubbo支持多种协议RMI,Hessian,HTTP,Redis,Memcached等
 | 传输方式 | NIO异步传输                                                | 同步传输                                         | 同步传输                                              |
 | 适用场景 | 1. 数据包较小(单数据包在100k左右) 2. 消费者个数多3常规方式 | 1.数据包大小不一致,2. 消费者和服务提供者相差不大 | 1. 数据包大小不一致 2. 消费者和服务提供者数量相差不大 |
 
+
+
+## 业务限流
+
+- 漏桶法
+- 令牌 桶
+
+## dubbo 分布式事务
+
+- 两段式事务
+
+- 三段式事务
+
+- 基于XA的分布式事务
+
+- 基于消息的最终一致性方案
+
+- TCC编程式补偿事务(try-confirm-cancel)
+
+基于消息事务是强一致性事务,会存在资源浪费
+
+TCC事务是柔性事务,在try的阶段对资源做预留
+
+TCC事务在确认或取消阶段释放资源
+
+与基于消息的事务相比,TCC的时效性更好
+
+GTS,DTX,TCC-Transaction
+
+
+
+1. 需要在提供分布式事务支持的接口上添加@Compensable
+2. 在对应的接口实现上添加@Compensable(confirmMethod="", cancelMethod="", transactionContextEditor= DubboTransactionContextEditor.class)
+3. 实现对应的confirmMethod,cancelMethod, 这两个方法必须与接口实现方法在同一个类中
+4. 主事务业务实现差不多时才调用子事务
+
+
+
+- 分布式事务中,不要轻易在业务层捕获所有异常
+
+### 幂等性
+
+f(f(x)) = f(x), 使用相同参数对同一资源重复调用某个接口的结果与调用一次的结果相同
+
+### TCC-Transaction
+
+事务拦截器,事务管理器,事务处理JOB,事务存储器
+
+事务的相关信息:全局事务编号,乐观锁版本等要进行持久化存储

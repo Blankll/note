@@ -163,7 +163,7 @@ create table 数据表名称（
 
 ```  mysql
       create table stu(
-     	id int(6) auto_increment primary key,
+     	id int(6) UNSIGNED auto_increment primary key,
      	--primary key 主键：确定记录唯一性的字段
      	stuNumber varchar(6),
      	stuName varchar(20),
