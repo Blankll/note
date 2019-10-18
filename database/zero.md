@@ -136,7 +136,8 @@ source ~/translate/sql.sql;
 2. 创建数据库：create database 数据库名称;
 
 ```mysql
-		create database demo;
+CREATE DATABASE demo;
+CREATE DATABASE `csdn` DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_general_ci;
 ```
 3. 删除数据库：drop database 数据库名称;
 
@@ -291,6 +292,8 @@ CREATE TABLE `translations` (
     `word_id` INT(11) UNSIGNED NOT NULL COMMENT '所属单词的id',
     `trans` VARCHAR(100) NOT NULL COMMENT '翻译',
     `property_id` TINYINT(4) UNSIGNED DEFAULT NULL COMMENT '词性',
+    `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     CONSTRAINT property_key FOREIGN KEY(`property_id`) REFERENCES properties(`id`),
     CONSTRAINT word_train_key FOREIGN KEY(`word_id`) REFERENCES words(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
