@@ -120,10 +120,10 @@ mysql -h ip -u username -p password db1 <tb1tb2.sql
 mysql> use translate
 source ~/translate/sql.sql;
 ```
+### mysql 修改存储目录 
 
 
-
-##三，数据表和数据类型；
+## 三，数据表和数据类型；
 
 ###1. 实用命令：
 
