@@ -46,6 +46,7 @@ set password for 'root'@'localhost'=password('password');
 打印当前日期： select curtdate();
 打印当前时间： select curttime();
 查看当前用户： select user();
+查看所有用户: select user,host from mysql.user;
 常看MySQL版本： select version();
 
 ```
