@@ -110,3 +110,16 @@ Object.prototype.__proto__ = null
 - 所有函数对象的``__proto__``都指向``Function.prototype``，它是一个空函数(Empty function)
 - 所有对象的``__proto__``都指向其构造器的``prototype``
 
+## js array 
+一维数组赋值正常
+```javascript
+let ss = new Array(7)
+ss[0] = 0;
+ss[2] = 2;
+```
+二维数组通过直接赋值，除[1][1], [1][0]两个下标赋值正常外，如果对其他下标赋值，那么除了[1][1], [1][0] 两个值不变，其他的列都会变成对赋值的值
+```javascript
+pp[0][1] = 8
+console.log('i + j')
+console.log(pp) // 除去下标魏1的行值不变，其他所有行的下标为1的列都变成了8
+```
