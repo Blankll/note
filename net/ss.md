@@ -8,3 +8,11 @@ ssserver -c /etc/shadowsocks.json -d start
 ssserver -c /etc/shadowsocks.json -d stop
 ```
 
+
+
+adduser blank
+
+
+
+usermod -aG sudo blank
+
