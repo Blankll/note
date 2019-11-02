@@ -202,7 +202,7 @@ class MySpider(CrawlSpider):
     name = 'example.com'
     allowed_domains = ['example.com']
     start_urls = ['http://www.example.com']
-
+	# 存放多个rule的实例,指向link的分析
     rules = (
         # Extract links matching 'category.php' (but not matching 'subsection.php')
         # and follow links from them (since no callback means follow=True by default).
@@ -213,6 +213,7 @@ class MySpider(CrawlSpider):
     )
 
     def parse_item(self, response):
+        # 解析内容
         self.logger.info('Hi, this is an item page! %s', response.url)
         item = scrapy.Item()
         item['id'] = response.xpath('//td[@id="item_id"]/text()').re(r'ID: (\d+)')
