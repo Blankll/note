@@ -22,13 +22,13 @@ z-index 设置元素的堆叠顺序
 
 position属性
 
-static 偏移量和z-index都无效
+- static 偏移量和z-index都无效
 
-relative 正常在页面流上布局，相对于父元素布局
+- relative 正常在页面流上布局，相对于父元素布局
 
-absolute 不占据页面流的位置，再页面流上固定，随着页面流移动
+- absolute 不占据页面流的位置，再页面流上固定，随着页面流移动
 
-fixed 再页面的位置上固定，不随页面流的移动而移动
+- fixed 再页面的位置上固定，不随页面流的移动而移动
 
 
 
