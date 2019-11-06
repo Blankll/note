@@ -160,7 +160,28 @@ IMAGES_STORE = os.path.join(project_dir, 'images')
 
 ### 配置ip代理
 
+- 爬取西刺IP数据,保存到数据库中
 
+- 写一个middleware修改代理 
+
+  ```python
+  class RandomProxyMiddleware(object):
+      # 动态ip代理设置
+      def process_request(self, request, spider):
+          request.meta['proxy'] = proxy.get_random_ip()
+  ```
+
+
+
+## 数据收集
+
+统计status_code数据的次数
+
+
+
+scrapy-crawlera 付费的代理插件
+
+tor 洋葱浏览器 经过洋葱浏览器多层代理 比较安全
 
 ## 爬虫url去重
 
@@ -207,7 +228,7 @@ class MySpider(CrawlSpider):
     name = 'example.com'
     allowed_domains = ['example.com']
     start_urls = ['http://www.example.com']
-
+	# 存放多个rule的实例,指向link的分析
     rules = (
         # Extract links matching 'category.php' (but not matching 'subsection.php')
         # and follow links from them (since no callback means follow=True by default).
@@ -218,6 +239,7 @@ class MySpider(CrawlSpider):
     )
 
     def parse_item(self, response):
+        # 解析内容
         self.logger.info('Hi, this is an item page! %s', response.url)
         item = scrapy.Item()
         item['id'] = response.xpath('//td[@id="item_id"]/text()').re(r'ID: (\d+)')
@@ -226,3 +248,40 @@ class MySpider(CrawlSpider):
         item['link_text'] = response.meta['link_text']
         return item
 ```
+
+
+
+## scrapy redis使用
+
+- 下载 https://github.com/rmax/scrapy-redis 源码
+- 拷贝src下的源码到项目目录
+
+
+
+## 反爬虫策略
+
+- cookie禁用
+
+  配置settings.py文件中的``COOKIES_ENABLED = False``
+
+- 自动限速
+
+  ```python
+  AUTOTHROTTLE_ENABLED = True
+  # The initial download delay
+  AUTOTHROTTLE_START_DELAY = 5
+  # The maximum download delay to be set in case of high latencies
+  AUTOTHROTTLE_MAX_DELAY = 120
+  DOWNLOAD_DELAY = 10
+  ```
+
+### 自定义配置
+
+在需要进行自定义配置的spider类中添加:
+
+```python
+custom_settings = {
+	'COOKIES_ENABLED': Tue # 自定义配置内容
+}
+```
+
