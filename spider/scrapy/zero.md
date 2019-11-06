@@ -193,6 +193,11 @@ IMAGES_STORE = os.path.join(project_dir, 'images')
 
 爬取网站最常用的一个模板,将spider进行了进一步的封装
 
+```bash
+# 创建crawl spider模板
+scrapy genspider -t crawl lagou www.lagou.com
+```
+
 ```python
 import scrapy
 from scrapy.spiders import CrawlSpider, Rule
