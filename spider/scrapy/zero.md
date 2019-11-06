@@ -1,4 +1,4 @@
-# scrapy
+# escrapy
 
 ## installation
 
@@ -280,3 +280,103 @@ custom_settings = {
 }
 ```
 
+
+
+## scrapy 与selenium
+
+1. 安装selenium
+
+   ```bash
+   pip install selenium
+   ```
+
+2. 安装对应浏览器的driver [download](https://seleniumhq.github.io/selenium/docs/api/javascript/), 直接安装运行即可
+
+3. 编写代码
+
+   ```python
+   # simple example
+   from selenium import webdriver
+   
+   browser = webdriver.Chrome()
+   browser.get('https://www.lagou.com/jobs/6451642.html?show=ef1d7810e9e0498db128f17a11c896f4')
+   print(browser.page_source)
+   
+   # simple example of ops
+   browser.find_element_by_css_selector(".view-signin input[name='account']").sendkyes('user_name')
+   # asgin value
+   browser.find_element_by_css_selector(".view-signin input[name='account']").send_kyes('password')
+   # click
+   browser.find_element_by_css_selector('.login-btn').click()
+   # scroll to bottom
+   browser.execute_script("window.scrollTo(0, document.body.scrollHeight); var leng = document.body.scrollHeight; return leng;")
+   
+   # not loading images
+   chrome_settings = webdriver.ChromeOptions()
+   prefs = {"profile.managed_default_content_settings.images": 2}
+   chrome_settings.add_experimental_option("prefs", prefs)
+   browser = webdriver.Chrome(chrome_options=chrome_settings)
+   browser.get('https://www.lagou.com/jobs/6451642.html?show=ef1d7810e9e0498db128f17a11c896f4')
+   
+   ```
+
+4. 使用scrapy的selector
+
+   ```python
+   selector = Selector(text=browser.page_source)
+   
+   print(selector.css(".job_request .salary::text").extract())
+   ```
+
+5. selenium集成到scrapy中
+
+   在spider下面添加selenium浏览器
+
+   ```python
+    # selenium 启动
+       def __init__(self):
+           self.browser = webdriver.Chrome()
+           super(LagouSpider, self).__init__()
+           # signal
+           # dispatcher.connect(self.spider_closed(), signals.spider_closed)
+   
+       # spider 退出时关闭chrome
+       def spider_closed(self, spider):
+           print('spider closed')
+           self.browser.quit()
+   
+       @classmethod
+       def from_crawler(cls, crawler, *args, **kwargs):
+           # signal
+           spider = super(LagouSpider, cls).from_crawler(crawler, *args, **kwargs)
+           crawler.signals.connect(cls.spider_closed, signals.spider_closed)
+           return spider
+   ```
+
+   添加一个使用selenium请求的middleware
+
+   ```python
+   class SeleniumMiddleware(object):
+   
+       def process_request(self, request, spider):
+           spider.browser.get(request.url)
+           import time
+           time.sleep(3)
+           print('selenium request: ', request.url)
+           # 请求完成,无需执行下载器
+   
+           return HtmlResponse(url=spider.browser.current_url, body=spider.browser.page_source, encoding='utf-8', request=request)
+   
+   ```
+
+6. 在scrapy中使用selenium进行无界面请求(只有在Linux中可正常运行)
+
+   - 安装pyvirtualdisplay
+
+     ```bash
+     pip install pyvirtualdisplay
+     sudo apt-get install xvfb
+     pip install xvfbwrapper
+     ```
+
+     
