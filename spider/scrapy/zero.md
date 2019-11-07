@@ -214,6 +214,11 @@ tor 洋葱浏览器 经过洋葱浏览器多层代理 比较安全
 
 爬取网站最常用的一个模板,将spider进行了进一步的封装
 
+```bash
+# 创建crawl spider模板
+scrapy genspider -t crawl lagou www.lagou.com
+```
+
 ```python
 import scrapy
 from scrapy.spiders import CrawlSpider, Rule
