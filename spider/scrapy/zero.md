@@ -380,3 +380,14 @@ custom_settings = {
      ```
 
      
+
+```bash
+<div class="work_addr">
+                                                <a rel="nofollow" href="https://www.lagou.com/jobs/list_?city=%E5%8C%97%E4%BA%AC#filterBox">北京</a> -
+                    <a rel="nofollow" href="https://www.lagou.com/jobs/list_?city=%E5%8C%97%E4%BA%AC&amp;district=%E4%B8%B0%E5%8F%B0%E5%8C%BA#filterBox">丰台区</a> -
+                    <a rel="nofollow" href="https://www.lagou.com/jobs/list_?city=%E5%8C%97%E4%BA%AC&amp;district=%E4%B8%B0%E5%8F%B0%E5%8C%BA&amp;bizArea=%E4%B8%B0%E5%8F%B0%E4%BD%93%E8%82%B2%E9%A6%86#filterBox">丰台体育馆</a>
+                                            - 南四环西路188号十八区25号楼人才大厦504室
+                                                            <a rel="nofollow" href="javascript:;" id="mapPreview">查看地图</a>
+        </div>
+```
+

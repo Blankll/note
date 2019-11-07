@@ -156,35 +156,33 @@ CREATE DATABASE `csdn` DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_general_ci;
 ```mysql
          use demo;
 ```
-###2. 数据表：
+###2. 数据表
 
-create table 数据表名称（
-
-	列定义
-​	列名称 类型 [默认值][auto_increment(自增长)] [主索引 primary key]
-​	列名称 类型 [默认值]
-​	列名称 类型 [默认值]
-​	列名称 类型 [默认值]
-​	索引定义；
-
-）
+表创建
 
 ```  mysql
-      create table stu(
-     	id int(6) UNSIGNED auto_increment primary key,
-     	--primary key 主键：确定记录唯一性的字段
-     	stuNumber varchar(6),
-     	stuName varchar(20),
-     	stuAge tinyint(6),
-     	stuSex enum("1","2"),
-     	stuTel varchar(20)
-      );
+-- ---------------------------------------------
+-- 翻译表　与单词表一对多 上面要有一个空格
+-- UNSIGNED要放到INT等类型的后面
+-- PRIMARY KEY　要放到AUTO_INCREMENT后面，不放好像也不报错，但有些时候又出错
+-- ---------------------------------------------
+CREATE TABLE `translations` (
+    `id` INT(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '翻译id',
+    `word_id` INT(11) UNSIGNED NOT NULL COMMENT '所属单词的id',
+    `trans` VARCHAR(100) NOT NULL COMMENT '翻译',
+    `property_id` TINYINT(4) UNSIGNED DEFAULT NULL COMMENT '词性',
+    `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    CONSTRAINT property_key FOREIGN KEY(`property_id`) REFERENCES properties(`id`),
+    CONSTRAINT word_train_key FOREIGN KEY(`word_id`) REFERENCES words(`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
 
-      create table sign(
-      s_id int not null auto_increment primary key,
-      s_username varchar(50) not null default '',
-      s_password char(32) not null default ''
-    );
+表删除
+
+```mysql
+DROP TABLE  tbl_name;
+DROP TABLE IF EXISTS tbl_name;
 ```
 
 
@@ -286,27 +284,7 @@ InnoDB支持５种方式： CASCAD ，NO ACTION ，Restrict  ，SET NULL
 
 同　NO ACTION,当取值为No Action或者Restrict时在父表中删除对应记录，首先检测子表是否有对应的关联，如果有则阻止删除。
 
-## notice
-
-```sql
--- ---------------------------------------------
--- 翻译表　与单词表一对多 上面要有一个空格
--- UNSIGNED要放到INT等类型的后面
--- PRIMARY KEY　要放到AUTO_INCREMENT后面，不放好像也不报错，但有些时候又出错
--- ---------------------------------------------
-CREATE TABLE `translations` (
-    `id` INT(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '翻译id',
-    `word_id` INT(11) UNSIGNED NOT NULL COMMENT '所属单词的id',
-    `trans` VARCHAR(100) NOT NULL COMMENT '翻译',
-    `property_id` TINYINT(4) UNSIGNED DEFAULT NULL COMMENT '词性',
-    `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    CONSTRAINT property_key FOREIGN KEY(`property_id`) REFERENCES properties(`id`),
-    CONSTRAINT word_train_key FOREIGN KEY(`word_id`) REFERENCES words(`id`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-```
-
-
+<font  color=red>代码在创建表上面有</font>
 
 ###3. 数据类型：
 
@@ -379,30 +357,6 @@ gbk每个汉字占用2个字节
    非空CHAR的最大总长度是255【字节】；非空VARCHAR的最大总长度是65533【字节】。
 
     可空CHAR的最大总长度是254【字节】；可空VARCHAR的最大总长度是65532【字节】。
-
-### 4. 创建表
-
- 学生信息表 stu
-  id 排列序号
-  学号
-  姓名
-  年龄
-  性别
-  手机
-
-```mysql
-create table stu(
-	id int(6) auto_increment primary key,
-	<--primary key 主键：确定记录唯一性的字段-->
-	stuNumber varchar(6),
-	stuName varchar(20),
-	stuAge tinyint(6),
-	stuSex enum("1","2"),
-	stuTel varchar(20)
- )
-```
-
-
 
 查看数据库中的表:
 
