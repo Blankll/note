@@ -60,6 +60,7 @@ https://segmentfault.com/a/1190000003084917
 /etc/init.d/redis-server stop
 /etc/init.d/redis-server start
 /etc/init.d/redis-server restart
+redis-cli -p 端口号 shutdown
 ```
 
 
@@ -1161,5 +1162,14 @@ redis单机性能可以达到10万/每秒
 解决redis connection refused: connect遇到的坑
 
 - redis.conf配置文件中 注释 bind 127.0.0.1
-
 - ecs上开放访问的端口
+
+DENIED Redis is running in protected mode
+
+- 设置关闭protected模式
+
+  ```bash
+  protected-mode no
+  ```
+
+  

@@ -16,3 +16,12 @@ adduser blank
 
 usermod -aG sudo blank
 
+
+
+
+
+```bash
+
+v2ray --config=/etc/v2ray/config.json
+```
+
