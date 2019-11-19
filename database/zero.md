@@ -105,6 +105,12 @@ mariadb默认关闭远程连接，需要更改配置文件
 bind-address = 0.0.0.0
 ```
 
+## 登录
+
+在mariadb10.0中,root的默认登录方式变为auth_socket, 登录命令为``mysql -S /var/run/mysqld/mysqld.sock``,可以免除密码输入
+
+
+
 ## MySQL备份与还原
 
 ### mysqldump备份数据
