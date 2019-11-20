@@ -66,7 +66,7 @@ docker 中pxc无法映射目录文件，必须使用 docker卷
 
 ## 数据库负载均衡[Paproxy]
 
-1. 安装paproxy镜像
+1. 安装haproxy镜像
 
    ```shell
    docker pull haproxy
@@ -335,3 +335,204 @@ XtraBackup 不需要锁表 免费的备份方案 percona 全量备份，增量�
    # 还原数据
    innobackupex --user=root --password=password --copy-back /data/bacup/full/备份了的文件
    ```
+
+
+
+## 使用docker-compose
+
+使用docker-compose可以简化命令行输入,节约部署时间和错误率,一下是部署以上无备份策略的pxc集群案例:
+
+```yml
+version: "3"
+services:
+
+  mysql-cluster-pxc-node1:
+    image: percona/percona-xtradb-cluster
+    container_name: mysql-cluster-pxc-node1
+    ports:
+      - 33061:3306
+    volumes:
+      - ./mysql-cluster-pxc-data1:/var/lib/mysql:rw
+    networks:
+      mysql-cluster-pxc:
+        ipv4_address: 172.19.0.2
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql-cluster-pxc&&0707
+      CLUSTER_NAME: mysql-cluster-pxc
+      XTRABACKUP_PASSWORD: xtrapassword&&0707
+      MYSQL_USER: mysql-cluster-pxc
+      MYSQL_PASSWORD: mysql-cluster-pxc&0707
+
+  mysql-cluster-pxc-node2:
+    depends_on:
+      - "mysql-cluster-pxc-node1"
+    image: percona/percona-xtradb-cluster
+    container_name: mysql-cluster-pxc-node2
+    ports:
+      - 33062:3306
+    volumes:
+      - ./mysql-cluster-pxc-data2:/var/lib/mysql:rw
+    networks:
+      mysql-cluster-pxc:
+        ipv4_address: 172.19.0.3
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql-cluster-pxc&&0707
+      CLUSTER_NAME: mysql-cluster-pxc
+      XTRABACKUP_PASSWORD: xtrapassword&&0707
+      MYSQL_USER: mysql-cluster-pxc
+      MYSQL_PASSWORD: mysql-cluster-pxc&0707
+      CLUSTER_JJOIN: mysql-cluster-pxc-node1
+
+  mysql-cluster-pxc-node3:
+    depends_on:
+      - mysql-cluster-pxc-node1
+    image: percona/percona-xtradb-cluster
+    container_name: mysql-cluster-pxc-node3
+    ports:
+      - 33063:3306
+    volumes:
+      - ./mysql-cluster-pxc-data3:/var/lib/mysql:rw
+    networks:
+      mysql-cluster-pxc:
+        ipv4_address: 172.19.0.4
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql-cluster-pxc&&0707
+      CLUSTER_NAME: mysql-cluster-pxc
+      XTRABACKUP_PASSWORD: xtrapassword&&0707
+      MYSQL_USER: mysql-cluster-pxc
+      MYSQL_PASSWORD: mysql-cluster-pxc&0707
+      CLUSTER_JJOIN: mysql-cluster-pxc-node1
+
+  mysql-cluster-pxc-node4:
+    depends_on:
+      - mysql-cluster-pxc-node1
+    image: percona/percona-xtradb-cluster
+    container_name: mysql-cluster-pxc-node4
+    ports:
+      - 33064:3306
+    volumes:
+      - ./mysql-cluster-pxc-data4:/var/lib/mysql:rw
+    networks:
+      mysql-cluster-pxc:
+        ipv4_address: 172.19.0.5
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql-cluster-pxc&&0707
+      CLUSTER_NAME: mysql-cluster-pxc
+      XTRABACKUP_PASSWORD: xtrapassword&&0707
+      MYSQL_USER: mysql-cluster-pxc
+      MYSQL_PASSWORD: mysql-cluster-pxc&0707
+      CLUSTER_JJOIN: mysql-cluster-pxc-node1
+
+  mysql-cluster-pxc-node5:
+    depends_on:
+      - mysql-cluster-pxc-node1
+    image: percona/percona-xtradb-cluster
+    container_name: mysql-cluster-pxc-node5
+    ports:
+      - 33065:3306
+    volumes:
+      - ./mysql-cluster-pxc-data5:/var/lib/mysql:rw
+    networks:
+      mysql-cluster-pxc:
+        ipv4_address: 172.19.0.6
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql-cluster-pxc&&0707
+      CLUSTER_NAME: mysql-cluster-pxc
+      XTRABACKUP_PASSWORD: xtrapassword&&0707
+      MYSQL_USER: mysql-cluster-pxc
+      MYSQL_PASSWORD: mysql-cluster-pxc&0707
+      CLUSTER_JJOIN: mysql-cluster-pxc-node1
+
+  mysql-cluster-pxc-haproxy:
+    image: haproxy
+    container_name: mysql-cluster-pxc-haproxy
+    volumes:
+      - ./mysql-cluster-pxc-haproxy:/haproxy-override
+      - ./mysql-cluster-pxc-haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - 4001:4001
+      - 4002:3306
+    networks:
+      mysql-cluster-pxc:
+        ipv4_address: 172.19.0.7
+
+networks:
+  mysql-cluster-pxc:
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
+
+```
+
+haproxy 配置文件
+
+```cfg
+global
+	#工作目录
+	chroot /usr/local/etc/haproxy
+	#日志文件，使用rsyslog服务中local5日志设备（/var/log/local5），等级info
+	log 127.0.0.1 local5 info
+	#守护进程运行
+	daemon
+
+defaults
+	log	global
+	mode	http
+	#日志格式
+	option	httplog
+	#日志中不记录负载均衡的心跳检测记录
+	option	dontlognull
+    #连接超时（毫秒）
+	timeout connect 5000
+    #客户端超时（毫秒）
+	timeout client  50000
+	#服务器超时（毫秒）
+    timeout server  50000
+
+#监控界面	
+listen  admin_stats # 监控的名称
+	#监控界面的访问的IP和端口
+	bind  0.0.0.0:4001
+	#访问协议
+    mode        http
+	#URI相对地址
+    stats uri   /dbs
+	#统计报告格式
+    stats realm     Global\ statistics
+	#登陆帐户信息
+    stats auth  admin:mysql-cluster-pxc-haproxy&0707
+#数据库负载均衡
+listen  proxy-mysql #本组负载均衡的名称
+	#访问的IP和端口
+	bind  0.0.0.0:3306　#数据库集群访问入口  
+    #网络协议　只能是tcp的
+	mode  tcp
+	#负载均衡算法
+	#轮询算法：roundrobin
+	#权重算法：static-rr
+	#最少连接算法：leastconn
+	#请求源IP算法：source 
+    balance  roundrobin #轮询算法
+	#日志格式
+    option  tcplog
+	#在MySQL中创建一个没有权限的haproxy用户，密码为空,
+	#Haproxy使用这个账户对MySQL数据库心跳检测
+    option  mysql-check user haproxy
+    server  MySQL_CLUSTER_PXC_1 172.19.0.2:3306 check weight 1 maxconn 2000  
+    server  MySQL_CLUSTER_PXC_2 172.19.0.3:3306 check weight 1 maxconn 2000  
+	server  MySQL_CLUSTER_PXC_3 172.19.0.4:3306 check weight 1 maxconn 2000 
+	server  MySQL_CLUSTER_PXC_4 172.19.0.5:3306 check weight 1 maxconn 2000
+	server  MySQL_CLUSTER_PXC_5 172.19.0.6:3306 check weight 1 maxconn 2000
+	#使用keepalive检测死链
+    option  tcpka 
+```
+
+
+
+
+
+
+
+problems: 
+
+- 可以连接集群中的单个数据库节点,但是无法连接haproxy
