@@ -18,7 +18,7 @@ Redis是用C语言开发的一个开源，高性能的键值对的数据库，�
 6. 数据过期处理 
 7. 分布式集群架构中的Session 分离
 
-## NoSQL--not only sql
+## NoSQL --not only sql
 
 - High performance
 - Huge Storage
@@ -571,7 +571,7 @@ xdel key id
 
 # redis持久化
 
-## RDB
+## RDB(redis database)
 
 快照，通过命令将redis内存中的数据完整的备份到硬盘的二进制文件中
 
@@ -590,9 +590,9 @@ xdel key id
 - 自动（频率太高会影响性能）
 
   ```bash
-  save 900 1
-  save 300 10
-  save 60 10000
+  save 900 1     # 900秒内数据发生一次修改时写入
+  save 300 10    # 300秒内数据发生10次修改时写入
+  save 60 10000  # 60秒内数据发生10000次修改时写入
   dbfilename dump.rdb
   dir ./  # 日志文件等存储路径
   stop-writes-on-bgsave-error yes # 写入发生错误时停止写入
@@ -629,11 +629,9 @@ xdel key id
 
 
 
-## AOF
+## AOF(append only file)
 
-写日志
-
-日志记录redis命令，宕机时通过读取aof文件载入到内存中恢复数据
+写日志: 以独立日志的方式记录每次写命令,重启时在重新执行AOF文件中的命令达到恢复数据的目的
 
 aof先写入到磁盘缓冲区中，然后再刷新到硬盘中
 
@@ -643,7 +641,7 @@ AOF三种策略
 - everysec 每秒刷新一次数据到硬盘 中
 - no 根据操作系统的缓冲区情况来确定，缓冲区满时自动刷新到硬盘中
 
-aof重写作用
+aof重写作用:去除无效命令,压缩空间,提高恢复速度
 
 - 减少硬盘占用量
 - 加速恢复速度
@@ -651,6 +649,8 @@ aof重写作用
 命令
 
 ``bgrewriteaof`` fork出子进程异步``aof``重写  将redis内存中的数据对aof文件进行回溯
+
+如果当前进程正在执行bgsave操作,重写命令延迟到bgsave完成之后在执行
 
 自动重写配置策略
 
@@ -663,7 +663,7 @@ aof_current_size # aof当前尺寸
 aof_base_size # aof上次启动和重写的尺寸
 ```
 
-配置
+aof日志配置
 
 ```bash
 appendonly yes
@@ -687,7 +687,12 @@ RDB 与 AOF
 
 小分片
 
+### 持久化流程
 
+- AOF持久化开启且存在AOF文件时优先加载AOF文件
+- AOF关闭货值AOF文件不存在时加载RDB文件
+- 加载AOF/RDB文件成功后,Redis启动成功
+- AOF/RDB文件存在错误时,Redis启动失败并打印错误信息
 
 ## redis复制原理与优化
 
@@ -716,9 +721,20 @@ slave of ip port # 配置为目标节点的slave节点
 slave-read-only yes # 从节点只做数据读取
 ```
 
+**复制偏移量:**通过对比master和slave的偏移量判断数据是否一致
+
+- 参与复制的主从节点都会维护自身复制偏移量
+- master处理完写入命令后将命令的字节长度做累加记录在info replication 的master_repl_offset中
+- slave每秒上报自身复制偏移量给master,master会保存slave的复制偏移量
+- slave收到master发送的命令后会累加自身能的偏移量,记录在info replication 的slave_repl_offset中
+
 
 
 ## Redis Sentinel
+
+添加setinel节点监控redis节点,setinel节点之间也会互相监控,通过监控判断节点是否可达,不可达时选举出新的setinel主节点完成自动故障转移
+
+
 
 1. 多个sentinel发现并确认master有问题
 2. 选举出一个sentinel作为领导
@@ -887,7 +903,7 @@ redis sentinel失败判定``三个定时任务``
 
 ## Redis Cluster
 
-redis单机性能可以达到10万/每秒
+redis单机性能可以达到10万/每秒,redis cluster有效的解决了单机内存,并发,流量的瓶颈问题,达到负载均衡的目的
 
 ### 呼唤集群
 
