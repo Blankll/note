@@ -309,6 +309,7 @@ XtraBackup 不需要锁表 免费的备份方案 percona 全量备份，增量�
 2. 在数据库节点中安装XtraBackup因为节点数据都一样的，所以在哪一个节点安装都是可以的
 
    ```shell
+   # 新版本中已经默认安装,直接备份即可
    apt-get update
    apt-get install percona-xtrabackup-24
    # 进行第一次全量备份
@@ -460,6 +461,14 @@ networks:
 
 ```
 
+**notice**
+
+在使用docker-compose的过程中,第二个开始的容器在第一个MySQL容器尚未运行成功就开始运行,使得在第一个MySQL尚未运行时创建的容器MySQL实例都无法启动,所以需要通过commander或重写entrypoint.sh:
+
+参考:https://www.cnblogs.com/wang_yb/p/9400291.html
+
+
+
 haproxy 配置文件
 
 ```cfg
@@ -524,11 +533,3 @@ listen  proxy-mysql #本组负载均衡的名称
 ```
 
 
-
-### Haproxy 负载均衡连接
-
-
-
-problems: 
-
-- 可以连接集群中的单个数据库节点,但是无法连接haproxy

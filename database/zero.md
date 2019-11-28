@@ -79,7 +79,7 @@ flush privileges;
 设置用户密码
 
 ```sql
-SET PASSWORD FOR 'username'@'host' = PASSWORD('newpassword');
+SET PASSWORD FOR  'username'@'host' = PASSWORD('newpassword');
 --设置当前登录用户的密码--
 SET PASSWORD = PASSWORD("newpassword");
 ```
