@@ -1,10 +1,6 @@
 ﻿# java文件
 
-标签（空格分隔）： 未分类
-
----
-
-## File类
+## File Class
 
 ### 文件的创建，重命名，删除
 ```java
@@ -78,5 +74,19 @@ public class FileProperty {
 
 }
 
+```
+
+## maven项目下path
+
+```bash
+File file = new File("reddit");
+// 获取项目根目录下reddit目录地址
+String courseFile = file.getCanonicalPath();
+String absFile = file.getAbsolutePath();
+// 项目根目录地址
+String rootPath = System.getProperty("user.dir");
+// 获取编译后target下classes/reddit目录
+ClassLoader classLoader = getClass().getClassLoader();
+String path = classLoader.getResource("reddit").getPath();
 ```
 
