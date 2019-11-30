@@ -109,6 +109,12 @@ bind-address = 0.0.0.0
 
 在mariadb10.0中,root的默认登录方式变为auth_socket, 登录命令为``mysql -S /var/run/mysqld/mysqld.sock``,可以免除密码输入
 
+```sql
+SELECT user, host, plugin, default_role FROM mysql.user;
+```
+
+
+
 
 
 ## MySQL备份与还原
