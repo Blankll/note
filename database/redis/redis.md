@@ -39,6 +39,18 @@ sudo apt-get install redis-server
 
 启用daemon 将配置文件 /etc/redis/redis.conf中的daemonize no 改为daemonize yes 启用后端加载
 
+#### 源码安装
+
+1. 下载redis源码
+
+2. 进入都源码目录
+
+   ```
+   
+   ```
+
+   
+
 ## phpredis 
 
 https://segmentfault.com/a/1190000003084917
@@ -547,12 +559,39 @@ pipeline只能作用在一个Redis节点上
 
 ### Stream
 
-- xadd key ID field string 创建一个stream
+- XADD key ID field string 创建一个stream
+
+  ```bash
+  XADD re_key * filed_one filed_one_content
+  ```
+
 - ``xlen`` 返回记录数量
+
 - ``xdel`` 删除一个id
-- ``xrange key start end`` start起始id end 结束id
+
+  ```bash
+  xdel key ID
+  ```
+
+- ``xrange key start end [count] count``   返回给定范围内的stream数据
+
+  ```bash
+  # tart 起始id
+  # end 结束id
+  # + 指代最大id
+  # - 指代最小id
+  ```
+
 - xread [COUNT count] [BLOCK milliseconds] STREAMS key [key] [id]
+
+  ```bash
+  # $ 获取最大id（最新）
+  ```
+
+  
+
 - xgroup create key group_name id
+
 - xreadgroup group group_name consumer STREAMS key id[>]
 
 ```bash

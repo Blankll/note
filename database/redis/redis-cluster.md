@@ -96,6 +96,17 @@ redis单机性能可以达到10万/每秒,redis cluster有效的解决了单机�
    官方安装工具基于ruby,简化了部署步骤
 
    cacheclud 可视化集群部署
+   
+5. redis 5.0后提供了内置的一键部署命令
+
+   ```bash
+   # 创建redis-cluster集群
+   redis-cli --cluster create ip:port [ip:port] --cluster-replicas 1
+   # 动态添加节点从节点
+   redis-cli --cluster add-node new_ip:new_port exsist_ip:exsist_port
+   # 给新添加的节点进行分片
+   redis-cli --cluster reshard exsist_ip:exsist_port
+   ```
 
 ### 集群伸缩
 
