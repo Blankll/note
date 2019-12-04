@@ -146,7 +146,7 @@ redis主从
 修改redis配置
 
 ```bash
-slave of ip port # 配置为目标节点的slave节点
+slaveof ip port # 配置为目标节点的slave节点
 slave-read-only yes # 从节点只做数据读取
 ```
 

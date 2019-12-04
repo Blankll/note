@@ -71,13 +71,14 @@ sentinel 监控master
 ```bash
 port 26379 # sentinel 的端口
 daemonize yes
+pidfile /var/run/redis-sentinel-26379.pid
+logfile "26379.log"
 dir /opt/oft/redis/data/ # sentinel工作目录
-logfile "26379.log" # sentinel的日志文件
-sentinel monitor mymaster 127.0.0.1 7000 2 # 2表示有多少个sentinel发现master有问题时切换master
+sentinel monitor mymaster 127.0.0.1 7000 2  # 2表示有多少个sentinel发现master有问题时切换master
 sentinel down-after-milliseconds mymaster 30000 # 测试ping master的时间间隔
 sentinel parallel-syncs mymaster 1 # 每次复制一个
-sentinelfailover-timeout mymaster 180000
-
+sentinel failover-timeout mymaster 180000
+sentinel deny-scripts-reconfig yes
 ```
 
 启动sentinel
@@ -89,17 +90,21 @@ redis-sentinal redis-sentinel-26379.conf
 
 生成与slave个数相同的监控slave的sentinel
 
+cat redis-sentinel-26700.conf | grep -v "#" | grep -v "^$" >  sentinel.conf
+
 slave 1 sentinel
 
 ```bash
 port 26380 # sentinel 的端口
 daemonize yes
+pidfile /var/run/redis-sentinel-26380.pid
+logfile "26700.log"
 dir /opt/oft/redis/data/ # sentinel工作目录
-logfile "26380.log" # sentinel的日志文件
-sentinel monitor mymaster 127.0.0.1 7000 2 # 2表示有多少个sentinel发现master有问题时切换master
+sentinel monitor mymaster 127.0.0.1 7000 2  # 2表示有多少个sentinel发现master有问题时切换master
 sentinel down-after-milliseconds mymaster 30000 # 测试ping master的时间间隔
 sentinel parallel-syncs mymaster 1 # 每次复制一个
-sentinelfailover-timeout mymaster 180000
+sentinel failover-timeout mymaster 180000
+sentinel deny-scripts-reconfig yes
 
 ```
 
@@ -108,13 +113,14 @@ slave2 sentinel
 ```bash
 port 26381 # sentinel 的端口
 daemonize yes
+pidfile /var/run/redis-sentinel-26381.pid
+logfile "26381.log"
 dir /opt/oft/redis/data/ # sentinel工作目录
-logfile "26381.log" # sentinel的日志文件
-sentinel monitor mymaster 127.0.0.1 7000 2 # 2表示有多少个sentinel发现master有问题时切换master
+sentinel monitor mymaster 127.0.0.1 7000 2  # 2表示有多少个sentinel发现master有问题时切换master
 sentinel down-after-milliseconds mymaster 30000 # 测试ping master的时间间隔
 sentinel parallel-syncs mymaster 1 # 每次复制一个
-sentinelfailover-timeout mymaster 180000
-
+sentinel failover-timeout mymaster 180000
+sentinel deny-scripts-reconfig yes
 ```
 
 jedis连接
