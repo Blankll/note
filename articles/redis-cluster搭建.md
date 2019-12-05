@@ -235,4 +235,254 @@ Redis Setinel模式在主从复制的基础上添加对每一个节点进行监�
    /dir_redis/bin/redis-setinel /dir_config/redis-sentinel-26381.conf # 启动slave2 setinel
    ```
 
+
+启动后可以操作master测试数据同步是否正常，可以使用kill -9 杀死Redis master 进程，查看日志文件，检查是否发生了自动故障转移。
+
+
+
+## Redis Cluster
+
+Redis读写分离服务和Redis Sentinel都只是复制节点数据和故障转移，面对高并发的业务场景，以上两种集群并不能很好的解决单机内存容量不足，,高并发写入与读取，,流量等瓶颈问题，分布式Redis服务的重要性并凸显出来了，Redis Cluster 将数据分布到不同节点上,解决单机无法满足内存,并发,带宽等问题：
+
+1. 单机并发量无法满足业务需求
+2. 单机内存无法满足业务需求
+3. 单机网络带宽无法满足业务需求
+
+本例中将构建共6个节点的redis cluster集群，3 master， 3 slave：
+
+| node     | ip        | port | slot        |
+| -------- | --------- | ---- | ----------- |
+| master-1 | 127.0.0.1 | 7100 | 0~5461      |
+| master-2 | 127.0.0.1 | 7101 | 5462~10922  |
+| master-3 | 127.0.0.1 | 7102 | 10923~16383 |
+| slave-1  | 127.0.0.1 | 7103 | 0           |
+| slave-2  | 127.0.0.1 | 7104 | 0           |
+| slave-3  | 127.0.0.1 | 7105 | 0           |
+
+redis cluster的构建流程如下
+
+1. 构建6个对应的配置文件
+
+   只需将每个节点配置文件ip改为对应节点监听的端口号即可(以作区分，也可以用不同的目录来区别)
+
+   ```bash
+   # bind 127.0.0.1
+   protected-mode no
+   port 7100
+   daemonize yes
+   pidfile /var/run/redis-7100.pid
+   logfile "log-7100.log"
    
+   dbfilename dump-7100.rdb
+   dir /data/md0/redis/redis-cluster
+   replica-read-only yes
+   
+   appendonly yes
+   appendfilename "appendonly-7100.aof"
+   appendfsync everysec
+   no-appendfsync-on-rewrite no
+   
+   cluster-enabled yes
+   cluster-config-file node-7100.conf
+   cluster-require-full-coverage no
+   ```
+
+2. 启动redis
+
+   ```bash
+   /dir_redis/bin/redis-server /dir_config/redis-7100.conf # 根据配置文件一一启动
+   ```
+
+3. 进行meet[每一个redis node之间都是互通的，需要在一个节点上meet集群张的其他所有节点]
+
+   ```bash
+   # /dir_redis/bin/redis-cli -p 7100 meet ip port
+   /dir_redis/bin/redis-cli -p 7100 cluster meet 127.0.0.1 7101
+   /dir_redis/bin/redis-cli -p 7100 cluster meet 127.0.0.1 7102
+   /dir_redis/bin/redis-cli -p 7100 cluster meet 127.0.0.1 7103
+   /dir_redis/bin/redis-cli -p 7100 cluster meet 127.0.0.1 7104
+   /dir_redis/bin/redis-cli -p 7100 cluster meet 127.0.0.1 7105
+   ```
+
+   可以通过 cluster info查看集群节点是否meet, 如果正常可以看到``cluster_known_nodes:6``的信息
+
+4. 分配slot(虚拟槽)
+
+   redis通过虚拟槽进行节点数据的hash分配，redis总共分出了16384个槽。集群中的每个节点都保存了槽分配策略，在进行数据查询或操作时可以直接redirect到目标节点，无需像Sentinel那样返回到客户端重定向，做到了客户端无感知。
+
+   ```bash
+   # 在目标节点上执行命令 根据节点数将16384做一个平均
+   # 如下,有6个节点,三个分配slot,其余三个作为备份节点
+   # redsi-cli -h 127.0.0.1 -p 7100 cluster addslots {0...5461}
+   # 需要一个一个添加，最好写一个shell脚本循环插入
+   redsi-cli -h 127.0.0.1 -p 7100 cluster addslots 0
+   redsi-cli -h 127.0.0.1 -p 7100 cluster addslots 1
+   # redsi-cli -h 127.0.0.1 -p 7101 cluster addslots {5462...10922}
+   # redsi-cli -h 127.0.0.1 -p 7102 cluster addslots {10923...16383}
+   ```
+
+   slot分配脚本example
+
+   ```sh
+   host=$1
+   port=$2
+   start=$3
+   end=$4
+   echo "host: ${host}; port: ${port}; start: ${start}; end: ${end};"
+   for slot in `seq ${start} ${end}`
+   do
+       echo "slot ${slot}"
+       /data/md0/redis/redis-5.0.7/bin/redis-cli -h ${host} -p ${port} cluster addslots ${slot}
+   done
+   ```
+
+   ```bash
+   sh ./redis-cluster/cluster-slots.sh 127.0.0.1 7100 0 5461 # 添加slot
+   ```
+
+   完成slots分配之后，cluster info查看集群信息，``cluster_state:ok``表明节点构建成功
+
+5. 设置主从
+
+   通过 nodes信息中的 node-id给redis master节点添加slave，同读写分离一样，只做备份
+
+   ```bash
+   # redis-cli -p 7000 cluster nodes 查看节点信息
+   # redis-cli -p 7000 cluster slots 查看节点主从信息
+   # cluster replicate node-id
+   redis-cli -h 127.0.0.1 -p 7103 cluster replicate ${node-id-7000} # 将7003作为7000的slave节点
+   redis-cli -h 127.0.0.1 -p 7104 cluster replicate ${node-id-7001} 
+   redis-cli -h 127.0.0.1 -p 7105 cluster replicate ${node-id-7002} 
+   ```
+
+redis官方在5.0之前提供了构建集群的ruby语言编写的构建工具，可以简化以上流程，5.0则通过c原生实现了全新的redis cluster集群构建工具，极大的便利了Redis Cluster集群的构建
+
+notice： 连接时需要加 -c 表示以集群的方式运行，否则只有hash到当前节点时数据才能存储成功
+
+### redis5.0下的 Redis Cluster构建
+
+首先，配置文件同上面的是完全一样的，不同的地方在于不需要再一个一个的 meet以及slot分配，直接使用cluster命令即可。
+
+```bash
+# 创建redis-cluster集群
+redis-cli --cluster create ip:port [ip:port] --cluster-replicas 1
+# 动态添加节点从节点
+redis-cli --cluster add-node new_ip:new_port exsist_ip:exsist_port
+# 给新添加的节点进行分片
+redis-cli --cluster reshard exsist_ip:exsist_port
+```
+
+## Redis Cluster 集群伸缩
+
+通过以上案例可以发现redis5自带的cluster构建方式相较于之前的方便太多，所以下面的集群扩缩容以Redis5的cluster命令来进行
+
+### 集群扩容
+
+1. 创建两个redis节点(配置文件参考上文案例)并启动节点，此时节点作为单独的redis节点，与集群还没有半毛钱关系
+
+2. 将节点添加到已有集群中，每次添加新节点后面都要跟着一个该集群中已经存在的节点，嗯，师傅领进门的感觉。
+
+   ```bash
+   #  /dir_redis/bin/redis-cli --cluster add-node new_ip:new_port exist_ip:exist_port
+    /dir_redis/bin/redis-cli --cluster add-node 127.0.0.1:7106 127.0.0.1:7103
+   ```
+
+3. 分配槽给新加入的节点,节点加入cluster之后会成为一个没有slot的master，需要手动给节点分配slot
+
+   ```bash
+   /dir_redis/bin/redis-cli --cluster reshard 127.0.0.1:7106
+   ```
+
+   执行过程中需要我们选择一下内容：
+
+   1. How many slots do you want to move (from 1 to 16384)?
+
+      > 输入要分配给新加入的节点多少个数据槽，可以16384 除以master数量平均分配一下
+
+   2. What is the receiving node ID? 
+
+      > 输入接受slot的redis节点的node-id，可以提前 cluster nodes一下，忘了就单独开个shell查询一下
+
+   3. Source node #1: 
+
+      > 这里有两个选项：
+      >
+      > all 从每个有slot的节点中redis自动选出一些slot分配个新加入的节点
+      >
+      > done 手动选择要加入的节点
+
+      因为懒，所以我选择all，ps：小孩才做选择
+
+   4. Do you want to proceed with the proposed reshard plan (yes/no)? 
+
+      > 是否同意系统做出的节点的选择，yes就完事
+
+   5. 不出意外，到这里，新节点就加入完成了
+
+   6. 加入slave节点(和上面添加节点到集群中一样)
+
+      ```bash
+      #/dir_redis/bin/redis-cli --cluster add-node new_ip:new_port exist_ip:exist_port
+      /dir_redis/bin/redis-cli --cluster add-node 127.0.0.1:7107 127.0.0.1:7107
+      ```
+
+   7. 设置主从关系
+
+      ```bash
+      # /dir_redis/bin/redis-cli -p slave_pprt cluster replicate master-node-id
+      /dir_redis/bin/redis-cli -p 7107 cluster replicate efb66fbb022f9bbca3b980decbabf316fc2af5b0
+      ```
+
+      
+
+### 集群缩容
+
+这里要注意，缩容要保证缩容后内存足够存储集群中的数据
+
+1. 删除从节点
+
+   ```bash
+   #/dir_redis/bin/redis-cli --cluster del-node ip:port node-id
+   /dir_redis/bin/redis-cli --cluster del-node 127.0.0.1:7107 a2acfd4513e9588e6c0a0025b9511399024bd1af
+   ```
+
+2. 将即将删除的master的slot reshard给其他master
+
+   ```bash
+   /dir_redis/bin/redis-cli --cluster reshard 127.0.0.1:7106
+   ```
+
+   执行过程中需要我们选择一下内容：
+
+   1. How many slots do you want to move (from 1 to 16384)?
+
+      > 输入要移除多少个数据槽，将待删除节点的slot全部移除，输入slot数量
+
+   2. What is the receiving node ID? 
+
+      > 输入接受slot的redis节点的node-id，输入要给的未删除master节点的node-id
+
+   3. Source node #1: 
+
+      > 输入要删除的master的node-id
+      >
+      > 回车
+      >
+      > 输入 done
+
+   4. Do you want to proceed with the proposed reshard plan (yes/no)? 
+
+      > 是否同意系统做出的节点的选择，yes就完事
+
+   5. 移除节点
+
+      ```bash
+      #/dir_redis/bin/redis-cli --cluster del-node ip:port node-id
+      /dir_redis/bin/redis-cli --cluster del-node 127.0.0.1:7107 a2acfd4513e9588e6c0a0025b9511399024bd1af
+      ```
+
+      
+
+   6. 不出意外，到这里,删除节点就完成了。
+
+好的，到这里，redis构建集群的几种方式操作流程就介绍完了。
