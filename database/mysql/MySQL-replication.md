@@ -1,6 +1,8 @@
 # MySQL 复制
 
-复制实现了在不同服务器上的数据分别，利用二进制日binlog进行增量复制，不需要太多的带宽，可以通过负载降低数据库的读取压力
+复制实现了在不同服务器上的数据分别，利用二进制日binlog进行增量复制，不需要太多的带宽，可以通过负载降低数据库的读取压力，
+
+**MySQL5.7之前，一个从库只能有一个主库, 5.7之后支持一从多主架构，**
 
 ```bash
 show variables lik 'binlog_format' # 查看当前数据库日志格式
@@ -112,10 +114,44 @@ MySQL二进制日志
   MASTER_PASSWORD='repl_password', 
   MASTER_LOG_FILE='mysql_log_file_name',
   MASTER_LOG_POS=4;
-  
+  ```
+
 start slave; # 启动
   show processlist; # 显示线程
   ```
   
   
 
+
+  ```
+
+### 基于GTID复制
+
+GTID全局事务id， GTID=source_id:transaction_id
+
+## MySQL复制拓扑
+
+- 主从复制
+
+  - 不同的业务可以使用不同的从库
+  - 将一台从库放到远程IDC，用作灾备恢复
+  - 分担主库的读负载
+
+- 主主复制
+
+  - 缺陷较大，插入操作频繁会发生复制中断
+
+  - 最好两个主中所操作的表是不同的表
+
+  - 分开两个表i自增d生成的值
+
+    ```bash
+    # 自增id的步长
+    auto_increment_increment = 1 | 2
+    # id开始位置
+    auto_increment_offset = 1 | 2
+    ```
+
+- 主备切换
+
+  两个主服务器同一时间只有一台服务器作为主服务器对外提供服务，另外一台服务器处于只读状态并且只作为热备使用，在主库发生故障或者计划性维护时进行主备切换，原来使用的主库成为备库，备库成为新的主库。
