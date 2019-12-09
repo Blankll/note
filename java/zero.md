@@ -35,7 +35,7 @@
 接口方法默认是public abstract的，且实现该接口的类中对应的方法的可见性不能小于接口方法的可见性，因此也只能是public的。
 
 在继承中，重写要求子类不能有比父类更加严格的访问修饰符。这一点和接口相似。
- 接口默认方法是publicabstract。属性默认public static final。
+ 接口默认方法是public abstract。属性默认public static final。
 
 而抽象类中的抽象方法修饰符可以是public或者protected。
 

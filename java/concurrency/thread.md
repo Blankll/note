@@ -447,3 +447,6 @@ public class ThreadPoolOne {
 }
 ```
 
+
+
+interrupt仅仅设置线程状态，并不会中断线程
