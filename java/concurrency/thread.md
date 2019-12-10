@@ -1,99 +1,314 @@
 # Thread
 
-## 线程创建
+## 实现多线程
 
-创建一个类，继承Thread类，重写run(),在run中填写业务逻辑，然后在需要使用的地方new 这个类，调用对象的start方法，就会执行run方法。
+<font color="red">实现多线程只有2种方法</font>
+
+1. 继承Thread类 
+
+   创建一个类，继承Thread类，重写run(),在run中填写业务逻辑，然后在需要使用的地方new 这个类，调用对象的start方法，就会执行run方法。
+
+   ```java
+   package study.seven.concurrency;
+   
+   public class ThreadImpl extends Thread {
+       @Override
+       public void run() {
+           System.out.println("this is my run");
+       }
+   }
+   // 匿名内部类实现Runnable接口
+   public class CreateThread {
+       public static void main(String[] args) {
+           // override method
+           Thread threadOver = new Thread() {
+               @Override
+               public void run() {
+                   System.out.println("this is created by rewrite thread run function");
+               }
+           };
+           threadOver.start();
+       }
+   }
+   ```
+
+2. 实现Runnable接口
+
+   实现Runnable接口,在新建线程时指定要执行的Runable然后还可以指定新建线程的名字，线程在start时就会执行指定Runable类实现的run方法的逻辑
+
+   ```java
+   package study.seven.concurrency;
+   
+   public class MyRunnable implements Runnable {
+       // thread调用同一个实例化本类的对象时，访问的name数据相同，实现了数据共享
+       private String name = "seven"
+       @Override
+       public void run() {
+           System.out.println("this is Runnable thread imp");
+           for(int i = 0; i < 10; i++) {
+               // get current thread
+               Thread t = Thread.currentThread();
+               // get thread name
+               System.out.println(t.getName() + i);
+           }
+       }
+   }
+   
+   // 匿名内部类实现Runnable接口
+   public class CreateThread {
+       public static void main(String[] args) {
+           System.out.println("hello");
+           // thread created by  anonymous inner class
+           Runnable runnable = new Runnable() {
+               @Override
+               public void run() {
+                   System.out.println("this is a thread created by anonymous inner class");
+               }
+           };
+           runnable.run();
+       }
+   }
+   
+   package study.seven.concurrency;
+   
+   public class CreateThread {
+       public static void main(String[] args) {
+           System.out.println("hello");
+           Runnable r1 = new MyRunnable();
+           // define thread run Runnable and the name of this thread
+           Thread thread1 = new Thread(r1, "threadNameOne");
+           Thread thread2 = new Thread(r1, "threadNameTwo");
+           // thread start and both of them use same varable of name
+           thread1.start();
+           thread2.start();
+           System.out.println("this is end of main");
+       }
+   }
+   ```
+
+
+Thread类实现了Runnable的Run方法，两者本质都是执行run方法，只是run方法的来源不同:
+
+- Runnable调用target.run()
+
+- Thread直接重写run方法
+
+两种创建线程追钟都是构造Thread类：
+
+- 实现Runnable接口的run方法，并把Runnable实例传递给Thread类，Thread类调用run方法最终 调用Runnable实现的run方法
+
+- 继承Thread类，直接重写run方法，最终运行的就是重写的run方法
+
+  ```java
+  @override
+  public void run() {
+      // target 即Runnable实现的实例
+      if(target != null) {
+          target.run()
+      }
+  }
+  ```
+
+  
+
+## 启动线程
+
+start
+
+- 准备工作
+
+  - 启动新线程检查线程状态
+  - 加入线程组
+
+  - 调用start0这个native方法
+
+- 启动新线程，start之后并不意味着线程会立马执行，创建的新线程处于就绪态
+
+- 不能重复执行start
+
+  ```java
+  // package java.lang;
+  
+  public synchronized void start() {
+      if (this.threadStatus != 0) {
+          throw new IllegalThreadStateException();
+      } else {
+          this.group.add(this);
+          boolean started = false;
+  
+          try {
+              this.start0();
+              started = true;
+          } finally {
+              try {
+                  if (!started) {
+                      this.group.threadStartFailed(this);
+                  }
+              } catch (Throwable var8) {
+              }
+  
+          }
+  
+      }
+  }
+  
+  private native void start0();
+  ```
+
+  native方法：c/c++实现
+
+run
 
 ```java
-package study.seven.concurrency;
-
-public class ThreadImpl extends Thread {
-    @Override
-    public void run() {
-        System.out.println("this is my run");
+// package java.lang;
+public void run() {
+    if (this.target != null) {
+        this.target.run();
     }
 }
 ```
 
 
 
-实现Runnable接口,在新建线程时指定要执行的Runable然后还可以指定新建线程的名字，线程在start时就会执行指定Runable类实现的run方法的逻辑
+## 停止线程
+
+正确的线程停止方式是使用interrupt来通知而不是强制
+
+- 线程运行完成后停止
+- 线程中发生异常后异常停止
 
 ```java
-package study.seven.concurrency;
-
-public class MyRunnable implements Runnable {
-    // thread调用同一个实例化本类的对象时，访问的name数据相同，实现了数据共享
-    private String name = "seven"
-    @Override
-    public void run() {
-        System.out.println("this is Runnable thread imp");
-        for(int i = 0; i < 10; i++) {
-            // get current thread
-            Thread t = Thread.currentThread();
-            // get thread name
-            System.out.println(t.getName() + i);
-        }
-    }
-}
-
-
-package study.seven.concurrency;
-
-public class CreateThread {
-    public static void main(String[] args) {
-        System.out.println("hello");
-        Runnable r1 = new MyRunnable();
-        // define thread run Runnable and the name of this thread
-        Thread thread1 = new Thread(r1, "threadNameOne");
-        Thread thread2 = new Thread(r1, "threadNameTwo");
-        // thread start and both of them use same varable of name
-        thread1.start();
-        thread2.start();
-        System.out.println("this is end of main");
-    }
-}
+// run方法中检查线程是否收到中断信号
+boolean isInter = Thread.currentThread().isInterrupted();
 ```
 
-匿名内部类实现Runnable接口
+线程处于sleep状态下其他线程发送interrupt信号给该线程时线程线程内部会抛出I内特容入皮特的Exception异常，通过try catch sleep方法的异常可以对外部的中断信号做处理
+
+stop会导致线程运行中突然停止，kill -9 一样，会造成数据错乱
+
+suspend和resume挂起线程且不释放线程获得的锁
 
 ```java
-package study.seven.concurrency;
-
-public class CreateThread {
-    public static void main(String[] args) {
-        System.out.println("hello");
-        // thread created by  anonymous inner class
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("this is a thread created by anonymous inner class");
-            }
-        };
-        runnable.run();
-        // override method
-        Thread threadOver = new Thread() {
-            @Override
-            public void run() {
-                System.out.println("this is created by rewrite thread run function");
-            }
-        };
-        threadOver.start();
-    }
-}
+static boolean interrupted(); // 返回当前线程是否中断，同时将线程中断状态设置为false 作用于调用线程
+boolean isInterrupted(); // 返回线程是否中断
+Thread.interrupt(); // 将线程设置为中断  ->作用于thread对象创建出的线程
 ```
+
+
 
 ## 线程生命周期
 
-new 
+```java
+Thread.getState();// 获取线程生命周期状态
+```
 
-Runnable
+- new
 
-Waiting
+  > new出实例，start之前
 
-Timed waiting
+- Runnable
 
-Terminated
+  > 调用start方法后
+  >
+  > 对应操作系统中的ready和running
+
+- Blocked
+
+  等待其他线程释放monitor锁
+
+  > synconized 代码块且锁被其他线程占用时
+
+- Waiting
+
+  等待唤醒信号
+
+  > 调用没有设置wait时间的wait方法后
+  >
+  > Object.wait()
+  >
+  > Thread.join()
+  >
+  > LockSupport.park()
+
+- Timed Waiting
+
+  超时后系统自动唤醒，未超时收到notify，notifyAll时也可以被提前唤醒
+
+  > Thread.sleep(time)
+  >
+  > Object.wait(time)
+  >
+  > Thread.join(time)
+  >
+  > LockSupport.parkNanos(time)
+  >
+  > LockSupport.parkUntil(time)
+
+- Terminated
+
+  - run方法执行完毕后
+  - 执行过程中发生未捕获异常后异常终止
+
+![线程生命周期](../../statics/java/6StateOfThread.png)
+
+一般而言，Blocked，waiting，timed_wating都称为阻塞态
+
+## Thread类和Object类
+
+
+
+| class  | method                | desc                    |
+| ------ | --------------------- | ----------------------- |
+| Thread | sleep                 |                         |
+| Thread | join                  | 等待其他线程执行完毕    |
+| Thread | yield                 | 放弃已经获取到的cpu资源 |
+| Thread | currentThread         | 获取当前执行线程的引用  |
+| Thread | start，run            | 启动线程                |
+| Thread | interrupt             | 中断线程                |
+| Thread | stop，suspend，resume | 已废弃的停止线程相关    |
+| Object | wait/notify/notifyAll | 线程休眠和唤醒          |
+
+阻塞阶段被唤醒的条件 
+
+   - 另外一个线程调用notify()方法且被唤醒的刚好是当前阻塞的线程
+   - 另外一个线程调用notifyAll()方法，所有线程被唤醒
+   - 过了wait(long timeout)规定的超时时间，如果传入0则永久等待
+   - 等待的过程中收到了interrupt信号
+
+  唤醒阶段
+   - notify会随机唤醒，JVM可以有自己的裁量权
+   - notify和wait需要在syncnaize代码块中执行，否则会抛出异常[必须先拥有monitor]
+
+  遇到中断
+   - 抛出interruptException异常同时释放monitor
+
+状态转换特殊状况
+
+- 从Object.wait()状态刚被唤醒时，通常不能立刻抢到monitor锁，使得线程从Waiting进入到Blocked状态，抢到锁后进入Runnable状态
+- 如果发生异常，可以直接跳到Terminated状态比如从Waiting直接跳转到Terminated
+
+sleep方法可以让线程进入Waiting状态，并且不占用CPU资源，但是不释放锁，直到规定时间后再执行，休眠期间如果被中断，会抛出异常并清除中断状态
+
+
+
+CountDownLatch&CyclicBarrier
+
+
+## 线程属性
+
+## 线程异常
+
+## 多线程利弊
+
+## 线程创建
+
+
+
+
+
+
+
+
 
 ## 线程安全
 
@@ -450,3 +665,15 @@ public class ThreadPoolOne {
 
 
 interrupt仅仅设置线程状态，并不会中断线程
+
+
+
+
+
+## tips
+
+实现多线程的两种方法那种更好 -> Runnable更好
+
+1. Runnable结构上更好，业务和线程解耦
+2. Runnable可以利用java线程池，而继承Thread类每次都要新建一个线程
+3. java不支持多继承而支持多实现，Runnable有更好的扩展性
