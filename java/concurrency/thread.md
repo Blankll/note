@@ -294,7 +294,24 @@ sleep方法可以让线程进入Waiting状态，并且不占用CPU资源，但�
 CountDownLatch&CyclicBarrier
 
 
+
+yield
+
+- 释放cpu时间片，yield方法的线程处于Runnable状态
+- JVM不保证使用yield就释放cpu
+- yield释放cpu资源后可以随时被再次调动
+
 ## 线程属性
+
+- thread id
+  - 全局唯一，不可修改  从1开始递增
+- thread name
+- daemon
+- thread priority
+  - java中有10个线程优先级，默认为5
+  - 程序设计不应当依赖于优先级
+  - java优先级依赖于运行的系统对优先级的处理
+  - linux中优先级将会被忽略
 
 ## 线程异常
 
@@ -304,15 +321,14 @@ CountDownLatch&CyclicBarrier
 
 
 
-
-
-
-
-
-
 ## 线程安全
 
 
+
+## 多线程产生的问题
+
+- 调度： 上下文切换
+- 协作：内存同步
 
 ###  timer定时器
 
