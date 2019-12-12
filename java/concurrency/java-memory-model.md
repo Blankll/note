@@ -42,4 +42,37 @@ cpu有多级缓存，导致读数据过期
 
 volatile将修改刷新到内存中
 
+### hapensBefore
+
+happens-before规则是用来解决可见性问题的：在时间上，如果动作A发生在动作B之前，B保证能看见A，这就是hapens-before
+
+重排序依然可能发生
+
+
+
+volatile关键字
+
+- volatile是一种同步机制，比synchronized或者Lock相关类更轻量，使用volatile不会发生上下文切换等开销很大的行为
+- 作用：
+  - 可见性：读取一个volatile变量之前，需要先使相应的本地缓存失效，这样就必须到主存中读取最新值，写一个volatile属性会立即刷入到主内存中
+  - 禁止指令重排序优化：解决单例双重锁乱序问题
+- 如果一个变量被修饰成volatile，那么jvm就知道了这个变量可能会被并发修改
+- volatile是用来同步的保证线程安全，无法做到synchronized那样的原子保护，volatile仅在很有限的场景下才能发挥作用。
+- a++不适用
+- 纯赋值场景，不依赖于上下文状态直接赋值，可以保证线程安全
+- volatile可以使得long和double的赋值是原子的
+
+synchronized不仅保证了可见性，也保证了原子性
+
 ## 原子性
+
+一系列操作，要么全部执行成功，要么全部不执行
+
+
+
+- 除了long和double之外的基本类型(int,byte,boolean,char,float)的赋值操作
+- 所有引用reference的赋值操作
+- java.concurrent.Atomic.*包中所有类的原子操作
+- long和double为64bit的值，在32位机器上每次写入32位，要写入两次，在64位的jvm上是原子的
+- 原子操作 + 原子操作 != 原子操作 => 全同步的HashMap也不完全安全
+
