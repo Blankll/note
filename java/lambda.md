@@ -10,11 +10,63 @@ https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/
 
 Model Code as Data 编码及数据，尽可能轻量级的将代码封装为数据
 
+## 函数式接口
+
 函数式接口是java中只包含一个接口方法的interface
 
 语义化检测注解：@FunctionalInterface
 
 函数式接口中可以包含默认方法和静态接口方法
+
+- 默认方法是给所有实现子类的对象提供的公共方法
+
+```java
+package com.blank.study.lamda;
+
+@FunctionalInterface
+public interface VerifyUser {
+    // 接口中声明的变量都是final
+    public int ss = 0;
+    public static int staticInt = 0;
+    // 函数式方法只有一个未实现的方法
+    String verifyUser(String username);
+    default  String getUserKind(String username) {
+        if ("admin".equals(username)) { return "管理员"; }
+        else { return "会员用户"; }
+    }
+    default  String mackUser(String username) {
+        if ("admin".equals(username)) { return "管理员"; }
+        else { return "会员用户"; }
+    }
+    static   String getUserKindStatic(String username) {
+        if ("admin".equals(username)) { return "管理员"; }
+        else { return "会员用户"; }
+    }
+    static   String getUserKindStatic2(String username) {
+        if ("admin".equals(username)) { return "管理员"; }
+        else { return "会员用户"; }
+    }
+}
+```
+
+静态方法和默认方法可以再实现类中直接访问
+
+```java
+package com.blank.study.lamda;
+
+public class VerifyUserImpl implements VerifyUser {
+
+    public String verifyUser(String username) {
+        return null;
+    }
+    public String interFTest(String username) {
+        String user = mackUser(username);
+        return VerifyUser.getUserKindStatic2(user);
+    }
+}
+```
+
+
 
 java.util.function中提供了大量的函数式接口
 

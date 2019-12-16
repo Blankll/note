@@ -1,5 +1,16 @@
 # java
 
+JDK与OpenJDK
+
+- JDK JRL协议， OpenJDK GPL协议授权，OpenJDK 可以用于商业环境，JDK在商业使用中需要获得授权
+- OpenJDK不包括部署功能(Java Web Start, java控制面板等)
+- OpenJDK源代码不完整，部分OracleJDK源代码无法开源
+- OpenJDK部分无产权的源代码替换为功能相同的开源源代码
+- OpenJDK只包含最精简的JDK
+- 不能使用Java商标，java - version显示的是openjdk
+
+**JEP**：([JDK Enhancement Proposals](http://openjdk.java.net/projects/jdk)) java增强体验，JDK的版本变化和新功能将从JEP中选取实现
+
 接口允许定义成员，但必须是**常量**。 抽象类和接口类的无法实例化，任何编译器中直接使用new会报错。 
 
 ## final
