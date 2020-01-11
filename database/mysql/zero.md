@@ -6,7 +6,7 @@ DDL（data definition language）：
 DDL比DML要多，主要的命令有CREATE、ALTER、DROP等，DDL主要是用在定义或改变表（TABLE）的结构，数据类型，表之间的链接和约束等初始化工作上，他们大多在建立表时使用 
 DCL（Data Control Language）： 
 
-##一，mysql基础；
+## 一，mysql基础；
 
 ```bash
 mysql_secure_installation
@@ -578,6 +578,18 @@ mysql_pconnect() 函数打开一个到 MySQL 服务器的持久连接。
 mysql_pconnect() 和 mysql_connect() 非常相似，虽然只多了一个P, 但有两个主要区别：  
 
 当连接的时候本函数将先尝试寻找一个在同一个主机上用同样的用户名和密码已经打开的（持久）连接，如果找到，则返回此连接标识而不打开新连接。其次，当脚本执行完毕后到 SQL 服务器的连接不会被关闭，**此连接将保持打开以备以** **后使用（** **mysql_close() 不会关闭由 mysql_pconnect() 建立的连接）**  
+
+## MySQL删除与重装
+
+删除已安装的MySQL
+
+```bash
+apt-get remove mysql-*
+apt-get autoremove --purge mysql-server
+# 再用dpkg --list|grep mysql查看，还剩什么就卸载什么
+# 最后清楚残留数据：
+dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P
+```
 
 
 

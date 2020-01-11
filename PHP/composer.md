@@ -6,6 +6,16 @@
 
 
 
+## 下载依赖
+
+```bash
+composer install # 初次或者再次下载多个依赖
+```
+
+
+
+
+
 ## 阿里云composer镜像
 
 - 全局配置

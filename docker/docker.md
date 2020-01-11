@@ -85,6 +85,7 @@ docker run -it -d -p 80:80 -p 3306:3306 -p 6379:6379 -p 8811:8811 -v /home/seven
 
 ```bash
 seven@Blank:~$ docker run --name yunjie-mysql -v /home/seven/dev/YunJie3.7.1_for_linux/mysqldocker:/etc/mysql/conf.d --privileged -p 33060:3306 -e MYSQL_ROOT_PASSWORD=0707 -d mysql:5.7
+docker run --name mariadb -p 33061:3306 -p 8011:8011 -v /home/ubuntu/mariadbdata:/var/lib/mysql --privileged -v /home/ubuntu/mariadbcnf:/etc/mysql/conf.d --privileged -e MYSQL_ROOT_PASSWORD=mariadb&0707  -d mariadb:latest
 ```
 
 ```bash
@@ -207,4 +208,15 @@ docker stop docker kill 停止守护式进程容器
 > add 拷贝加解压
 >
 > copy 只拷贝,不解压
+
+
+
+## tips
+
+docker 下MySQL报错: No directory, logging in with HOME=/ 且数据库无法重启成功
+
+```bash
+usermod -d /var/lib/mysql/ mysql
+service mysql start # 此时可以成功启动了
+```
 

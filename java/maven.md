@@ -21,3 +21,7 @@ runtime，只在运行时使用，如JDBC驱动，适用运行和测试阶段。
 test，只在测试时使用，用于编译和运行测试代码。不会随项目发布。 
 system，类似provided，需要显式提供包含依赖的jar，Maven不会在Repository中查找它。 
 
+
+
+
+
