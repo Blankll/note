@@ -56,52 +56,6 @@ CREATE INDEX idx_user_name_email ON user(name, email);
 
 表关联，jion查询太多会严重影响查询性能，要少用
 
-### 7种join
-
-1. 内连接 [两表都要存在的字段]
-
-   ```sql
-   SELECT * FROM tablea a INNER JOIN tableb b ON a.key = b.key;
-   ```
-
-2. 左连接[左表存在的字段]
-
-   ```sql
-   SELECT * FROM tablea a LEFT JOIN tableb b ON a.key = b.key;
-   ```
-
-3. 右连接[右表存在的字段]
-
-   ```sql
-   SELECT * FROM tablea a RIGHT JOIN tableb b ON a.key = b.key;
-   ```
-
-4. 全连接[左表或右表存在的字段]
-
-   ```sql
-   SELECT * FROM tablea a FULL OUTER JOIN tableb b ON a.key = b.key;
-   ```
-
-5. 左表独自存在的
-
-   ```sql
-   SELECT * FROM tablea LEFT JOIN tableb ON a.key = b.key WHERE b.key IS NULL
-   ```
-
-6. 右表独自存在的
-
-   ```sql
-   SELECT * FROM tablea a RIGHT JOIN tableb b ON a.key = b.key WHERE a.key IS NULL
-   ```
-
-7. 左表和右表各自存在的
-
-   ```sql
-   SELECT * FROM tablea a LEFT JOIN tableb b ON a.key = b.key WHERE b.key IS NULL
-   UNION 
-   SELECT * FROM tablea a RIGHT JOIN tableb b ON a.key = b.key WHERE a.key IS NULL
-   ```
-
 
 
 

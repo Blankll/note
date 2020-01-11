@@ -128,7 +128,14 @@ docker load < /home/image.tar.gz 导入镜像
 docker rmi images 删除镜像
 ```
 
+###  save和export的区别
 
+- save和export都能导出镜像包
+- save 将container commit后的image 导出成压缩文件
+- export可以直接将containner直接导出成压缩文件
+- docker load用来载入镜像包，docker import用来载入容器包，但两者都会恢复为镜像；
+- docker load不能对载入的镜像重命名，而docker import可以为镜像指定新名称。
+- docker load不能载入容器包。
 
 ## 获取和推送镜像
 
