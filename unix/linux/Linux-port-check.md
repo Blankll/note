@@ -12,3 +12,7 @@ netstat -tunlp |grep 端口号
 netstat -ntulp |grep 80
 ```
 
+```bash
+netstat -ntpl
+```
+
