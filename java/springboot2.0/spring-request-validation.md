@@ -22,6 +22,8 @@ sprong boot2的参数验证方式有很多种，自由也带来了混乱，在sp
    }
    ```
 
+   这里需要注意,有两个javax的@Valid 和springboot的validated 都可以用在上面的参数注解,参数绑定失败将会抛出``MethodArgumentTypeMismatchException``的错误
+
    这样就可以正确的获取请求的参数了.
 
    
@@ -57,7 +59,7 @@ sprong boot2的参数验证方式有很多种，自由也带来了混乱，在sp
    }
    ```
 
-   个人觉得，路由和传参应该时定死的，穿了参你爱要不要，但是你要却不在路由里面指定参数占位符，我觉得时在耍流氓。所以开发时候就测试号，不值得为这种毛病在弄aop,因为后面还有好多情况，自由带来的混乱。
+   个人觉得，路由和传参应该时定死的，传了参你爱要不要，但是你要却不在路由里面指定参数占位符，我觉得时在耍流氓。所以开发时候就测试号，不值得为这种毛病在弄aop,因为后面还有好多情况，自由带来的混乱。
 
 2. RequestParam: 拼接在请求路径总?开头的参数
 
@@ -74,9 +76,13 @@ sprong boot2的参数验证方式有很多种，自由也带来了混乱，在sp
    }
    ```
 
-   如果如果传了非整形数值会报``MethodArgumentTypeMismatchException``异常。总之就是我们有很多不同的方法进行验证，同样也会有很多不同的异常，我们需要处理，不可能直接将这些异常抛给前端，除非，你想和他干一架。待会我再来讨论我找到的统一处理的方法。
+   如果如果传了非整形数值会报``MethodArgumentTypeMismatchException``异常[同PathVarable]. 
+
+   总之就是我们有很多不同的方法进行验证，同样也会有很多不同的异常，我们需要处理，不可能直接将这些异常抛给前端，除非，你想和他干一架。待会我再来讨论我找到的统一处理的方法。
 
 3. RequestBody
+
+   在http body中传递的数据, get请求没有body,所以get请求不可能携带RequestBody
 
 
 
@@ -92,12 +98,13 @@ sprong boot2的参数验证方式有很多种，自由也带来了混乱，在sp
 
 ​	总结上面的异常情况，我在网上找到了一个总结表
 
-| ConstraintViolationException            | 违反约束avax扩展定义           |
-| --------------------------------------- | ------------------------------ |
-| BindException                           | 绑定失败如表单对象参数违反约束 |
-| MethodArgumentNotValidException         | 参数无效如JSON请求参数违反约束 |
-| MissingServletRequestParameterException | 参数缺失                       |
-| TypeMismatchException                   | 参数类型不匹配                 |
+| ConstraintViolationException            | 违反约束avax扩展定义                    |
+| --------------------------------------- | --------------------------------------- |
+| BindException                           | 绑定失败如表单对象参数违反约束          |
+| MethodArgumentNotValidException         | 参数无效如JSON请求参数违反约束          |
+| MissingServletRequestParameterException | 参数缺失                                |
+| TypeMismatchException                   | 参数类型不匹配                          |
+| MethodArgumentTypeMismatchException     | pathVarable参数绑定失败如参数类型不一致 |
 
 还有一个，如果发送了一个请求方方法不匹配的请求，会返回405。
 
