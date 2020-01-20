@@ -82,9 +82,9 @@ sprong boot2的参数验证方式有很多种，自由也带来了混乱，在sp
 
 3. RequestBody
 
-   在http body中传递的数据, get请求没有body,所以get请求不可能携带RequestBody
+   在http body中传递的数据, get请求没有body,所以get请求不可能携带RequestBody.
 
-
+   当使用
 
 
 
