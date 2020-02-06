@@ -10,7 +10,17 @@
   - 冒泡排序
   - 快速排序
 
+| 排序方法 | 时间复杂度(平均) | 时间复杂度(最坏) | 时间复杂度(最好) | 空间复杂度 | 稳定性 |
+| -------- | ---------------- | ---------------- | ---------------- | ---------- | ------ |
+| 插入排序 |                  |                  |                  |            |        |
+| 希尔排序 |                  |                  |                  |            |        |
+| 选择排序 |                  |                  |                  |            |        |
+| 堆排序   |                  |                  |                  |            |        |
+| 冒泡排序 |                  |                  |                  |            |        |
+| 快速排序 |                  |                  |                  |            |        |
+| 归并排序 |                  |                  |                  |            |        |
 
+![](../statics/arl-comp.png)
 
 ## 插入排序类
 
@@ -274,6 +284,7 @@ void quik_sort(int number[], int low, int high)
  * ****************************************/
 int partition(int number[], int low, int high)
 {
+    /**
     int point = number[low];
     while(low < high)
     {
@@ -284,6 +295,13 @@ int partition(int number[], int low, int high)
     }
 
     return low; // now low == high
+    **/
+    // 下面这个方法循环次数更少
+    int point = low, index = low + 1;
+    for(int i = index; i <= high; i++) if(arr[i] < arr[point]) swap(arr, i, index++);
+    swap(arr, point, index - 1);
+    
+    return index - 1;
 }
 // 交换
 void swap(int number[], int low, int high)
