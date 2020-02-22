@@ -13,6 +13,10 @@ JDK与OpenJDK
 
 接口允许定义成员，但必须是**常量**。 抽象类和接口类的无法实例化，任何编译器中直接使用new会报错。 
 
+### JVM
+
+JVM有多种**HotSpot VM**, **J9 VM**, **Zing VM**等,在sun/Oracle和openjdk中默认的都是**HotSpot VM**,HotSpot VM是绝对的主流。HotSpot VM就是Java规范的“参考实现”（RI，Reference Implementation）。把它叫做“标准JVM”完全不为过。
+
 ## final
 
 1. final关键字可以用于成员变量、本地变量、方法以及类。
