@@ -10,10 +10,6 @@
 
 
 
-
-
-
-
  <scope>的值的含义：
 compile，缺省值，适用于所有阶段，会随着项目一起发布。 
 provided，类似compile，期望JDK、容器或使用者会提供这个依赖。如servlet.jar。 

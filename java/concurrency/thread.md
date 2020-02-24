@@ -93,7 +93,7 @@ Thread类实现了Runnable的Run方法，两者本质都是执行run方法，只
 
 - Thread直接重写run方法
 
-两种创建线程追钟都是构造Thread类：
+两种创建线程最终都是构造Thread类：
 
 - 实现Runnable接口的run方法，并把Runnable实例传递给Thread类，Thread类调用run方法最终 调用Runnable实现的run方法
 
@@ -172,17 +172,20 @@ public void run() {
 
 ## 停止线程
 
-正确的线程停止方式是使用interrupt来通知而不是强制
+java中有3种方式终止运行的线程
 
-- 线程运行完成后停止
-- 线程中发生异常后异常停止
+1. 使用退出标识,使线程正常退出, 也就是run方法执行完后退出
+2. 使用stop强制终止线程 不推荐的做法
+3. 使用interrupt来通知线程终止
+
+正确的线程停止方式是使用interrupt来通知而不是强制, interrupt并不能马上停止线程
 
 ```java
 // run方法中检查线程是否收到中断信号
 boolean isInter = Thread.currentThread().isInterrupted();
 ```
 
-线程处于sleep状态下其他线程发送interrupt信号给该线程时线程线程内部会抛出I内特容入皮特的Exception异常，通过try catch sleep方法的异常可以对外部的中断信号做处理
+线程处于sleep状态下其他线程发送interrupt信号给该线程时线程线程内部会抛出I内特容入皮特的Exception异常并清除中断状态，通过try catch sleep方法的异常可以对外部的中断信号做处理
 
 stop会导致线程运行中突然停止，kill -9 一样，会造成数据错乱
 
@@ -311,7 +314,7 @@ yield
   - java中有10个线程优先级，默认为5
   - 程序设计不应当依赖于优先级
   - java优先级依赖于运行的系统对优先级的处理
-  - linux中优先级将会被忽略
+  - linux中优先级将会被忽略 => 也就是说,在Linux环境下设置优先级是无效的
 
 ## 线程异常
 

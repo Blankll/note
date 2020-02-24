@@ -30,6 +30,7 @@ public interface VerifyUser {
     public static int staticInt = 0;
     // 函数式方法只有一个未实现的方法
     String verifyUser(String username);
+    // 默认方法
     default  String getUserKind(String username) {
         if ("admin".equals(username)) { return "管理员"; }
         else { return "会员用户"; }
@@ -38,6 +39,7 @@ public interface VerifyUser {
         if ("admin".equals(username)) { return "管理员"; }
         else { return "会员用户"; }
     }
+    // 静态接口方法
     static   String getUserKindStatic(String username) {
         if ("admin".equals(username)) { return "管理员"; }
         else { return "会员用户"; }
@@ -49,7 +51,7 @@ public interface VerifyUser {
 }
 ```
 
-静态方法和默认方法可以再实现类中直接访问
+- 静态方法和默认方法可以在实现类中直接访问
 
 ```java
 package com.blank.study.lamda;
@@ -66,8 +68,6 @@ public class VerifyUserImpl implements VerifyUser {
 }
 ```
 
-
-
 java.util.function中提供了大量的函数式接口
 
 ```java
@@ -80,21 +80,13 @@ UnaryOperator<T> // 传入 T类型参数，处理后返回
 BinaryOperator<T> // 传入两个t对象，返回一个t对象
 ```
 
-
-
 ## Lamda表达式变量捕获
 
 lamda表达式中的this指向所属方法所在的对象
 
 lamda表达式变量优化了匿名内部类的变量捕获机制
 
-
-
 在lamda表达式底层构建过程中会将lamda表达式构建为private static 的方法
-
-
-
-
 
 ## stream
 

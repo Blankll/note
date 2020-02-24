@@ -1,8 +1,8 @@
 ﻿# javaIO
 
-javaI/O：int 和out，即java的输入与输出，io体系的基本功能是读和写；
+javaI/O：in 和out，即java的输入与输出，io体系的基本功能是读和写；
 
-## IO stream：  
+## IO stream
 
 - 作用：读写设备上的数据，硬盘文件，内存，键盘，网络.....
 
@@ -85,6 +85,8 @@ public abstract class InputStream extends Object implements Closeable
 ```java
 public FileInputStream(File file)throws FileNotFoundException
 ```
+- 知道文件大小时
+
 ```java
 import java.io.File;
 import java.io.FileInputStream;
@@ -102,28 +104,8 @@ public class Test13 {
     }
 }
 ```
-```java
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-//不知道输入文件大小时
-public class Test15 {
-    public static void main(String[] args) throws IOException {
-        File f = new File("d:" + File.separator+"test.txt");
-        InputStream in=new FileInputStream(f);
-        byte[] b=new byte[1024];
-        int temp=0;
-        int len=0;
-        while((temp=in.read())!=-1){//-1为文件读完的标志
-            b[len]=(byte) temp;
-            len++;
-        }
-        in.close();
-        System.out.println(new String(b,0,len));
-    }
-}
-```
+- 不知道输入文件大小时
+
 ```java
 import java.io.File;
 import java.io.FileInputStream;
