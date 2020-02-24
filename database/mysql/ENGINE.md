@@ -27,7 +27,7 @@ Percona xtraDB 在性能和并发性做的更好
 
 支持事务和外键
 
-表中的数据存储在表空中
+表中的数据存储在表空间中
 
 ```bash
 innodb_file_per_table=on

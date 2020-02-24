@@ -119,7 +119,7 @@ client: [ACK] Seq => server
 
 ## https
 
-HTTPS是一种基于SSL/TLS的http协议，所有的HTTP数据都是在SSL/TLS西药封装之上进行传输的。
+HTTPS是一种基于SSL/TLS的http协议，所有的HTTP数据都是在SSL/TLS协议封装之上进行传输的。
 
 HTTPS协议在HTTP协议的基础上，添加了SSL/TLS握手以及数据加密传输，也属于应用层协议。
 

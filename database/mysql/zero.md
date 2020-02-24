@@ -161,14 +161,26 @@ CREATE DATABASE `csdn` DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_general_ci;
 3. 删除数据库：drop database 数据库名称;
 
 ```mysql
-		 drop database demo;
+drop database demo;
 ```
 4. 使用数据库：use 数据库名称；
 
 ```mysql
-         use demo;
+use demo;
 ```
 ###2. 数据表
+
+查看数据库中的表:
+
+```mysql
+show tables;
+```
+
+查看表结构：
+
+```mysql
+desc 表名称；
+```
 
 表创建
 
@@ -195,6 +207,60 @@ CREATE TABLE `translations` (
 ```mysql
 DROP TABLE  tbl_name;
 DROP TABLE IF EXISTS tbl_name;
+```
+
+记录基本操作
+
+```mysql
+-- 表数据查看
+select * from 表名称;
+-- 数据修改
+update 表名称 set 字段=值,字段=值..... where id=num;
+update stu set stuName="zhangssan",stuAge =20 where id=3;
+-- 数据删除
+delete from 表名称 where id=3;
+注意：删除后主键id没有自动更新；
+-- 数据查询
+select 字段列表 from 表名称 [where条件][order by 字段 asc|desc][limit 起始位置 长度][group by 字段名称（分组）] 
+
+```
+
+查询操作
+
+```mysql
+	1-select 字段列表 from 表名称；
+	 select stuNum，stuName from student；
+	 注意：可以给字段名称或者表名称起别名
+	 select stuNum as stn，stuName as sn from student as sd；
+	 查找所有字段
+	 select * from student；
+	2-order by 排序 asc 什序 desc 降序
+	select * from student order by id desc；
+	3-limit 起始位置，长度； 截取记录
+	4-group by 分组：
+	select * from books by bTypeid 按照类型id分组。
+	分组以后，每组中的记录都会取一条。
+	5-where条件
+	比较符号： > < >= <=
+	select * from books where id>100; 字段值进行比较；
+	逻辑运算
+	与 或  and or
+	select * from books where id>100 and id<150;
+	模糊搜索：字符串中含有某个关键字，就能找到
+	like"%关键字%" %表示任意字符串；
+				  _表示任意一个字符
+	select * from books where bName like "%网站%";
+	范围
+		连续范围
+		[not]between..and..;
+		select * from books where id between 100 and 110;
+								  id>=100 and id<=110;
+		非连续范围
+		[not]in(值..)   [not] in(值..)不是这些数的其他数
+		select * from books where id in(100,103,110);
+		                    where id=100 or id=103 or id=110;
+		select * from books where id not in(100,103,110);
+		                    where id!=100 or id!=103 or id!=110;
 ```
 
 
@@ -355,7 +421,7 @@ gbk每个汉字占用2个字节
 
  从MySQL 5.5 开始，可支持4个字节UTF编码utf8mb4，一个字符最多能有4字节，所以能支持更多的字符集。
 
-一个varchar存汉字需要使用三个字段在utf8和utf8mb4编码表的情况下。
+一个varchar存汉字需要使用三个字节在utf8和utf8mb4编码表的情况下。
 2. 如果需要存储emoji表情的需求，新表的默认编码方式应该写为utf8mb4。另外提一点在最新发布的mysql8.0里面，默认编码方式已经是utf8mb4了。
 
 3. 在utf8和utf8mb4中 varchar(n)这个n是字符，所见即所得，一个a是一个字符一个😄也是一个字符 不过就是a这个字符是1个字节 哈这个字符是3个字节 而😄这个字符是4个字节表示罢了
@@ -370,86 +436,7 @@ gbk每个汉字占用2个字节
 
     可空CHAR的最大总长度是254【字节】；可空VARCHAR的最大总长度是65532【字节】。
 
-查看数据库中的表:
 
-```mysql
-show tables;
-```
-
-
-查看表结构：
-
-```mysql
-desc 表名称；
-```
-
-
-
-###4. 表操作
-
-1. 
-
-2. 查看
-
-   ```mysql
-   select * from 表名称
-   ```
-
-3. 修改
-
-   ```mysql
-   update 表名称 set 字段=值,字段=值..... where id=num;
-   update stu set stuName="zhangssan",stuAge =20 where id=3;
-   ```
-
-4. 删除
-
-   ```mysql
-   delete from 表名称 where id=3;
-   注意：删除后主键id没有自动更新；
-   ```
-
-5. 查询
-
-   ```mysql
-   select 字段列表 from 表名称 [where条件][order by 字段 asc|desc][limit 起始位置 长度][group by 字段名称（分组）] 
-   ```
-
-```mysql
-	1-select 字段列表 from 表名称；
-	 select stuNum，stuName from student；
-	 注意：可以给字段名称或者表名称起别名
-	 select stuNum as stn，stuName as sn from student as sd；
-	 查找所有字段
-	 select * from student；
-	2-order by 排序 asc 什序 desc 降序
-	select * from student order by id desc；
-	3-limit 起始位置，长度； 截取记录
-	4-group by 分组：
-	select * from books by bTypeid 按照类型id分组。
-	分组以后，每组中的记录都会取一条。
-	5-where条件
-	比较符号： > < >= <=
-	select * from books where id>100; 字段值进行比较；
-	逻辑运算
-	与 或  and or
-	select * from books where id>100 and id<150;
-	模糊搜索：字符串中含有某个关键字，就能找到
-	like"%关键字%" %表示任意字符串；
-				  _表示任意一个字符
-	select * from books where bName like "%网站%";
-	范围
-		连续范围
-		[not]between..and..;
-		select * from books where id between 100 and 110;
-								  id>=100 and id<=110;
-		非连续范围
-		[not]in(值..)   [not] in(值..)不是这些数的其他数
-		select * from books where id in(100,103,110);
-		                    where id=100 or id=103 or id=110;
-		select * from books where id not in(100,103,110);
-		                    where id!=100 or id!=103 or id!=110;
-```
 
 ## PHP对数据库的操作[原生连接]
 

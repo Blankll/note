@@ -2,7 +2,7 @@
 
 JDK与OpenJDK
 
-- JDK JRL协议， OpenJDK GPL协议授权，OpenJDK 可以用于商业环境，JDK在商业使用中需要获得授权
+- JDK JRL协议， OpenJDK GPL  V2协议授权，OpenJDK 可以用于商业环境，JDK在商业使用中需要获得授权
 - OpenJDK不包括部署功能(Java Web Start, java控制面板等)
 - OpenJDK源代码不完整，部分OracleJDK源代码无法开源
 - OpenJDK部分无产权的源代码替换为功能相同的开源源代码
@@ -21,7 +21,7 @@ JVM有多种**HotSpot VM**, **J9 VM**, **Zing VM**等,在sun/Oracle和openjdk中
 
 1. final关键字可以用于成员变量、本地变量、方法以及类。
 2. final成员变量必须在声明的时候初始化或者在构造器中初始化，否则就会报编译错误。
-3. 你不能够对final变量再次赋值。
+3. 不能够对final变量再次赋值。
 4. 本地变量必须在声明时赋值。
 5. **在匿名类中所有变量都必须是final变量**。
 6. final方法不能被重写。

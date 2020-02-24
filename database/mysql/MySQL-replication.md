@@ -9,7 +9,7 @@ show variables lik 'binlog_format' # 查看当前数据库日志格式
 set session binlog_format=statement # 设置binlog日志模式
 ```
 
-
+![MySQL level](../../statics/database/mysql-level.png)
 
 MySQL日志：
 
@@ -20,8 +20,6 @@ MySQL日志：
 - MySQL存储引擎日志(Innodb)
   - redolog(重做日志)
   - 回滚日志
-
-
 
 MySQL二进制日志
 

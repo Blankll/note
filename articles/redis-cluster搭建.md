@@ -161,6 +161,7 @@ Redis读写分离的集群在运维上存在着比较大的问题，当主节点
    ```bash
    # 在所有slave上执行如下命令
    slaveof no one
+   #执行完毕后的节点都变成了独立的master节点
    ```
 
 2. 选取一个slave作为master
