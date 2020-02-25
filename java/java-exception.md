@@ -23,3 +23,4 @@ Throwable
 
 
 
+![java-exceptions](../statics/java/java-exception.png)

@@ -1,4 +1,4 @@
-例如在大多数linux操作系统下一共有如下6个典型的运行级别：
+在大多数linux操作系统下一共有如下6个典型的运行级别：
 
 0 停机 
  1 单用户，Does not configure network interfaces, start daemons, or allow non-root logins 

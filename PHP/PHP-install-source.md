@@ -36,7 +36,7 @@ note 最好加上openssl、zlib这些库
 ##　openssl支持
 
 1. apt-get  install -y libtool perl-core zlib-devel
-2. 先源码安装ｏｐｅｎｓｓｌ，下载openssl，解压（安装的默认路径是/usr/local/ssl，如果你想更改目录，请加上–prefix=/yourpath）
+2. 先源码安装openssl，下载openssl，解压（安装的默认路径是/usr/local/ssl，如果你想更改目录，请加上–prefix=/yourpath）
 
 make
 
