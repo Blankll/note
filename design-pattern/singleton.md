@@ -42,7 +42,7 @@
     * @Version: 1.0
     */
    public class SingletonObjectTwo {
-       private static SingletonObjectTwo instance;
+       private volatile static SingletonObjectTwo instance;
    
        private SingletonObjectTwo() {};
    
@@ -53,6 +53,11 @@
                    // for thread safety
                    if(null == instance) {
                        instance = new SingletonObjectTwo();
+                       // 对象创建过程
+                       // 1. 分配内存给对象
+                       // 2. 初始化对象
+                       // 3. 设置instance指向对象所在地址
+                   	//如果不使用volita,可能会发生重排序问题, 如果2和3发生冲排序,可能会导致第一个if判断时不为null,从而返回为初始化的instance          
                    }
                }
            }
@@ -74,6 +79,7 @@
     * @Date: 1/13/19
     * @Version: 1.0
     */
+   // 基于类初始化的延迟加载解决方案
    public class SingletonObjectFour {
        private SingletonObjectFour() {}
    
