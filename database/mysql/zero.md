@@ -54,7 +54,10 @@ set password for 'root'@'localhost'=password('password');
 查看当前用户： select user();
 查看所有用户: select user,host from mysql.user;
 常看MySQL版本： select version();
-
+查看配置值: show variables like '%%';
+查看系统状态: show status like '%%';
+-- 修改配置参数
+set global slow_query_log = on
 ```
 创建用户
 

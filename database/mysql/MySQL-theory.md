@@ -26,7 +26,17 @@
   - 归档时间点的选择
   - 归档策略
 
+### Innodb和MySAM数据存储区别
 
+1. Innodb
+
+   > - 每个表有两个文件, table_name.frm, table_name.ibd
+   > - .frm存储表结构, .ibd存储表数据和索引
+
+2. MySAM
+
+   > - 每个表有三个文件, table_name.frm, table_name.MYI, table_name.MYD
+   > - .frm存储表结构,  MYI存储索引, MYD存储表数据
 
 ## MySQL性能
 
@@ -134,3 +144,30 @@ oneProxyp
 - 对服务器资源监控(如磁盘空间)
 
 - 数据库系统的性能会随着并发处理请求数量的增加而下降
+
+
+
+## MySQL慢日志
+
+```bash
+# 慢日志是否开启
+slow_query_log  # default off
+# 慢日志文件存储位置
+slow_query_log_file
+# 慢日志时间阀值
+long_query_time
+# 修改配置参数
+set global slow_query_log = on
+```
+
+分析慢查询
+
+1. 查看sql语句出现慢查询原因
+
+   ```sql
+   explain sql_context
+   ```
+
+   type字段:MySQL找到数据的方式
+
+   >system>const>eq_ref>fulltext>ref_or_null>index_merge>unique_subquery>index_subquery>range>index>all
