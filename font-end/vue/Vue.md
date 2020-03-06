@@ -105,7 +105,7 @@ vue init webpack name
 
    重新npm run start
 
-   ```
+   ```javascript
 // 发送
    this.$axios.get('/api/user/index', {
         params: {
@@ -113,7 +113,7 @@ vue init webpack name
         }
          })
    ```
-```
+```javascript
    
    
    

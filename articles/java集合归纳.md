@@ -16,6 +16,7 @@
 - ArrayList 数组实现（插入删除慢）
 - LinkList 双向链表实现（查找慢）
 - Vector 线程安全
+- stack 继承了Vector实现了list,其实也算是list的一种了
 
 ### 常用操作
 
@@ -37,10 +38,8 @@ public class LIstDemo01 {
 		for(int i = 0; i < lists.size(); i++) {
 			System.out.println(lists.get(i));
 		}
-		
 	}
 }
-
 ```
 
 #### 比较
@@ -50,6 +49,29 @@ public class LIstDemo01 {
 | 推出时间 |          JDK1.2          |                   JDK1.0 |
 | 性能     | 采用异步处理方式，高性能 | 采用同步处理方式，低性能 |
 | 线程安全 |      属于非线程安全      |             属于线程安全 |
+
+
+
+### stack 栈
+
+后进先出的数据结构,stack自己的方法包括如下:
+
+- push(item): 入栈
+- pop(): 出栈
+- empty(): 判断栈是否为空
+- peek() //获取栈顶元素, 元素不出栈
+- search(item): 判断item是否在栈中
+
+```java
+Stack<Integer> stack = new Stack<>();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+System.out.println(stack.peek());
+System.out.println(stack.pop());
+```
+
+
 
 ## Set接口
 

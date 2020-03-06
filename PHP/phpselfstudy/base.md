@@ -117,7 +117,7 @@ void unset(mixed $var1,mixed $var2...); //释放变量；
 ```php
 void print_r(); //打印变量信息---打印出下标和对应的值；
 int count(array $arr); //打印数组的元素的个数；
-array explode(string $separator, $string $sting); //使用一个字符串分割另一个字符串；返回的是一个数组；
+array explode(string $separator, $string $string); //使用一个字符串分割另一个字符串；返回的是一个数组；
 string join(string $flag, array $arr); //返回flag链接arr所组成的函数；implode 别名
 array_values(array $input); //返回数组中所有的值组成新的索引数组；
 array array_keys(array $input); //返回数组中所有的下标组成新的索引数组；

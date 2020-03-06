@@ -1,6 +1,6 @@
 # request validation
 
-请求参数验证应该是任何一个web开发流程的重要环节，web framework都会提供相应的解决方案，不知道是因为我先入为主的原因，还是事实就是如此，PHP的web开发框架Laravel的request validation是我用过最好用的参数验证方式了，但是迫于无奈，这段时间必须使用java进行web开发，于是开始上手spring boot，自然，没个框架的上手都是从填坑开始的.....
+请求参数验证应该是任何一个web开发流程的重要环节，web framework都会提供相应的解决方案，不知道是因为我先入为主的原因，还是事实就是如此，PHP的web开发框架Laravel的request validation是我用过最好用的参数验证方式了，但是迫于无奈，这段时间必须使用java进行web开发，于是开始上手spring boot，自然，每个框架的上手都是从填坑开始的.....
 
 ## 请求的基础知识
 

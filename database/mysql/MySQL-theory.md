@@ -171,3 +171,8 @@ set global slow_query_log = on
    type字段:MySQL找到数据的方式
 
    >system>const>eq_ref>fulltext>ref_or_null>index_merge>unique_subquery>index_subquery>range>index>all
+
+   extra字段:
+
+   - using filesort: 表示MySQL会对结果使用一个外部索引排序,而不是从表里按索引次序读到相关内容,可能在内存或者磁盘上进行排. MySQL中无法利用索引完成排序的操作称为"文件排序"
+   - using temporary: 表示MySQL在对查询结果排序时使用临时表.常见于排序order by 和分组查询group by

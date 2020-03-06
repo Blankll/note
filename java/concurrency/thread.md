@@ -185,7 +185,7 @@ java中有3种方式终止运行的线程
 boolean isInter = Thread.currentThread().isInterrupted();
 ```
 
-线程处于sleep状态下其他线程发送interrupt信号给该线程时线程线程内部会抛出I内特容入皮特的Exception异常并清除中断状态，通过try catch sleep方法的异常可以对外部的中断信号做处理
+线程处于sleep状态下其他线程发送interrupt信号给该线程时线程线程内部会抛出interruptException异常并清除中断状态，通过try catch sleep方法的异常可以对外部的中断信号做处理
 
 stop会导致线程运行中突然停止，kill -9 一样，会造成数据错乱
 
@@ -280,7 +280,7 @@ Thread.getState();// 获取线程生命周期状态
 
   唤醒阶段
    - notify会随机唤醒，JVM可以有自己的裁量权
-   - notify和wait需要在syncnaize代码块中执行，否则会抛出异常[必须先拥有monitor]
+   - notify和wait需要在synchronized代码块中执行，否则会抛出异常[必须先拥有monitor]
 
   遇到中断
    - 抛出interruptException异常同时释放monitor
