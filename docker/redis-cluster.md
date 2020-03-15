@@ -15,11 +15,10 @@
 
 1. 安装redis镜像
 
-   ```shell
+   ```bash
    docker pull redis
-   
    ```
-
+   
 2. 创建docker容器
 
    ```shell

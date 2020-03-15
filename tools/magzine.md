@@ -1,0 +1,1 @@
+https://magazinelib.com/
