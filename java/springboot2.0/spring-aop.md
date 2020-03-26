@@ -4,8 +4,8 @@
 
 ```xml
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-start-aop</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-aop</artifactId>
 </dependency>
 ```
 
