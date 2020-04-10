@@ -125,6 +125,8 @@
       以上没有指定任何path的参数，但是我们却要求传入PathVariable,但是编译通过，若果以当前的路由请求，直接500, 如果添加/1则是404, （我以为他会编译不通过)
 
       ```json
+      
+      ```
    # /api/zongce/admin
       {
           "timestamp": "2019-02-14T10:20:41.590+0000",
@@ -133,7 +135,7 @@
           "message": "Missing URI template variable 'id' for method parameter of type Long",
           "path": "/api/zongce/admin"
       }
-      
+   
       # /api/zongce/admin/1  
       {
           "timestamp": "2019-02-14T10:18:44.944+0000",
@@ -143,7 +145,7 @@
           "path": "/api/zongce/admin/1"
       }
       ```
-      
+   
       个人觉得，路由和传参应该时定死的，传了参你爱要不要，但是你要却不在路由里面指定参数占位符，我觉得时在耍流氓。所以开发时候就测试号，不值得为这种毛病在弄aop,因为后面还有好多情况，自由带来的混乱。
 
    2. RequestParam: 拼接在请求路径总?开头的参数
@@ -153,12 +155,12 @@
       > /api/zongce/admin?id=2
 
       处理controller
-
+   
       ```java
       @getMapping("/api/zongce/admin")
       public String  create(@Valid @RequestParam(name = "id")  Long id) {
           return "admin create controller";
-      }
+   }
       ```
 
       如果如果传了非整形数值会报``MethodArgumentTypeMismatchException``异常[同PathVarable]. 
@@ -172,7 +174,7 @@
       
 
    在处理有多个请求参数校验中,通常通过新建一个类通过注解规定参数校验规则:
-
+   
    ```java
    public class LoginReqeust {
        @NotEmpty(message = "账号不能为空")
@@ -204,32 +206,32 @@
        public void setYnnu_id(String ynnuId) {
            this.ynnuId = ynnuId;
        }
-   }
+}
    ```
 
    在controller中进行验证注入:
-
+   
    ```java
    @PostMapping("login")
-   public ResponseResult<TokenView> login(@Validated LoginReqeust loginReqeust) {...}
+public ResponseResult<TokenView> login(@Validated LoginReqeust loginReqeust) {...}
    ```
 
    上面的验证方式同时有效于RequestParam和RequestBody中的请求参数
 
    	总结上面的异常情况，我在网上找到了一个总结表
-
-   | ConstraintViolationException            | 违反约束avax扩展定义                    |
-   | --------------------------------------- | --------------------------------------- |
-   | BindException                           | 绑定失败如表单对象参数违反约束          |
-   | MethodArgumentNotValidException         | 参数无效如JSON请求参数违反约束          |
-   | MissingServletRequestParameterException | 参数缺失                                |
-   | TypeMismatchException                   | 参数类型不匹配                          |
-   | MethodArgumentTypeMismatchException     | pathVarable参数绑定失败如参数类型不一致 |
+   
+   | ConstraintViolationException            | 违反约束avax扩展定义                                         |
+   | --------------------------------------- | ------------------------------------------------------------ |
+   | BindException                           | 绑定失败如表单对象参数违反约束                               |
+   | MethodArgumentNotValidException         | 参数无效如JSON请求参数违反约束                               |
+   | MissingServletRequestParameterException | 参数缺失(@Valid @RequestParam(name = "record_id") Long recordId) |
+| TypeMismatchException                   | 参数类型不匹配                                               |
+   | MethodArgumentTypeMismatchException     | pathVarable参数绑定失败如参数类型不一致                      |
 
    如果发送了一个请求方方法不匹配的请求，会返回405。前端应当对405进行特定的处理
 
    总结了springboot下的请求验证构建方法和抛出的异常,就可以通过springboot的exceptionHandler进行拦截了,
-
+   
    ```java
    @ControllerAdvice
    public class ExceptionHandler {
@@ -311,7 +313,7 @@
            return  new ResponseEntity(new Resp<String>(5000, message, null), HttpStatus.INTERNAL_SERVER_ERROR);
        }
    
-   }
+}
    ```
-
+   
    

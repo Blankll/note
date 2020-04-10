@@ -32,6 +32,14 @@ grep "password" /var/log/mysqld.log
 set password for 'root'@'localhost'=password('password'); 
 ```
 
+## 登录
+
+在mariadb10.0中,root的默认登录方式变为auth_socket, 登录命令为``mysql -S /var/run/mysqld/mysqld.sock``,可以免除密码输入
+
+```sql
+SELECT user, host, plugin, default_role FROM mysql.user;
+```
+
 
 
 表名：
@@ -107,16 +115,6 @@ mariadb默认关闭远程连接，需要更改配置文件
 --/etc/mysql/mariadb.conf.d/50-server.cnf--
 bind-address = 0.0.0.0
 ```
-
-## 登录
-
-在mariadb10.0中,root的默认登录方式变为auth_socket, 登录命令为``mysql -S /var/run/mysqld/mysqld.sock``,可以免除密码输入
-
-```sql
-SELECT user, host, plugin, default_role FROM mysql.user;
-```
-
-
 
 
 
@@ -310,6 +308,11 @@ ALTER TABLE user12 ADD CONSTRAINT symbol UNIQUE KEY uni_card(card);
 
 -- test,test1添加联合unique
 ALTER TABLE user12 ADD CONSTRAINT symbol UNIQUE INDEX mulUni_test_test1(test, test1);
+
+-- 删除外键约束
+ALTER TABLE shares DROP FOREIGN KEY `share_user_key`;
+-- 添加外键约束
+ALTER TABLE shares ADD CONSTRAINT `share_user_key` FOREIGN KEY(`user_id`) REFERENCES users(`id`);
 
 -- 删除唯一
 -- ALTER TABLE tb_name DROP {INDEX|KEY} index_name;

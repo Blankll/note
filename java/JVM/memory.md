@@ -26,5 +26,9 @@ java虚拟机运行时的数据区域
 
 
 
+可作为GC Roots对象的种类:
+
+1. 虚拟机栈(栈帧中的本地变量表)
+
 [^1]: boolean, byte, char, short, int, float, long, double
 [^2]: 直线一条字节码指令地址
