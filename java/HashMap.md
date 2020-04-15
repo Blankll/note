@@ -24,3 +24,10 @@ capacity * DEFAULT_LOAD_FACTOR = 扩容阈值
 
 jdk1.8以前是头插法, jdk1.8开始使用尾插发
 
+
+
+
+
+Hashtable 是不允许键或值为 null 的，HashMap 的键值则都可以为 null。
+
+ConcurrentHashMap键值都不可以为null
