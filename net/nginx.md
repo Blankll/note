@@ -224,3 +224,36 @@ sudo nginx -s reload
 sudo service nginx restart
 ```
 
+## nginx获取真实客户端地址
+
+在前后端分离的情况下,由于api地址会通过nginx的前端服务器代理到api服务器上,导致默认获取的地址是前端服务器的地址
+
+1. 在前端服务器nginx配置文件下添加:
+
+   ```bash
+   location /api { 
+           rewrite  ^/api/(.*)$ /api/$1 break;
+           proxy_pass   https://***.*********.com;
+   }
+   proxy_set_header X-Forwarded-For $remote_addr;
+   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+   ```
+
+2. 在nginx的默认配置文件(一般在/etc/niginx/nginx.conf)中配置内存容量:
+
+   ```bash
+   http{
+   ...
+   proxy_headers_hash_max_size 51200;
+   proxy_headers_hash_bucket_size 6400;
+   ```
+
+3. 重启服务器使得配置生效
+
+   ```bash
+   sudo nginx -t
+   sudo nginx -s reload
+   sudo service nginx restart
+   ```
+
+   
