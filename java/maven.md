@@ -19,5 +19,20 @@ system，类似provided，需要显式提供包含依赖的jar，Maven不会在R
 
 
 
+阿里云maven地址配置，在maven的settings.xml文件的mirrors中添加配置：
+
+```java
+<mirror>
+    <id>alimaven</id>
+    <name>aliyun maven</name>
+    <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+ 	<mirrorOf>central</mirrorOf>
+</mirror>
+```
+
+
+
+
+
 
 
