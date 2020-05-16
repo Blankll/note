@@ -23,13 +23,13 @@ MySQL日志：
 
 MySQL二进制日志
 
-- 基于段的格式：binlog_format=STATEMENT(存储Mysql每一个事件执行SQL语句)（5.7之前的日志）
+- ``STATEMENT``基于段的格式：binlog_format=STATEMENT(存储Mysql每一个事件执行SQL语句)（5.7之前的日志）
 
   - 日志记录量相对较小，节约磁盘及网络I/O
 
   - 必须记录上下文信息，非确定函数无法复制
 
-- 基于行的日志格式：binlog_format=ROW(5.7之后的默认)
+- ``ROW``基于行的日志格式：binlog_format=ROW(5.7之后的默认)
 
   - 使MySQL主从复制更加安全
 
@@ -43,7 +43,7 @@ MySQL二进制日志
     - 只记录修改的数据
     - 不记录未修改的blob数据
 
-- 混合日志格式：binlog_format=MIXED
+- ``MIXED``混合日志格式：binlog_format=MIXED
 
   - 根据sql语句由系统决定使用何种日志格式
 

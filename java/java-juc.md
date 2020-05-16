@@ -6,6 +6,8 @@ AbstractQueuedSynchronizer：抽象队列同步器，AQS定义了一套多线程
 
 AQS维护了一个volatile int state（代表共享资源）和一个FIFO线程等待队列（多线程争用资源被阻塞时会进入此队列）。
 
+CLH：Craig、Landin and Hagersten队列，是单向链表，AQS中的队列是CLH变体的虚拟双向队列（FIFO），AQS是通过将每条请求共享资源的线程封装成一个节点来实现锁的分配。
+
 ![aqs](../statics/java/aqs.png)
 
 AQS两种资源共享方式：
