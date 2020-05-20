@@ -47,6 +47,27 @@ AQS两种资源共享方式：
 
 
 
+## CAS
+
+Compare-And-Swap：由cpu指令保证操作原子性
+
+内存位置实际值V，预期值A，目标设置值B，CAS操作就是当A的值等于V时将V值设置为目标值B且这个过程是一个原子操作
+
+Unsafe是CAS的核心类。java无法直接访问底层操作系统，而是通过本地native方法来访问，JVM提供了一个后门，JDK的Unsafe类，他提供了硬件级别的原子操作。
+
+Unsafe对象中的valueOffset表示变量值在内存中的偏移地址，Unsafe就是根据内存偏移地址来直接获取变量在内存中的位置和值，从而实现CAS
+
+CAS的应用：
+
+- 乐观锁
+- ConcurrentHashMap
+- 原子类
+
+CAS存在的问题：
+
+- ABA问题
+- 自旋时间过长
+
 ## Lock
 
 ### 公平锁和非公平锁
@@ -109,7 +130,7 @@ ReentrantReadWriteLock：可以降级(即从写锁降为读锁)，不可升级
 
 
 
-
+AtomicInteger加载Unsafe工具，用来直接操作内存数据
 
 AtomicIntegerFieldUpdater:对普通变量进行升级
 
@@ -188,4 +209,24 @@ Adder
     }
     ```
 
-    
+
+
+
+## 栈封闭
+
+把变量写在线程内部
+
+方法中的局部变量存储在线程私有的栈空间中，不会被其他线程访问到，所以是线程安全的，这就是“栈封闭”技术，是“线程封闭”技术的一种情况
+
+
+
+```java
+String a = "string2"; // 堆内存中
+final String b = "string"; // 方法区运行时常量池中
+String d = "string"; // 堆内存中
+String c = b + 2; // 堆内存中已经有 string2字符串，指向这个字符串 # 这里的b如同宏替换
+String e = d + 2; // 运行时确定，在堆上生成对象， hashcode不一样
+System.out.println((a == c)); // true
+System.out.println((a == e)); // false
+```
+
