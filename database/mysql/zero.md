@@ -30,6 +30,8 @@ grep "password" /var/log/mysqld.log
 ```mysql
 -- 在登录MySQL之后执行
 set password for 'root'@'localhost'=password('password'); 
+-- 也可以用这个
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'new password';
 ```
 
 ## 登录
