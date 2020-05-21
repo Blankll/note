@@ -210,6 +210,24 @@ Hashtable 是不允许键或值为 null 的，HashMap 的键值则都可以为 n
 
 ConcurrentHashMap键值都不可以为null
 
+HashMap并发问题：
+
+1. 同时put碰撞导致数据丢失
+
+   > 两个线程同时放置连个hashcode相同的数据就会造成其中一个丢失
+
+2. 同时扩容导致数据丢失
+
+   > 多个线程同时put扩容发现需要扩容，扩容时还是从的相同的就会只有一个被保存下来
+
+3. 死循环造成的cpu100%
+
+   
+
+### Hashtable
+
+Vector和Hashtable是线程安全的，但是性能较差，因为大量使用了方法级别的synchronized
+
 ## Queue
 
 队列是一种特殊的线性表，它只允许在表的前端进行删除操作，而在表的后端进行插入操作。
@@ -244,4 +262,8 @@ System.out.println("peek="+queue.peek()); //返回第一个元素
 
 ## 并发容器
 
-- ConcurrentHashMap
+- ConcurrentHashMap : 线程安全版的Hashmap
+- CopyOnWriteArrayList： 线程安全的List
+- BlockinQueue： 接口，阻塞队列，常用于数据共享通道
+- ConcurrentLinkedQueue： 高效的非阻塞并发队列，相当于一个线程安全的LinkedList
+- ConcurrentSkipListMap： 使用跳表的数据结构进行快速查找
