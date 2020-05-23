@@ -230,3 +230,35 @@ System.out.println((a == c)); // true
 System.out.println((a == e)); // false
 ```
 
+
+
+## 并发容器
+
+- ConcurrentHashMap : 线程安全版的Hashmap
+- CopyOnWriteArrayList： 线程安全的List
+- CopyOnWriteArraySet： 线程安全的Set
+- BlockinQueue： 接口，阻塞队列，常用于数据共享通道
+- ConcurrentLinkedQueue： 高效的非阻塞并发队列，相当于一个线程安全的LinkedList
+- ConcurrentSkipListMap： 使用跳表的数据结构进行快速查找
+
+### ConcurrentHashMap
+
+1.7的ConcurrentHashMap
+
+- 最外层是多个segment，每个segment的底层数据结构月HashMap类似，仍然是数组和链表组成的拉链法
+- 每个segment独立上ReentrantLock锁，每个segment之间互不影响，提高了并发效率
+- 默认0-15共16个segment，所以最多可以同时支持16个线程并发写，可以在初始化时设置其他默认值，但是一旦初始化后不可再扩容segment
+
+1.8的ConcurrentHashMap
+
+- 同HashMap一样是node+链表+红黑树的结构
+- CAS+synchronized保证并发安全
+- 使用8为为使用红黑树的分界是以泊松分布概率计算得到的
+
+### CopyOnWriteArrayList
+
+- 代替Vector和SynchronizedList
+- 读取无锁，写入不会阻塞读取操作，只有写入和写入之间需要进行同步等待
+- 可以在迭代过程中进行修改
+- 在已经生成iterator后进行对LIST的修改在iterator中不可见，所以并非实时的
+- 使用了ReentrantLock

@@ -64,9 +64,7 @@ public class CollectionTest {
         sss.add("ss");
         sss.add("sss");
         sss.add("ssss");
-        for (String s : sss) {
-            System.out.println(s);
-        }
+        for (String s : sss) { System.out.println(s); }
     }
 }
 ```
@@ -259,11 +257,3 @@ System.out.println("peek="+queue.peek()); //返回第一个元素
   * PriorityBlockingQueue ：一个由优先级堆支持的无界优先级队列。优先队列中元素被赋予优先级，拥有高优先级的先被删除
   * DelayQueue ：一个由优先级堆支持的、基于时间的调度队列。
   * SynchronousQueue ：一个利用 BlockingQueue 接口的简单聚集（rendezvous）机制。
-
-## 并发容器
-
-- ConcurrentHashMap : 线程安全版的Hashmap
-- CopyOnWriteArrayList： 线程安全的List
-- BlockinQueue： 接口，阻塞队列，常用于数据共享通道
-- ConcurrentLinkedQueue： 高效的非阻塞并发队列，相当于一个线程安全的LinkedList
-- ConcurrentSkipListMap： 使用跳表的数据结构进行快速查找
