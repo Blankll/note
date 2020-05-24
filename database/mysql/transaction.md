@@ -11,9 +11,9 @@
 
 事务会产生的问题
 
-- dirty read 脏读
-- non-repeatable read 不可重复读
-- phantom read 幻读
+- dirty read 脏读: 一个事务正在对一条记录进行修改，在完成并提交前另一个事务也来读取该条记录，第二个事务读取了事务一修改前的数据，也就是所谓的“脏”数据
+- non-repeatable read 不可重复读: 一个事务在读取某些数据后的某个时间再次读取之前读取过的数据，发现读出的数据已经发生了改变或者删除，这种现象称为“不可重复读”
+- phantom read 幻读: 一个事务按相同的查询条件重新读取以前检索过的数据，发现其他事务插入了满足查询条件的新数据，这种现象称为“幻读”
 
 SQL标准事务隔离级别
 
@@ -33,7 +33,12 @@ set sesstion_tx isolation='read-commited';  # 设置事务隔离级别
 
 MySQL 5.5 及以前的版本，回滚日志是跟数据字典一起放在 ibdata 文件里的
 
+## 事务隔离
 
+- 读未提交        <font color="red">`` 脏读``</font>
+- 读提交   <font color="red">`` 不可重复读``</font>、     <font color="red">`` 幻读``</font> 
+- 可重复读   <font color="red">`` 间隙锁``</font> 、       <font color="red">`` 默认``</font> 、  <font color="red">`` 死锁``</font> 、    <font color="red">`` 多版本``</font> 
+- 串行化
 
 ### 大事务
 

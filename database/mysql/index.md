@@ -31,6 +31,12 @@ b树查找![qlinde](C:\Users\blank\Desktop\sqlindex.png)
 
 - hash索引
 
+  > - MySQL的memory引擎使用了hash索引
+  >
+  > - innodb的“自适应哈希索引(adaptive hash index)”innodb发现某些索引使用非常频繁时，会在内存中基于bB-tree索引再创建一个哈希索引，提高查询速度，这是一个完成自动的内部行为，用户无法干预
+  >
+  > - innodb不支持hash
+
 b+Tree更适合用来做存储索引
 
 - B+树的磁盘读写代价更低

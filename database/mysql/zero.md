@@ -586,8 +586,6 @@ apt-get autoremove --purge mysql-server
 dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P
 ```
 
-
-
 **存储过程** 
 
 为以后的使用而保存的一条或者多条MySQL语句集合

@@ -145,7 +145,15 @@ oneProxyp
 
 - 数据库系统的性能会随着并发处理请求数量的增加而下降
 
+## MySQL日志
 
+- redolog
+- undolog
+- binlog
+- error_log
+- query_log
+- slow_log
+- ibd、frm
 
 ## MySQL慢日志
 
@@ -176,3 +184,23 @@ set global slow_query_log = on
 
    - using filesort: 表示MySQL会对结果使用一个外部索引排序,而不是从表里按索引次序读到相关内容,可能在内存或者磁盘上进行排. MySQL中无法利用索引完成排序的操作称为"文件排序"
    - using temporary: 表示MySQL在对查询结果排序时使用临时表.常见于排序order by 和分组查询group by
+
+##  MVCC
+
+- innodb实现了基于多版本的并发控制协议MVCC
+- MVCC最大的好处是读不加锁，读写不冲突
+- 现阶段几乎所有的RDBMS都支持MVCC
+- 在MVCC并发控制中，读操作可以分为两类：快照读(snapshot read)、当前读(current read)
+- <font color="red">MVCC只在READ COMMITED和REPEATABLE READ两个隔离级别下工作</font>
+
+
+
+DB_ROW_ID: 隐含id,6byte，由innodb自动产生
+
+DB_TRX_ID: 事务id，6byte，每处理一个事务，值自动加一
+
+DB_ROLL_PT: 回滚指针，7byte，指向当前记录的ROLLBACK SEGMENT 的undolog记录，通过这个指针获得之前版本的数据
+
+MVCC流程：
+
+1. 假设操作为insert，可以认为DB_ROW_ID为1，其他两个字段为空

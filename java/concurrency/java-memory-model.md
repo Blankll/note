@@ -48,8 +48,6 @@ happens-before规则是用来解决可见性问题的：在时间上，如果动
 
 重排序依然可能发生
 
-
-
 volatile关键字
 
 - volatile是一种同步机制，比synchronized或者Lock相关类更轻量，使用volatile不会发生上下文切换等开销很大的行为

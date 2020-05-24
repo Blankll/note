@@ -86,16 +86,6 @@ sprong boot2的参数验证方式有很多种，自由也带来了混乱，在sp
 
    当使用
 
-
-
-
-
-
-
-
-
-
-
 ​	总结上面的异常情况，我在网上找到了一个总结表
 
 | ConstraintViolationException            | 违反约束avax扩展定义                    |

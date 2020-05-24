@@ -194,7 +194,7 @@ static final int DEFAULT_INITIAL_CAPACITY = 1 << 4; // aka 16
 
 capacity * DEFAULT_LOAD_FACTOR = 扩容阈值
 
-扩容: 扩容条件: 实际节点数大于等于容量的四分之三;会扩容为原大小的两倍
+扩容:  实际节点数大于等于容量的四分之三;会扩容为原大小的两倍
 
 扩容后的排布: 要么是原下标位置,要么是原下标+原容量位置
 

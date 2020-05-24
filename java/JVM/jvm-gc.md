@@ -1,4 +1,4 @@
-# GC
+# JVM-GC
 
 GC作为一个自动的过程，不需要在代码中显示地启动垃圾回收过程。System.gc()和Runtime.gc()用来请求JVM启动垃圾回收。
 
