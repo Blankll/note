@@ -262,3 +262,11 @@ System.out.println((a == e)); // false
 - 可以在迭代过程中进行修改
 - 在已经生成iterator后进行对LIST的修改在iterator中不可见，所以并非实时的
 - 使用了ReentrantLock
+
+## Future&Callable
+
+Future相当于一个存储器,他存储call()任务的结果，call的执行时间取决于call方法的执行情况，无法提前确定。
+
+利用Future.get()来获取Callable接口返回的执行结果，通过Future.isDone()来判断任务是否执行完成，以及取消任务，获取任务的结果等等
+
+在call()方法未执行完毕前调用Future.get()方法会使得调用线程被阻塞，直到call()方法返回了结果后Future.get()方法得到结果同时使得调用线程切换为runnable状态
