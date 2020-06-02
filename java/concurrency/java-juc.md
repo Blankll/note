@@ -45,8 +45,6 @@ AQS两种资源共享方式：
 
 参考文章：http://www.cnblogs.com/waterystone/p/4920797.html
 
-
-
 ## CAS
 
 Compare-And-Swap：由cpu指令保证操作原子性
@@ -92,16 +90,12 @@ ReentrantLock lock = new ReentrantLock();
 
 排他锁：如读写锁中的写锁
 
-
-
 ### 读写锁
 
 ReentrantReadWriteLock
 
 - 插队：不允许读锁插队，写锁总是可以插队，非公平锁，读锁可以在队列头节点为非写锁时插队
-- 升降级： 允许降级不允许升级
-
-
+- 升降级： 允许降级不允许升级\
 
 ### 锁的升级&降级
 
@@ -116,19 +110,13 @@ ReentrantReadWriteLock：可以降级(即从写锁降为读锁)，不可升级
 
 阻塞：在目标锁被占用时放弃CPU执行权限，将自己阻塞挂起，等待线程其他线程释放目标锁时被唤醒
 
-
-
 ### JVM锁优化
 
 - 自旋自适应：jvm根据自旋锁的效率判断是否进行自旋操作还是直接挂起线程
 - 锁消除：对无需加锁而用户却加锁的环境下JVM将锁消除
 - 锁粗化：减少反复的加锁解锁，加多个加锁解锁合并为一个加锁解锁，即增大代码块区间。
 
-
-
 ## 原子类
-
-
 
 AtomicInteger加载Unsafe工具，用来直接操作内存数据
 
@@ -175,9 +163,7 @@ class Candidate {
 }
 ```
 
-
-
-Adder
+### Adder
 
 - java8中引入
 
@@ -210,15 +196,11 @@ Adder
     ```
 
 
-
-
 ## 栈封闭
 
 把变量写在线程内部
 
 方法中的局部变量存储在线程私有的栈空间中，不会被其他线程访问到，所以是线程安全的，这就是“栈封闭”技术，是“线程封闭”技术的一种情况
-
-
 
 ```java
 String a = "string2"; // 堆内存中
@@ -229,8 +211,6 @@ String e = d + 2; // 运行时确定，在堆上生成对象， hashcode不一�
 System.out.println((a == c)); // true
 System.out.println((a == e)); // false
 ```
-
-
 
 ## 并发容器
 

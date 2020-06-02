@@ -30,7 +30,7 @@
 | Ctrl+Alt+F7    | Show Usages                   | 查找当前变量的使用，并直接对话框显示 |
 | Ctrl+F7        | Find Usages in File           | 在文件中查找符号的使用               |
 | Ctrl+Shift+F7  | Highlight Usages in File      | 在文件中高亮显示变量的使用           |
-|                |                               |                                      |
+| Ctrl+Alt+V     | Variable                      | 自动补充变量类型和名称               |
 
 ### Refactor
 
