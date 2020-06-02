@@ -263,6 +263,196 @@ System.out.println((a == e)); // false
 - 在已经生成iterator后进行对LIST的修改在iterator中不可见，所以并非实时的
 - 使用了ReentrantLock
 
+# 并发流程控制
+
+让线程间相互配合，完成目标任务
+
+并发流程控制工具类
+
+| class          | effect                                                       | desc                                                         |
+| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Semaphore      | 信号量，通过控制“许可证”的数量保证线程之间的配合             | 线程只有在拿到“许可证”后才能继续运行，相比于其他同步器更灵活 |
+| CyclicBarrier  | 栅栏，线程会等待，直到足够多的线程达到了事先规定的数目后进行下一步动作 | 适用于线程之间相互等待处理结果就绪的场景                     |
+| Phaser         | 类似CyclicBarrier，计数可变                                  | java7加入                                                    |
+| CountDownLatch | 门闩，类型CyclicBarrier，数量递减到0时触发动作               | 不可重复使用                                                 |
+| Exchanger      | 让两个线程在合适时交换对象                                   | 使用场景：当两个线程工作在同一个类的不同实例上时，用于交换数据 |
+| Condition      | 可以控制线程的等待和唤醒                                     | Object.wait()的升级版                                        |
+
+
+
+## Semaphore
+
+信号量用于控制有限资源的使用，维护一个“许可证”计数，线程可以获取“许可证”，也可以释放许可证，许可证为0时线程获取许可证需要等待，直到另外一个线程释放了许可证
+
+- 初始化Semaphore(int permits, boolean fair)时指定许可证数量
+- 在需要获取许可证的地方调用acquire()或者aquireUniterruptibly()方法
+- 使用完成时调用release()来释放信号量
+
+```java
+static Semaphore semaphore = new Semaphore(3, true);
+
+public static void main(String[] args) {
+    ExecutorService service = Executors.newFixedThreadPool(50);
+    for (int i = 0; i < 100; i++) {
+        Runnable runnable = () -> {
+            try {
+                semaphore.acquire();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(Thread.currentThread().getName() + ": 取得信号量");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(Thread.currentThread().getName() + ": 释放信号量");
+            semaphore.release();
+        };
+        service.submit(runnable);
+    }
+    service.shutdown();
+}
+```
+
+## CyclicBarrier
+
+循环栅栏，线程达到预定数量后执行预定任务，同时各个线程也会执行自身await之后的逻辑，CyclicBarrier是可重用的
+
+```java
+CyclicBarrier barrier = new CyclicBarrier(5, () -> {
+    System.out.println("线程数量满足预期");
+});
+Runnable runnable = () -> {
+    System.out.println(Thread.currentThread().getName() + " 前往集合点");
+    try {
+        Thread.sleep((long) (Math.random() * 10000));
+        System.out.println(Thread.currentThread().getName() + " 到达集合点，等待其他线程到达");
+        barrier.await();
+        // barrier条件满足后执行
+        System.out.println(Thread.currentThread().getName() + " 集合点满足条件后继续后续逻辑");
+    } catch (InterruptedException | BrokenBarrierException e) {
+        e.printStackTrace();
+    }
+};
+public static void main(String[] args) {
+    CyclicTest test = new CyclicTest();
+    for (int i = 0; i < 100; i++) {
+        new Thread(test.runnable).start();
+    }
+}
+```
+
+## CountDownLatch
+
+倒数门闩，人满了拼团成功，CountDownLatch递减到0后不可重用
+
+- CountDownLatch (int count): 构造函数，参数count为需要倒数的数值
+- await(): 调用该方法的线程会被挂起，直到count递减为0才继续执行 
+- countDown(): 将count值减1，count为0时唤醒等待线程
+
+```java
+public void contTest () {
+        final CountDownLatch latch = new CountDownLatch(1);
+        ExecutorService service = Executors.newFixedThreadPool(5);
+        for (int i = 0; i < 5; i++) {
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(Thread.currentThread().getName() + ": 准备完毕，等待发令");
+                    try {
+                        latch.await();
+                        System.out.println(Thread.currentThread().getName() + ": 起跑");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            service.submit(runnable);
+        }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("发令！");
+        latch.countDown();
+    }
+```
+
+## Condition
+
+又称条件对象，作用如下：
+
+- 线程在需要等待某个条件的时候执行condition.await()方法，线程一旦执行该方法就会进入阻塞状态
+
+- 其他线程通过condition.signal()方法时jvm会唤醒等待这个condition的线程，使线程的状态从阻塞变为就绪态(runnable)
+
+- signal()与signalAll()区别
+
+  > - signal()是公平的，只会唤醒等待时间最长的线程
+  > - signalAll()会唤醒所有正在等待的线程
+
+- 和Object.awati()一样，await方法会自动释放持有的Lock锁，不需要自己手动释放
+
+- 和Object.awati()一样，调用await时必须持有锁，否则会抛出异常
+
+```java
+private int queueSize = 10;
+private PriorityQueue<String> queue = new PriorityQueue<>(queueSize);
+private Lock lock = new ReentrantLock();
+private Condition notFull = lock.newCondition();
+private Condition notEmpty = lock.newCondition();
+Runnable consumer = () -> {
+    while (true) {
+        try {
+            lock.lock();
+            while (queue.size() == 0) {
+                System.out.println("[消费者] " + Thread.currentThread().getName() + " 队列为空，等待数据");
+                try {
+                    notEmpty.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            String data = queue.poll();
+            notFull.signalAll();
+            System.out.println("[消费者] " + Thread.currentThread().getName() + " 消费数据： " + data);
+        } finally {
+            lock.unlock();
+        }
+    }
+};
+Runnable produce = () -> {
+    while (true) {
+        try {
+            lock.lock();
+            while (queue.size() == queueSize) {
+                System.out.println("[生产者] " + Thread.currentThread().getName() + " 队列已满，等待空余");
+                try {
+                    notFull.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            String data = "data-" + System.currentTimeMillis();
+            queue.offer(data);
+            notEmpty.signalAll();
+            System.out.println("[生产者] " + Thread.currentThread().getName() + " 生产数据：" + data);
+        } finally {
+            lock.unlock();
+        }
+    }
+};
+public static void main(String[] args) {
+    CondittionCp cp = new CondittionCp();
+    new Thread(cp.produce).start();
+    new Thread(cp.consumer).start();
+}
+```
+
+
+
 ## Future&Callable
 
 Future相当于一个存储器,他存储call()任务的结果，call的执行时间取决于call方法的执行情况，无法提前确定。
