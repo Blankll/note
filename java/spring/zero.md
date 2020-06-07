@@ -1,5 +1,13 @@
 # springboot
 
+## spring framework核心模块构成
+
+1. spring-core: Spring的基础API模块，如资源管理，泛型处理
+2. spring-beans: Spring Bean相关，如依赖查找，依赖注入
+3. spring-aop: Spring AOP处理，如动态处理，AOP字节码提升
+4. spring-context: 事件驱动，注解驱动，模块驱动
+5. spring-expression: Spring表达式语言模块
+
 ## 创建springboot应用
 
 

@@ -1887,8 +1887,6 @@ public class PayTest {
         System.out.println(result);
 
     }
-
 }
-
 ```
 
