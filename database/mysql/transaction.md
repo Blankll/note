@@ -1,5 +1,17 @@
 # Transaction
 
+## MySQL日志
+
+- **binlog(归档日志)**<font color="red">Server层日志</font>: MySQL服务层产生的日志，常用来进行数据恢复、数据库复制，常见的MySQL主从架构就是采用slave同步master的binlog实现数据复制
+- **redo log(重做日志)**<font color="red">Innodb引擎日志</font>: 记录了数据操作在物理层面的修改，mysql中使用了大量缓存，修改操作时会直接修改内存，而不是立刻修改磁盘，事务进行中时会不断的产生redo log，在事务提交时进行一次flush操作，保存到磁盘中。当数据库或主机失效重启时，会根据redo log进行数据的恢复，如果redo log中有事务提交，则进行事务提交修改数据。
+- Undo Log:  除了记录redo log外，当进行数据修改时还会记录undo log，undo log用于数据的撤回操作，它记录了修改的反向操作，比如，插入对应删除，修改对应修改为原来的数据，通过undo log可以实现事务回滚，并且可以根据undo log回溯到某个特定的版本的数据，实现MVCC
+
+更新记录时，InnoDB 引擎会先把记录写到 redo log中，并更新内存，这个时候更新就算完成了。同时，InnoDB 引擎会在适当的时候，将该操作记录更新到磁盘磁盘中，该操作通常在系统占用较低时进行。
+
+InnoDB 的 redo log 是固定大小的
+
+crash-safe: InnoDB在发生异常重启时借助redo log保证之前提交的数据不会丢失的能力称为crash-safe
+
 事务：一个最小的不可再分的工作单元，MySQL 中，事务支持是在引擎层实现的
 
 MySQL 是一个支持多引擎的系统，但并不是所有的引擎都支持事务。比如 MySQL 原生的 MyISAM 引擎不支持事务。
@@ -13,7 +25,7 @@ MySQL 是一个支持多引擎的系统，但并不是所有的引擎都支持�
 
 事务会产生的问题
 
-- dirty read (脏读): 一个事务正在对一条记录进行修改，在完成并提交前另一个事务也来读取该条记录，第二个事务读取了事务一修改前的数据，也就是所谓的“脏”数据
+- dirty read (脏读): 事务一个正在对一条记录进行修改，在完成并提交前事务二也来读取该条记录，事务二读取了事务一修改但未提交的数据，如果事务一回滚，那么事务二读取到的数据就成了“脏”数据。
 - non-repeatable read (不可重复读): 一个事务在读取某些数据后的某个时间再次读取之前读取过的数据，发现读出的数据已经发生了改变或者删除，这种现象称为“不可重复读”
 - phantom read (幻读): 一个事务按相同的查询条件重新读取以前检索过的数据，发现其他事务插入了满足查询条件的新数据，这种现象称为“幻读”
 
@@ -25,6 +37,8 @@ SQL标准事务隔离级别<font color="red">`` 隔离性``</font>
 - serializable 串行化 ：对于同一行记录，“写”会加“写锁”，“读”会加“读锁”。
 
 Oracle 数据库默认的事务隔离级别是**读提交[read committed]**
+
+SQL Server数据库默认的事务隔离级别是**读提交[read committed]**
 
 MySQL 数据库默认的事务隔离级别是**可重复读[Repeatable Read]**
 
@@ -73,7 +87,9 @@ MVCC(**Multi Version Concurrency Control**): 多版本并发控制，**与MVCC�
 
 
 
-DB_ROW_ID: 隐含id,6byte，由innodb自动产生
+DB_ROW_ID: 隐含id,6byte，由innodb自动产生。
+
+> 如果未声明主键，InnoDB 会自动生成一个隐藏主键，因此会出现这个列。另外，每条记录的头信息（record header）里都有一个专门的 `bit`（`deleted_flag`）来表示当前记录是否已经被删除
 
 DB_TRX_ID: 事务id，6byte，每处理一个事务，值自动加一。
 
@@ -81,7 +97,7 @@ DB_TRX_ID: 事务id，6byte，每处理一个事务，值自动加一。
 >
 > 每行数据是有多个版本的，每次事务更新数据时都会生成一个新的数据版本，并且把transaction id赋值给这个数据行的DB_TRX_ID
 
-DB_ROLL_PT: 回滚指针，7byte，指向当前记录的ROLLBACK SEGMENT 的undolog记录，通过这个指针获得之前版本的数据
+DB_ROLL_PT: 回滚指针，7byte，指向当前记录的ROLLBACK SEGMENT 的undolog记录，通过这个指针获得之前版本的数据。该行记录上所有旧版本在 `undolog` 中都通过链表的形式组织
 
 MVCC流程：
 

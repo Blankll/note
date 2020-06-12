@@ -1,3 +1,102 @@
+## PHP对数据库的操作[原生连接]
+
+  MySQL函数库--PHP的函数，PHP中用来操作MySQL数据库中的函数
+
+### 常用函数：
+
+1. mysql_connect("主机名称/IP","用户名","密码"); 
+
+   > -->建立PHP与数据库的连接；返回资源
+   >
+   > @-->错误抑制符
+   > die-->输出（）中的内容，终止程序；
+
+2. mysql_error();返回上一个MySQL操作的文本错误信息；
+
+3. mysql_select_db("数据库名称",$link);选择数据库；
+
+4. mysql_query();向数据库发送一条SQL命令；执行SQL语句；
+
+5. mysql_affected_rows();取得前一条sql返回受影响的行数；insert update delete；
+
+6. mysql_close(); 关闭数据库连接；
+
+7. mysql_fetch_array()从结果集中取得一行作为关联数组，或者数字数组，或者二者兼有；
+
+   mysql_fetch_array(结果集，参数2)：从结果集中返回一条记录；
+   MYSQL_ASSOC :关联数组
+   MYSQL_NUM :索引数组
+   MYSQL_BOTH :混合数组
+
+   ```php
+   // mysql_fetch_assoc()
+       mysql_fetch_assoc($result) == mysql_fetch_array($result,MYSQL_ASSOC);
+   // mysql_fetch_row()
+       mysql_fetch_row($result) == mysql_fetch_array($result,MYSQL_NUM);
+   ```
+
+8. mysql_num_rows():获取select语句执行后的结果集中记录的条数；
+
+SQL语句：sql语句在PHP中是以字符串的形式存在的；
+
+example:
+
+```php
+//连接数据库
+$link = @mysql_connect("localhost","root","root") or die("连接错误".mysql_error());
+echo $link."<hr />";
+//选择数据库
+mysql_select_db("test",$link);
+//设置编码格式
+mysql_query("set names utf8");
+// 插入数据
+$sql = "INSERT INTO student(s_name,s_password,s_score,s_sex,s_age)
+        VALUES('李四','002','77','2','19')";
+mysql_query($sql);
+
+//修改数据库表中的信息
+$sql = "UPDATE student SET s_name='lisi' WHERE s_id=2";
+mysql_query($sql);
+
+//删除数据库中的信息
+$sql = "DELETE FROM student WHERE s_id=2";
+mysql_query($sql);
+
+//查询数据库中的信息
+$sql = "SELECT *FROM student";
+
+//执行查询语句mysql_query()返回资源；
+$result = mysql_query(sql);
+
+//查询返回的结果集中记录的条数
+count = mysql_num_rows($result);
+echo "student表中的信息条数：{$count}<hr />";
+
+//截取一条返回的信息
+rs = mysql_fetch_array(result,MYSQL_ASSOC);
+print_r($rs);
+
+while($rs = mysql_fetch_array(result,MYSQL_ASSOC))
+{
+  print_r($rs);
+  echo "<br />";
+}
+
+echo "<hr />";
+
+//查看受影响的数据条数
+echo mysql_affected_rows();
+
+//关闭数据库连接；
+mysql_close($link);
+```
+
+mysql_pconnect() 函数打开一个到 MySQL 服务器的持久连接。  
+
+mysql_pconnect() 和 mysql_connect() 非常相似，虽然只多了一个P, 但有两个主要区别：  
+
+当连接的时候本函数将先尝试寻找一个在同一个主机上用同样的用户名和密码已经打开的（持久）连接，如果找到，则返回此连接标识而不打开新连接。其次，当脚本执行完毕后到 SQL 服务器的连接不会被关闭，**此连接将保持打开以备以** **后使用（** **mysql_close() 不会关闭由 mysql_pconnect() 建立的连接）** 
+
 # PDO
 
 1. 通过参数形式连接数据库

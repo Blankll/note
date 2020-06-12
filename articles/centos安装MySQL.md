@@ -80,3 +80,4 @@ set global validate_password_length=1;
 这样只要密码长度大于等于1就可以设置成功
 
 这样就可以进行密码修改了。
+

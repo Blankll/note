@@ -40,7 +40,7 @@
 
 <u>使用MQ保证在下单失败后系统数据的完整性</u>
 
-![](/home/seven/Documents/RocketMQ/文档/img/下单时序图(2).png)
+![](../../statics/rocketmq/下单时序图(2).png)
 
 ### 问题2
 

@@ -68,7 +68,7 @@
 
 常见的MQ产品包括Kafka、ActiveMQ、RabbitMQ、RocketMQ。 
 
-![](/home/seven/Documents/RocketMQ/文档/img/MQ比较.png)
+![](../../statics/rocketmq/MQ比较.png)
 
 # 2. RocketMQ快速入门
 

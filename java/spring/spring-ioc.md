@@ -34,9 +34,6 @@ IOC配置元信息的读取和解析，IOC容器生命周期，Spring事件发�
   | Initialization method    | Bean初始化回调方法名称                       |
   | Destruction method       | Bean销毁回调方法名称                         |
 
-  
-
-
 
 ### spring bean
 
@@ -64,7 +61,7 @@ bean在Spring容器中从创建到销毁经历了若干阶段，每一阶段都�
 8. 如果bean实现了BeanPostProcessor接口，Spring将调用他的postProcessAfterInitialization方法，此时，bean的初始化就算完成，将一直驻留在应用上下文中，直到应用被销毁
 9. 如果bean实现了DisposableBean接口，Spring将调用他的destroy方法，同样，如果bean声明了destroy-method将会调用该销毁方法
 
-spring bean的自动装配方式
+**spring bean的自动装配方式**
 
 1. no: 默认的方式是不进行自动装配，通过手工设置ref属性来进行装配bean
 2. byName: 通过bean的名称进行自动装配，如果一个bean的property与另一个bean的name相同，就进行自动装配。
@@ -72,18 +69,3 @@ spring bean的自动装配方式
 4. constructor: 利用构造函数进行装配，并且构造函数的参数通过byType进行装配
 5. autodetect: 自动探测，如果有构造方法，通过construct的方式进行装配，否则使用byType的方式进行自动装配
 
-Spring支持两种类型的事务管理：
-
-1. 编程式事务管理: 通过编程的方式管理事务，带来极大的灵活性，但难维护
-2. 声明式事务管理: 通过注解和xml配置来管理事务，实现业务代码与事务管理的解耦
-
-Spring事务的本质其实就是数据库对事务的支持，没有数据库的事务支持，spring是无法提供事务功能的。
-
-
-
-Spring的事务传播行为:
-
-1. PROPAGATION_REQUIRED: 如果当前没有事务,就创建一个新事务，否则就加入该事务，该设置是最常用的设置。
-2. PROPAGATION_SUPPORTS: 支持当前事务，如果当前存在事务,就加入该事务，否则就以非事务执行。
-3. PROPAGATION_MANDATORY：支持当前事务，如果当前存在事务，就加入该事务，否则抛出异常。
-4. PROPAGATION_REQUIRES_NEW：创建新事务，无论当前存不存在事务，都创建新事务。

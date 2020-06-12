@@ -153,7 +153,36 @@ oneProxyp
 - error_log
 - query_log
 - slow_log
-- ibd、frm
+
+### MySQL文件
+
+**MyISAM引擎的文件：**
+
+*.MYD:存储表数据记录
+
+*.MYI: 存储表索引信息
+
+*.frm: 存储表结构信息（每一个表有一个同名的文件）
+
+*.log 日志文件
+
+**InnoDB引擎的文件：**
+
+独立表空间: 每个表使用一个表空间文件
+
+- table_name.ibd: 存储表数据和索引(B+Tree组织的数据)
+
+- table_name.frm: 存储表结构信息（每一个表有一个同名的文件）
+
+共享表空间: 
+
+- ibdata1、ibdata2等：系统表空间文件，存储InnoDB系统信息和用户数据库表数据和索引，所有表共用。
+
+
+
+MyISAM将表存储在.MYD(存数据信息)和.MYI(存索引信息)中
+
+MySQL的所有存储引擎都会有一个.frm文件,每个表一个文件,记录对应的表结构
 
 ## MySQL慢日志
 
