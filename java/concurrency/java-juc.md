@@ -8,7 +8,7 @@ AQS维护了一个volatile int state（代表共享资源）和一个FIFO线程�
 
 CLH：Craig、Landin and Hagersten队列，是单向链表，AQS中的队列是CLH变体的虚拟双向队列（FIFO），AQS是通过将每条请求共享资源的线程封装成一个节点来实现锁的分配。
 
-![aqs](../statics/java/aqs.png)
+![aqs](../../statics/java/aqs.png)
 
 AQS两种资源共享方式：
 
@@ -95,7 +95,7 @@ ReentrantLock lock = new ReentrantLock();
 ReentrantReadWriteLock
 
 - 插队：不允许读锁插队，写锁总是可以插队，非公平锁，读锁可以在队列头节点为非写锁时插队
-- 升降级： 允许降级不允许升级\
+- 升降级： 允许降级不允许升级(即只能从写锁降为读锁)
 
 ### 锁的升级&降级
 
@@ -225,7 +225,7 @@ System.out.println((a == e)); // false
 
 1.7的ConcurrentHashMap
 
-- 最外层是多个segment，每个segment的底层数据结构月HashMap类似，仍然是数组和链表组成的拉链法
+- 最外层是多个segment，每个segment的底层数据结构与HashMap类似，仍然是数组和链表组成的拉链法
 - 每个segment独立上ReentrantLock锁，每个segment之间互不影响，提高了并发效率
 - 默认0-15共16个segment，所以最多可以同时支持16个线程并发写，可以在初始化时设置其他默认值，但是一旦初始化后不可再扩容segment
 
@@ -240,7 +240,7 @@ System.out.println((a == e)); // false
 - 代替Vector和SynchronizedList
 - 读取无锁，写入不会阻塞读取操作，只有写入和写入之间需要进行同步等待
 - 可以在迭代过程中进行修改
-- 在已经生成iterator后进行对LIST的修改在iterator中不可见，所以并非实时的
+- 在已经生成iterator后进行对List的修改在该iterator中不可见，所以并非实时的
 - 使用了ReentrantLock
 
 # 并发流程控制
@@ -269,6 +269,7 @@ System.out.println((a == e)); // false
 - 使用完成时调用release()来释放信号量
 
 ```java
+// 资源数为3 公平锁
 static Semaphore semaphore = new Semaphore(3, true);
 
 public static void main(String[] args) {
@@ -276,6 +277,7 @@ public static void main(String[] args) {
     for (int i = 0; i < 100; i++) {
         Runnable runnable = () -> {
             try {
+                // 获取信号量
                 semaphore.acquire();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -287,6 +289,7 @@ public static void main(String[] args) {
                 e.printStackTrace();
             }
             System.out.println(Thread.currentThread().getName() + ": 释放信号量");
+            // 释放信号量
             semaphore.release();
         };
         service.submit(runnable);
@@ -297,10 +300,11 @@ public static void main(String[] args) {
 
 ## CyclicBarrier
 
-循环栅栏，线程达到预定数量后执行预定任务，同时各个线程也会执行自身await之后的逻辑，CyclicBarrier是可重用的
+循环栅栏，线程达到预定数量后执行预定任务，同时各个线程也会执行自身await之后的逻辑，<font color="red">CyclicBarrier是可重用的</font>
 
 ```java
 CyclicBarrier barrier = new CyclicBarrier(5, () -> {
+    // barrier条件满足后执行 1
     System.out.println("线程数量满足预期");
 });
 Runnable runnable = () -> {
@@ -309,14 +313,14 @@ Runnable runnable = () -> {
         Thread.sleep((long) (Math.random() * 10000));
         System.out.println(Thread.currentThread().getName() + " 到达集合点，等待其他线程到达");
         barrier.await();
-        // barrier条件满足后执行
+        // barrier条件满足后执行 2
         System.out.println(Thread.currentThread().getName() + " 集合点满足条件后继续后续逻辑");
     } catch (InterruptedException | BrokenBarrierException e) {
         e.printStackTrace();
     }
 };
 public static void main(String[] args) {
-    CyclicTest test = new CyclicTest();
+    Cyclicbarrier test = new Cyclicbarrier();
     for (int i = 0; i < 100; i++) {
         new Thread(test.runnable).start();
     }
@@ -325,7 +329,7 @@ public static void main(String[] args) {
 
 ## CountDownLatch
 
-倒数门闩，人满了拼团成功，CountDownLatch递减到0后不可重用
+倒数门闩，调用await时进入等待，调用countDown时减一，CountDownLatch递减到0后执行await后的逻辑。<font color="red">不可重用</font>
 
 - CountDownLatch (int count): 构造函数，参数count为需要倒数的数值
 - await(): 调用该方法的线程会被挂起，直到count递减为0才继续执行 

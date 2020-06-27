@@ -55,5 +55,5 @@ zset中如果元素少于128个使用的是ziplist结构,如果多余128个,就�
 ## 事件循环机制
 
 timer事件和I/O事件是两种截然不同的事件，但需要进行统一调度
-![image of redis life cycle](./redis_method_call_hierarchy.png)
+![image of redis life cycle](../redis_method_call_hierarchy.png)
 

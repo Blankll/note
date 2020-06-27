@@ -9,7 +9,7 @@
 
 java.uitl.concurrent.ThreadPoolExecutor类是线程池中最核心的一个类
 
-![ThreadPoolExecutor uml](../statics/java/ThreadPoolExecutor-uml.png)
+![ThreadPoolExecutor uml](../../statics/java/ThreadPoolExecutor-uml.png)
 
 ```java
 public class ThreadPoolExecutor extends AbstractExecutorService {
@@ -31,13 +31,13 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 
 其中参数意义如下：
 
-- corePoolSize： 线程核心池大小
+- **`corePoolSize`**： 线程核心池大小
 
-- maximumPoolSize:  线程池最大线程数大小
+- **`maximumPoolSize`**:  线程池最大线程数大小
 
-- keepAliveTime: 线程池中非核心线程空闲的存活时间大小
+- **`keepAliveTime`**: 线程池中非核心线程空闲的存活时间大小
 
-- unit 线程空闲存活时间单位,有7种取值
+- **`unit`** 线程空闲存活时间单位,有7种取值
 
   >TimeUnit.DAYS;                           //天
   >TimeUnit.HOURS;                       //小时
@@ -64,7 +64,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 
 ### 线程池状态
 
-ThreadPoolExecutor中定义了一个volatile变量，另外定义了几个static final变量表示线程池的各个状态。线程池的状态分成了如下四种：
+ThreadPoolExecutor中定义了一个volatile变量，另外定义了几个static final常量表示线程池的各个状态。线程池的状态分成了如下四种：
 
 - **RUNNING**: 线程池初始化后处于RUNNING状态。
 - **SHUTDOWN**: 线程池调用shutdown()后线程池将会处于SHUTDOWN状态，该状态下线程池不再接收新的任务，会等待线程池中的所有任务执行完毕。
@@ -77,7 +77,7 @@ ThreadPoolExecutor中定义了一个volatile变量，另外定义了几个static
 
 向线程池提交任务之后的流程如下：
 
-![thread pool excutor](../statics/java/threadpool-excutor.png)
+![thread pool excutor](../../statics/java/threadpool-excutor.png)
 
 拒绝时机：
 

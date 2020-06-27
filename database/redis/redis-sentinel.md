@@ -2,8 +2,6 @@
 
 添加setinel节点监控redis节点,setinel节点之间也会互相监控,通过监控判断节点是否可达,不可达时选举出新的setinel主节点完成自动故障转移
 
-
-
 1. 多个sentinel发现并确认master有问题
 2. 选举出一个sentinel作为领导
 3. 选出一个slave作为master
@@ -85,7 +83,6 @@ sentinel deny-scripts-reconfig yes
 
 ```bash
 redis-sentinal redis-sentinel-26379.conf
-
 ```
 
 生成与slave个数相同的监控slave的sentinel
@@ -105,7 +102,6 @@ sentinel down-after-milliseconds mymaster 30000 # 测试ping master的时间间�
 sentinel parallel-syncs mymaster 1 # 每次复制一个
 sentinel failover-timeout mymaster 180000
 sentinel deny-scripts-reconfig yes
-
 ```
 
 slave2 sentinel
@@ -136,7 +132,6 @@ try {
 } finally {
     jedis.close(); // 归还到连接池，并不一定是关闭连接
 }
-
 ```
 
 redis sentinel失败判定``三个定时任务``

@@ -33,7 +33,7 @@ b树查找![qlinde](C:\Users\blank\Desktop\sqlindex.png)
 
   > - MySQL的memory引擎使用了hash索引
   >
-  > - innodb的“自适应哈希索引(adaptive hash index)”innodb发现某些索引使用非常频繁时，会在内存中基于bB-tree索引再创建一个哈希索引，提高查询速度，这是一个完成自动的内部行为，用户无法干预
+  > - innodb的“自适应哈希索引(adaptive hash index)”innodb发现某些索引使用非常频繁时，会在内存中基于B-tree索引再创建一个哈希索引，提高查询速度，这是一个完成自动的内部行为，用户无法干预
   >
   > - innodb不支持hash
 
@@ -75,8 +75,6 @@ SELECT * FROM table_name WHERE b = 2 AND c = 3;
 SELECT * FROM table_name WHERE b = 2;
 ```
 
-
-
 外键索引 保证数据的一致性，完整性和实现级联操作
 
 全文索引是MySQL中MyISAM自带的，只能对英文进行全文检索。
@@ -93,7 +91,7 @@ like查询，%在前面就无法使用索引
 
 每一个索引在 InnoDB 里面对应一棵 B+ 树。
 
-主键索引的叶子节点存的是整行数据。在 InnoDB 里，主键索引也被称为聚簇索引（clustered index）。
+<font color="red">主键索引的叶子节点存的是整行数据。在 InnoDB 里，主键索引也被称为聚簇索引（clustered index）。</font>
 
 官方自带的逻辑备份工具是 mysqldump。当 mysqldump 使用参数–single-transaction 的时候，导数据之前就会启动一个事务，来确保拿到一致性视图。而由于 MVCC 的支持，这个过程中数据是可以正常更新的
 
