@@ -112,3 +112,11 @@ echo 2 > zookeeper-cluster/node-2/data/myid
 echo 3 > zookeeper-cluster/node-3/data/myid
 ```
 
+启动zookeeper
+
+```bash
+bin/zkServer.sh start zookeeper-cluster/node-1/zoo.cfg
+bin/zkServer.sh start zookeeper-cluster/node-2/zoo.cfg
+bin/zkServer.sh start zookeeper-cluster/node-3/zoo.cfg
+```
+
