@@ -177,3 +177,58 @@ listenPort=9875
 一个生产者组，代表着一群topic相同的Producer。即一个生产者组是同一类Producer的组合。
 
 一个消费者组，代表着一群topic相同，tag相同（即逻辑相同）的Consumer。   
+
+
+
+
+
+## message
+
+- topic：生产者向topic进行消息投递， 消费者可以针对topic进行订阅
+
+- tags： 可以进行标签过滤
+
+- keys：用户自定义的key，用来做消息的唯一标识
+
+- body：消息体byte数组
+
+消费者使用
+
+1. 创建消费者对象DefaultMQPushConsumer
+2. 设置NameservAdder及消费位置ConsumerFromWhere
+3. 进行主题订阅subscribe
+4. 注册监听并消费registerMessageListener
+
+
+
+生产者核心参数
+
+producerGroup：组名，应用范围内唯一
+
+createTopicKey：自动生成topic名称
+
+defaultTopicQueueNums：每个topic的队列数量
+
+sendMsgTimeout：超时时间
+
+compressMsgBodyOverHowmuch：进行body压缩的阈值
+
+retryTimesWhenSendFailed： 同步重发策略
+
+maxMessageSize：单个消息最大默认128k
+
+
+
+## 主从同步
+
+同步元数据内容(topic config, consumer offset)[定时任务同步(每隔一分钟)]，实际数据(commitlog)[通过socket 实时同步]
+
+## 生产者消息状态返回
+
+SEND_OK 消息发送成功
+
+FLUSH_DESK_TIMEOUT: 消息发送成功，但刷盘超时
+
+FLUSH_SLAVE_TIMEOUT: 在进行同步的时候同步到slave节点超时
+
+SLAVE_NOT_AVAILABLE: 消息发送成功，但slave节点不可用
