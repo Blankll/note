@@ -49,8 +49,16 @@ zookeeper客户端和zookeeper集群中的某个节点在连接时创建一个se
 重要配置项：
 
 - clientPort: zookeeper对客户端提供服务的端口
+- tickTime: zookeeper服务器之间和客户端与服务器之间维持心跳的时间间隔，单位为毫秒
 - dataDir: 指定快照文件保存目录，如果没有十二只dataLogDir，事务日志文件也会保存到这个目录
 - dataLogDir: 用来保存事务日志文件的目录。zookeeper在提交一个事务之前，需要保证事务日志记录的落盘，所以需要为dataLogDir分配一个独占的存储设备
+- initLimit：zookeeper接受客户端初始化连接时最长可接受心跳时间间隔：tickTime * initLimit，超出则客户端连接失败
+- syncLimit: leader与follower消息同步响应最长可接受心跳时间间隔：tickTime * syncLimit
+- server.A = B:C:D:
+  - A 当前配置服务器编号
+  - B 当前配置服务器IP
+  - C 与leader服务器交换信息的端口号
+  - D leader选举时使用的端口号
 
 
 
@@ -119,4 +127,12 @@ bin/zkServer.sh start zookeeper-cluster/node-1/zoo.cfg
 bin/zkServer.sh start zookeeper-cluster/node-2/zoo.cfg
 bin/zkServer.sh start zookeeper-cluster/node-3/zoo.cfg
 ```
+
+## zookeeper命令
+
+`ls dir`：显示zookeeper的节点
+
+`get dir`：获取节点数据
+
+`create dir value`：创建节点
 
