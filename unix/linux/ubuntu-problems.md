@@ -12,3 +12,10 @@ ps aux | grep -i apt
 kill process_id
 ```
 
+使用perf进行占用分析
+
+```bash
+sudo perf record -g -a sleep 10
+sudo perf report
+```
+
