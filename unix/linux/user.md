@@ -12,7 +12,12 @@ useradd与adduser都是创建新的用户
 
 2、adduser在使用该命令创建用户是会在/home下自动创建与用户名同名的用户目录，系统shell版本，会在创建时会提示输入密码，更加友好。
 
- 
+ ```bash
+sudo usermod -a -G sudo username # username加入sudo权限组
+sudo deluser username sudo # 撤销用户的sudo权限
+ ```
+
+
 
 userdel 删除用户，
 
