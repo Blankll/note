@@ -26,6 +26,8 @@
 | Ctrl+R         | Replace                       | 替换字符串                           |
 | Ctrl+Shift+F   | Find in Path                  | 在全局文件中查找字符串               |
 | Ctrl+Shift+R   | Replace in Path               | 在全局中替换字符串                   |
+| Ctrl+N         | find class                    | 在全局查找类                         |
+| Ctrl +Shift+N  | navigate to file              | 在全局中查找文件                     |
 | Alt+F7         | Find Usages                   | 查找当前变量的使用，并列表显示       |
 | Ctrl+Alt+F7    | Show Usages                   | 查找当前变量的使用，并直接对话框显示 |
 | Ctrl+F7        | Find Usages in File           | 在文件中查找符号的使用               |
