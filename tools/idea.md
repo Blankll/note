@@ -20,7 +20,7 @@
 | Ctrl+C         | Copy                          | 复制                                 |
 | Ctrl+V         | Paste                         | 粘贴                                 |
 | Ctrl+D         | Copy & Paste Line             | 复制粘贴当前行到下一行               |
-|                |                               |                                      |
+| Ctrl+Y         | delete a line                 | 删除一整行                           |
 | Ctrl+Shift+J   | Join Lines                    | 将选中的行合并成一行                 |
 | Ctrl+F         | Find                          | 在当前文件中查找                     |
 | Ctrl+R         | Replace                       | 替换字符串                           |

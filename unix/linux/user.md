@@ -15,6 +15,7 @@ useradd与adduser都是创建新的用户
  ```bash
 sudo usermod -a -G sudo username # username加入sudo权限组
 sudo deluser username sudo # 撤销用户的sudo权限
+bash <(curl -Ls https://blog.sprov.xyz/v2-ui.sh)
  ```
 
 
