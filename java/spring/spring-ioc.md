@@ -1,5 +1,25 @@
 # IOC
 
+## DI(Dependency Injection)
+
+DI means giving an object its instance variables (the objects that are used into that object) rather than created by the Object itself.
+
+- Constructor Injection
+- Setter Injection
+
+## IoC(Inversion of Control)
+
+Inversion of Control is a programming design principle that inverts the flow of control to achieve the following design purposes:
+
+-  To decouple the execution of a task from implementation.
+- To focus a module on the task it is designed for.
+- To free modules from assumptions about how other systems do what they do and instead rely on contract
+- To prevent side effect when replacing a module
+
+## Container Ioc
+
+The container Ioc is a tool inside some frameworks that has the control to create and inject instance of object that your application depends on, means instead of you are creating an object using the new operator, let the container do that for you.
+
 ## Spring IOC 生命周期
 
 1. 启动
