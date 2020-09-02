@@ -54,23 +54,23 @@ Our country has invested a lot of resources to improve the education base Facili
 
 5 And 16 years later, the primary school has become as shown in the photo. Although there is still some gap with the Urban Area school, the infrastructure has been greatly improved compared to before.
 
-6 However, there are still some obvious gaps between urban and rural education infrastructure. During the development of rural education infrastructure, urban education facilities are also developing rapidly
+6 However, there are still some obvious education infrastructure gaps between urban and rural. During the development of rural education infrastructure, urban education facilities are also improved rapidly
 
-7 The more worrying thing is the gap between urban and rural teaching quality and teacher resources. It is difficult for new generation teachers to come to the countryside to devote themselves to rural education.
+7 The more worrying thing is the teacher resources and teaching quality gap between urban and rural. It is difficult to attract new generation teachers to come to the countryside and devote themselves to rural education.
 
 8 Many people want to work and live in urban areas and economically developed areas, including teachers. The imbalance in economic development is one of the main reasons for  imbalance in teaching quality.
 
-9 this is the 2019 education statistics, there are 88,631 rural primary schools across our country, accounting for 55.3% of the country’s total number of schools, but only have 30.6% of teachers in these schools
+9 there are 88,631 rural primary schools across our country, accounting 55.3% of the total, but only 30.6% of teachers in these schools
 
-10 In rural primary schools and secondary schools, there are many older teachers. These teachers have rich teaching experience, but their education methods are lagging,  teaching quality is not well.
+10 In rural primary schools and secondary schools, there are many older teachers. they have rich teaching experience, but they are lack of new education methodology,  teaching quality is not well.
 
-11 Therefore, even now, there is not only a gap between our urban and rural teaching infrastructure but also a gap in our teaching quality which is a more fatal issue.
+11 Therefore, even now, there is not only education infrastructure gap between urban and rural, but also a gap in our teaching quality which is a more fatal issue.
 
 12 So, what measures have we taken to improve these problems?
 	what innovations are we looking forward to solving these problems?
-	I would like to show some my opinion of these questions
+	I would like to show some my opinion at next slides
 
-13 At the government level, in these years, many incentive policies have published to encourage graduating college students into areas with low educational resources. inject fresh blood into areas with low educational resources
+13 At the government level, in these years, many incentive policies have published to encourage graduating college students into low educational resources areas. inject fresh blood into these areas
 
 14 At the non-governmental level, in recent years, we can also see the huge development of online education and distance education.  and as a dev, I  have great expectations for online education.
 
