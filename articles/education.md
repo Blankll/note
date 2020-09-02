@@ -58,7 +58,7 @@ Our country has invested a lot of resources to improve the education base Facili
 
 7 The more worrying thing is the teacher resources and teaching quality gap between urban and rural. It is difficult to attract new generation teachers to come to the countryside and devote themselves to rural education.
 
-8 Many people want to work and live in urban areas and economically developed areas, including teachers. The imbalance in economic development is one of the main reasons for  imbalance in teaching quality.
+8 Many people want to work and live in cities instead of the countryside, including teachers. The imbalance of economic development is one of the main reasons for the imbalance of teaching quality.
 
 9 there are 88,631 rural primary schools across our country, accounting 55.3% of the total, but only 30.6% of teachers in these schools
 
@@ -72,13 +72,13 @@ Our country has invested a lot of resources to improve the education base Facili
 
 13 At the government level, in these years, many incentive policies have published to encourage graduating college students into low educational resources areas. inject fresh blood into these areas
 
-14 At the non-governmental level, in recent years, we can also see the huge development of online education and distance education.  and as a dev, I  have great expectations for online education.
+14 At the non-governmental level, in recent years, we can also see the huge development of online education and distance education.  and as a developer, I  have great expectations for online education.
 
 15 during my university, I joined a project about online learning. We built a simple app that allows people to use smart devices to learn anytime, anywhere
 
 16 It is such a simple learning platform, but I think I have seen some changes and possibilities that technology can bring to education. and I think there are  a lot of potentials wait for people to discover
 
-17 From my perspective, the booming online education, remote classrooms, and massive online learning resources have provided everyone with a new learning entrance, bringing new hopes and possibilities for our education
+17 From my perspective, the booming online education, remote classrooms, and massive online learning resources provides a new learning entrance, bringing new hopes and possibilities for our education
 
 18  and also, the increasing network infrastructure guarantees online education. like the extensive coverage of 4G networks and the upcoming 5G, increasingly  smartphones and other devices provide a new way for rural students to obtain learning resources
 
