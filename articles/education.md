@@ -40,17 +40,15 @@ Data from Ministry of Education of the People's Republic of China
 
 20 Thanks
 
+Our country has invested a lot of resources to improve the education base Facilities and teaching quality. Fortunately, I am also a witness to the improvement of education quality in China
 
 
 
-
-1 Education accompanies each of us throughout our lives, and each of us is also a witness and experiencer of education. After I experienced 16 years of education, today I want to share some of my observations and feelings with you.
+1 today I want to share some of my observations and feelings about education. Education accompanies each of us throughout our lives, and each of us is also a witness and experiencer of education. 
 
 2 Undoubtedly, education is very important for everyone. In my opinion, the most important thing about education is to help everyone find the answer about why exists and how exists
 
-3 As for education in China, I guess many people are familiar with the nine-year compulsory education and The college entrance examination just like me, and many of us have experienced which a common memory of many of us. 
-
-Our country has invested a lot of resources to improve the education base Facilities and teaching quality. Fortunately, I am also a witness to the improvement of education quality in China
+3 As for education in China, I guess many of us are familiar with the nine-year compulsory education and The college entrance examination just like me, and many of us have experienced that, a common memory for many of us. 
 
 4 16 years ago, when I first stepped into school, my Primary school looked like this. I spent my first 4 years at this school. A teacher with 10 students, He is the teacher of all courses and also our principal
 
@@ -58,11 +56,11 @@ Our country has invested a lot of resources to improve the education base Facili
 
 6 However, there are still some obvious gaps between urban and rural education infrastructure. During the development of rural education infrastructure, urban education facilities are also developing rapidly
 
-7 What is more worrying is the gap between urban and rural teaching levels and teacher resources. It is difficult for excellent teachers to come to the countryside to devote themselves to rural education.
+7 The more worrying thing is the gap between urban and rural teaching quality and teacher resources. It is difficult for new generation teachers to come to the countryside to devote themselves to rural education.
 
-8 Many people want to work and live in large cities and economically developed areas, including teachers. The imbalance in economic development has caused an imbalance in teaching quality to a certain extent
+8 Many people want to work and live in urban areas and economically developed areas, including teachers. The imbalance in economic development is one of the main reasons for  imbalance in teaching quality.
 
-9 this is the 2019 education statistics released by the Ministry of Education of China, there are 88,631 rural primary schools across our country, accounting for 55.3% of the country’s total number of schools, but only have 30.6% of teachers in these schools
+9 this is the 2019 education statistics, there are 88,631 rural primary schools across our country, accounting for 55.3% of the country’s total number of schools, but only have 30.6% of teachers in these schools
 
 10 In rural primary schools and secondary schools, there are many older teachers. These teachers have rich teaching experience, but their education methods are lagging,  teaching quality is not well.
 
@@ -82,7 +80,7 @@ Our country has invested a lot of resources to improve the education base Facili
 
 17 From my perspective, the booming online education, remote classrooms, and massive online learning resources have provided everyone with a new learning entrance, bringing new hopes and possibilities for our education
 
-18  and also, the increase of network infrastructure guarantee for online education. like the extensive coverage of 4G networks and the upcoming 5G, increasingly  smartphones and other devices provide a new way for rural students to obtain teaching resources
+18  and also, the increasing network infrastructure guarantees online education. like the extensive coverage of 4G networks and the upcoming 5G, increasingly  smartphones and other devices provide a new way for rural students to obtain learning resources
 
 19 Similarly,  about network infrastructure in primary and secondary schools, about 98% of the primary schools and secondary school have access to the Internet, it also provides a guarantee for online education and remote classroom
 
