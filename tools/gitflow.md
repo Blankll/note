@@ -18,6 +18,7 @@
 
    ```bash
    git pull upstream master
+   git pull --rebase —autostash
    ```
 
 5. 创建一个新的分支
