@@ -119,8 +119,6 @@
 - **environment**：环境变量配置，可以用数组或字典两种方式
 
   ```bash
-       
-  
   environment:
       RACK_ENV: development
       SHOW: 'ture'
@@ -129,7 +127,7 @@
       - RACK_ENV=development
       - SHOW=ture
   ```
-
+  
 - **nv_file**：从文件中获取环境变量，可以指定一个文件路径或路径列表，其优先级低于 environment 指定的环境变量
 
   ```bash

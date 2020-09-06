@@ -173,12 +173,19 @@ listenPort=9875
    ```
 
    浏览器访问`http://localhost:8080`进入控制台界面  
+   
+5. 停止
+
+   ```bash
+   # shutdown namesrvs
+   sh ${path}bin/mqshutdown namesrv
+   # shutdown brokers
+   sh ${path}bin/mqshutdown broker
+   ```
 
 一个生产者组，代表着一群topic相同的Producer。即一个生产者组是同一类Producer的组合。
 
 一个消费者组，代表着一群topic相同，tag相同（即逻辑相同）的Consumer。   
-
-
 
 
 
