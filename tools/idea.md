@@ -36,7 +36,6 @@
 | Alt + 9          | show git                      |                                      |
 | Ctrl+Alt+L       | reformate code                | 代码格式化                           |
 
-
 ### Refactor
 
 | 快捷键        | 操作             | 操作         |
@@ -45,3 +44,4 @@
 | Ctrl+F6       | Change Signature | 更改函数签名 |
 | Ctrl+Shift+F6 | Type Migration   | 更改类型     |
 
+seven changes
