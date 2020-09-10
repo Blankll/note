@@ -36,6 +36,7 @@
 | Alt + 9          | show git                      |                                      |
 | Ctrl+Alt+L       | reformate code                | 代码格式化                           |
 
+
 ### Refactor
 
 | 快捷键        | 操作             | 操作         |
