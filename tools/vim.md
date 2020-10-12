@@ -26,17 +26,6 @@ commod ``[number]<command>[text object or motion]``
   wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   ```
 
-  
-
-### 安装
-
-安装和使用起来非常容易。你只需打开终端并运行以下命令：
- `$ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
-
-Neovim 用户可以使用以下命令安装 Vim-plug：
- `$ curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
-
-### 用法
 
 #### 安装插件
 
