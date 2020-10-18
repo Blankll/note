@@ -203,23 +203,6 @@ docker stop docker kill 停止守护式进程容器
 
 
 
-
-
-## dockerfile
-
-- 每条保留字指令都必须为大写字母且后面要跟至少一个参数
-- 指令从上到下,顺序执行
-- \#表示注释
-- 每条指令都会创建一个新的镜像层,并对镜像进行提交 
-
- 
-
-> add 拷贝加解压
->
-> copy 只拷贝,不解压
-
-
-
 ## tips
 
 docker 下MySQL报错: No directory, logging in with HOME=/ 且数据库无法重启成功
