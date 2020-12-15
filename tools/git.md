@@ -61,4 +61,14 @@
   ``git reset 057d``
 - 回退到上一次提交的状态，按照某一次的commit完全反向的进行一次commit.(代码回滚到上个版本，并提交git)
   ``git revert HEAD``
+  
+### git 修改commit
+1. git rebase -i HEAD~6(修改前6次提交)
+2. 选择我们需要修改的提交为 edit，同时可以进行squash等操作
+3. 选择好后:wq退出vim保存
+4. 对edit的每一个进行操作，如修改提交user & email：
+    ```bash
+    git commit --amend --author "Blank <zilisheng1996@gmail.com>" --no-edit
+    ```
+ 5. 修改完成后`git rebase --continue`继续下一个修改
 

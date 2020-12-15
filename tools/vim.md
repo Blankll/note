@@ -193,7 +193,7 @@ vim -O fileone  filetwo 垂直分屏打开两个文件
   成对编辑
 
   - 成双添加 ``<ys textobject text>`` ys 文本编辑对象iw,aw
-  - 成双替换 ``<cs oldtext newtext>`` 左括号加内空格,右括号什么都不加
+  - 成双修改 ``<cs oldtext newtext>`` 左括号加内空格,右括号什么都不加
   - 成双删除 ``<ds text>``
 
 - easy-motion
@@ -202,7 +202,7 @@ vim -O fileone  filetwo 垂直分屏打开两个文件
 
   ``<leader><leader>b`` 向前跳转
 
-  ``<leader><leader>s word``搜索单词跳转
+  ``ss word(2 charactes)``搜索单词跳转
 
   ,,个`配置,,
 
@@ -257,8 +257,6 @@ vim -O fileone  filetwo 垂直分屏打开两个文件
     ```
 
   - ``<leader>t`` togak打开与关闭
-
-- vim-go
 
 - deoplete.nvim 代码补全
 
