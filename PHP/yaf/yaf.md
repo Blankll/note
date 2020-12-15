@@ -58,6 +58,41 @@
 
 ## 使用yaf
 
+## nginx 
+
+```bash
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server ipv6only=on;
+
+	root /var/www/html/translate;
+
+	# Add index.php to the list if you are using PHP
+	index index.php index.html index.htm index.nginx-debian.html;
+
+	server_name 127.0.0.1;
+
+	location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		try_files $uri $uri/ =404;
+	}
+	location ~ \.php$ {
+                try_files $uri /index.php =404;
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+                fastcgi_index index.php;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                include fastcgi_params;
+        }
+	if (!-e $request_filename) {
+   		 rewrite ^/(.*)  /index.php?$1 last;
+  	}
+}
+```
+
+
+
 ### 生成Yaf的标准模板
 
 如果在php.ini中关闭了namespace，运行命令: ./yaf_cg project_name，就会在当前目录生成一个output目录，其中会有project_name的项目模板
