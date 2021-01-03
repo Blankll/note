@@ -42,5 +42,12 @@ let d: Color = Color.Blue; // d is 5
 ## 对象类型
 object表示非原始类型, 也就是说除了number，string，boolean，symbol类型的值，都可以赋值给object属性。
 
+
+
 ## 变量申明
-在typescript中，变量的申明同JavaScript一样，可以使用var，let，const，解构等方式。
+
+在typescript中，变量的申明同JavaScript一样，可以使用var，let，const，解构等方式。在typescript中，如果使用了var，那么也会一样的存在作用域的问题，所以 **关键不在于语言，而在于写代码的你。**
+
+
+
+## 接口
