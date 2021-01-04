@@ -27,6 +27,7 @@ Inspector clients
 
 ```bash
 node --inspect-brk node_modules/.bin/jest --runInBand test/dir/file
+node <path-to-jest> -i <you-test-file> -c <jest-config> -t "<test-block-name>"
 ```
 
 Attach to port
