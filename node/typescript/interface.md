@@ -153,4 +153,87 @@ myArray = ["Bob", "Fred"];
 let myStr: string = myArray[0]; // myStr is 'Bob'
 ```
 
-typscript支持两种索引签名: 字符串和数字。
+typscript支持两种索引签名: 字符串和数字。数字索引和字符串索引同时存在时，数字索引的返回值必须是字符串索引返回值类型的子类型。所以这是为什么呢？
+
+回到最初的最初，什么是数组？一段连续的内存空间。回到JavaScript中，arary是伪数组，object和array在node的实现上都是hashmap。
+
+```javascript
+let arr = [
+  'one',
+  'two'
+];
+let obj = {
+  '0': 'one',
+  '1': 'two'
+}
+```
+
+且当使用 `number`来索引时，JavaScript会将它转换成`string`然后再去索引value，所以索引本质上就只有string索引一种。索引的返回值也只能是有继承关系的一种。
+
+```js
+// ts
+interface dictionary {
+    [y: number]: string;
+}
+
+const arr: dictionary = {
+    2: '2',
+    3: '3',
+}
+// js
+var arr = {
+    2: '2',
+    3: '3'
+};
+
+// ts
+interface dictionary {
+    [y: string]: string;
+}
+
+const arr: dictionary = {
+    '2': '2',
+    '3': '3',
+}
+// js
+var arr = {
+    '2': '2',
+    '3': '3'
+};
+
+var ok = {
+    1: new Dog('anccostor', 'dogg'),
+    '1': new Animal('animal')
+};
+console.log(ok[1]);
+```
+
+
+
+## 类类型
+
+与java中的普通interface一样由class去实现，一个接口可以继承多个接口，创建出多个接口的合成接口。
+
+```typescript
+interface Square extends Shape, PenStroke {...}
+```
+
+## 接口继承类
+
+接口可以反过来去继承一个类, 它会继承类的成员包括private&protect但不包括实现，这也意味着继承了类的接口只能被被继承类的子类实现。(套娃?)
+
+```typescript
+class Control {
+    private state: any;
+    public reset(val: number): string { return '123'; }
+}
+interface SelectableControl extends Control {
+    select(): void;
+}
+class ImageSS extends Control implements SelectableControl {
+    select() { }
+};
+const imgs: ImageSS= new ImageSS();
+console.log(imgs.reset(1))
+```
+

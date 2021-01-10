@@ -1,8 +1,4 @@
-﻿# 泛型程序设计Generic programing
-
-标签（空格分隔）： 未分类
-
----
+# 泛型程序设计Generic programing
 
 ##泛型 程序设计Generic programing
 意味着编写的代码可以被很多不同类型的对象所重用
@@ -49,7 +45,7 @@ public class Pair<T> {
 3. 不能创建参数化类型的数组   
 4. 不能实例化类型变量
 5. 不能构造范型数组
-  
+
 ```java
 //不能创建参数化类型的数组   
 Pair<String>[] table = new Pair<String>[10];//error

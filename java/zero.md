@@ -54,6 +54,14 @@ JVM有多种**HotSpot VM**, **J9 VM**, **Zing VM**等,在sun/Oracle和openjdk中
 
 而抽象类中的抽象方法修饰符可以是public或者protected。
 
+在Java中，类的多继承是不合法，但接口允许多继承。
+
+```java
+public interface Hockey extends Sports, Event {...}
+```
+
+
+
 ### StringBuffer（JDK1.0）  
 
   StringBuffer：字符串变量（Synchronized，即线程安全）。如果要频繁对字符串内容进行修改，出于效率考虑最好使用StringBuffer，如果想转成String类型，可以调用StringBuffer的toString()方法。 
