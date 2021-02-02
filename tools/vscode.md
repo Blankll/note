@@ -7,3 +7,4 @@ back previous location `⌃-`
 Code folding `⌥⌘[` and `⌥⌘]`  
 
 Copy line up down `⇧⌥↑`and `⇧⌥↓`
+

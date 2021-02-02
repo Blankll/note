@@ -1,11 +1,16 @@
 # 泛型程序设计Generic programing
 
+标签（空格分隔）： 未分
+
+---
+
 ##泛型 程序设计Generic programing
 意味着编写的代码可以被很多不同类型的对象所重用
 
 通配符类型（wildcard type）
 一个泛型类（Generic）就是具有一个或多个类型变量的类
 泛型类可以有多个类型变量
+
 ```java
 package ynnu.corejava.generic;
 //引入泛型变量T 放在类的后面
