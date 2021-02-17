@@ -17,7 +17,7 @@ zookeeper的节点znode分类:
 
 1. 持久性的znode(PERSISTENT): znode在创建之后即使发生zookeeper集群宕机或者client宕机也不会丢失
 
-2. 临时性的znodez(EPHEMERAL): client宕机或者client在指定的timeout时间内没有给zookeeper集群发消息，这样的znode就会消失
+2. 临时性的znode(EPHEMERAL): client宕机或者client在指定的timeout时间内没有给zookeeper集群发消息，这样的znode就会消失
 
    znode可以是顺序性的，每一个顺序性的znode关联一个唯一的单调递增整数，是znode名字的后缀
 
