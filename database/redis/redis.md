@@ -93,17 +93,17 @@ redis-cli -p 端口号 shutdown
   - redis将所有数据保存在内存中，对数据的更新将异步的保存到磁盘上
   - rdb， aof
 - 多种数据结构
-  - ``string``字符串类型
-  - ``hash``哈希类型
-  - ``list``列表类型
-  - ``set``集合类型
-  - ``zset``有序集合类型
+  - ``string``  字符串类型
+  - ``hash``  哈希类型
+  - ``list`` 列表类型
+  - ``set`` 集合类型
+  - ``zset`` 有序集合类型
   - BitMap
   - HyperLogLog 超小内存唯一值计数
   - GEO 地理信息定位
   - stream(redis5)
-- 支持多种语言
-- 功能丰富
+- 支持多种语言(C, Java,PHP...)
+- 功能丰富(瑞士军刀)
 - 简单
 - 主从复 制
 - 高可用，分布式
@@ -149,41 +149,31 @@ redis-cli -h 10.10.79.150 -p 6384
 
 ## redis通用命令
 
-1. ``O(n)``keys *  计算所有的键
-2. ``O(1)``dbsize 计算key的总数
-3. ``O(1)``exists key 查看key是否存在(0|1)
-4. ``O(1)``del key 删除key(0|1)
-5. ``O(1)``expire key seconds 设置过期时间秒级
-6. ``O(1)``ttl key 查看key剩余的过期时间
+1. keys *  ``O(n)`` 计算所有的键
+2. dbsize ``O(1)``计算key的总数
+3. exists key ``O(1)``查看key是否存在(0|1)
+4. del key ``O(1)``删除key(0|1)
+5. expire key seconds ``O(1)``设置过期时间秒级
+6. ttl key ``O(1)`` 查看key剩余的过期时间
   
    - 返回-1时表示key存在，并且没有过期时间
    - 返回-2表示key已经不存在了
-7. ``O(1)``persist key 去掉key的过期时间
-8. ``O(1)``type key 查看key的数据类型 返回key的类型
-   - string 
+7. persist key ``O(1)``去掉key的过期时间
+8. type key ``O(1)``查看key的数据类型 返回key的类型
+   - string : 简单的键值对
    
-     ``简单的键值对``
+   - hash: Redis hash 是一个string类型的field和value的映射表，hash特别适合用于存储对象。键值对，值又是一个简单的键值对
    
-   - hash
+   - list: Redis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）``如同队列``有序可重复
    
-     Redis hash 是一个string类型的field和value的映射表，hash特别适合用于存储对象。``键值对，值又是一个简单的键值对`
+   - set: set 是 string 类型的无序集合。集合成员是唯一,集合中不能出现重复的数据。
    
-   - list
-   
-     Redis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）``如同队列``有序可重复
-   
-   - set
-   
-     Set 是 String 类型的无序集合。集合成员是唯一,集合中不能出现重复的数据。
-   
-   - zset
-   
-     有序集合，根据score排序，member不可重复，score可重复
+   - zset: 有序集合，根据score排序，member不可重复，score可重复
    
      ```bash
-     ZADD key score1 member1 [score2 member2]
+   ZADD key score1 member1 [score2 member2]
      ```
-   
+     
    - none
 
 
@@ -198,7 +188,7 @@ redis-cli -h 10.10.79.150 -p 6384
 
 ### 字符串
 
-所有的key都是string
+所有的key都是string，The maximum allowed key size is 512 MB. A value can't be bigger than 512 MB.
 
 ``get key``
 
@@ -329,7 +319,7 @@ redis-cli -h 10.10.79.150 -p 6384
 
 无序，无重复， 可以进行集合间操作
 
-###set内api
+### set内api
 
 ``sadd key element``  向集合key中添加lelement(可以多个) 如果element存在，添加失败    O(1~n)
 
