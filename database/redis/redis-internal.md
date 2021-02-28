@@ -61,3 +61,8 @@ timer事件和I/O事件是两种截然不同的事件，但需要进行统一调
 
 ## SDS
 
+
+
+
+
+redisObject redis对外使用的类型的封装

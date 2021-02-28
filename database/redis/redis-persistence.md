@@ -87,8 +87,9 @@ aof重写作用:去除无效命令,压缩空间,提高恢复速度
 
 ```bash
 # 配置策略
-auto-aof-rewrite-min-size # 重写需要的最小尺寸
-auto-aof-rewrite-percentage # aof增长率
+auto-aof-rewrite-min-size # 重写需要的最小尺寸 default 64MB
+auto-aof-rewrite-percentage # aof增长率 default 100
+
 # 统计策略
 aof_current_size # aof当前尺寸
 aof_base_size # aof上次启动和重写的尺寸

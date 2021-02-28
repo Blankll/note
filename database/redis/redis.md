@@ -49,7 +49,8 @@ sudo apt-get install redis-server
    
    ```
 
-   
+
+Redis支持多个数据库，并且每个数据库的数据是隔离的不能共享，并且基于单机才有，如果是集群就没有数据库的概念
 
 ## phpredis 
 
