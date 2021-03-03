@@ -338,7 +338,7 @@ redis-cli -h 10.10.79.150 -p 6384
 
 ``spop key `` 从集合中随机弹出一个元素[delete] 返回弹出元素的 element[也就是值]
 
-``smembers key`` 弹出集合中的所有元素==大叔据可能阻塞，小心使用，scanf==
+``smembers key`` 弹出集合中的所有元素==大数据可能阻塞，小心使用，scanf==
 
 
 
