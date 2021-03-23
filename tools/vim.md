@@ -2,6 +2,10 @@
 
 <shift> + k (K) 跳转到函数的定义
 
+```
+:help key-notation
+```
+
 ## textObject
 
 commod ``[number]<command>[text object or motion]``
@@ -9,71 +13,6 @@ commod ``[number]<command>[text object or motion]``
 - number 作用在多少个文本对象上
 - command 执行的具体命令 如``删除d``, ``修改c``, ``选择v``
 - text object or motion 要操作的文本对象范围``i(inner)``, ``a(a word也就是包含前后单词)`` 如``单词w``,``句子s``,``段落p``
-
-## 安装vim plug
-
-- 官方推荐方法
-
-  ```
-  $ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  ```
-
-- 直接下载到指定目录即可
-
-  ```
-  mkdir ~/.vim/autoload/
-  cd ~/.vim/autoload/
-  wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  ```
-
-
-#### 安装插件
-
-要安装插件，先在 Vim 配置文件中声明它们。一般 Vim 的配置文件是 `~/.vimrc`
-
-```
-call plug#begin('~/.vim/plugged')
-Plug 'itchyny/lightline.vim'
-call plug#end()
-```
-
-添加后重新加载插件
- `:source ~/.vimrc`
- 或者在vim命令中安装：
-
-```
-# 检查状态
-:PlugStatus
-# 安装插件
-:PlugInstall
-# 更新插件
-:PlugUpdate
-```
-
-更新插件后，按下 `d` 查看更改。或者， `:PlugDiff`。
-
-#### 审查插件
-
-如果更新的插件无法使用, 可以简单地回滚有问题的插件。输入 `:PlugDiff` 命令，然后按回车键查看上次 `:PlugUpdate`的更改，并在每个段落上按 `X` 将每个插件回滚到更新前的前一个状态。
-
-#### 删除插件
-
-注释掉 vim 配置文件中添加的 `plug` 命令。然后，运行 `:source ~/.vimrc` 或重启 Vim 编辑器。最后，运行以下命令卸载插件：
-
-```
-PlugClean #命令将删除 vim 配置文件中所有未声明的插件
-```
-
-#### 升级 Vim-plug
-
-要升级vim-plug本身，请输入：
- `:PlugUpgrade`
-
-```
-vim ~/.vimrc
-```
-
-
 
 ### vim翻页
 
@@ -242,7 +181,29 @@ vim -O fileone  filetwo 垂直分屏打开两个文件
 
 只剩最后一个分屏以后推出： ctrl+w 和 q(quit)
 
+## vim tab
 
+`:tabnew` 新建标签页
+
+`:tabfind` 查找并在新的标签页中打开
+
+`:tabs` 显示已打开标签页列表
+
+`:tabclose` 关闭当前标签页
+
+`:tabonly` 仅保留当前标签页打开
+
+`:tabn` 移动到下一个标签页
+
+`:tabp` 移动到上一个标签页
+
+`:tabfirst` 切换到第一个标签页
+
+`:tablast` 切换到最后一个标签页
+
+`:tabm` 将当前标签页放置到指定位置
+
+通过**:help tab-page-intro**命令，可以获得关于标签页使用的更多信息。我们甚至可以使用**:tab help tabpage**命令，在新的标签页查看帮助信息。
 
 ### vim macros
 
@@ -250,7 +211,74 @@ vim -O fileone  filetwo 垂直分屏打开两个文件
 
 number@<letter>
 
-## vim插件
+
+
+## 安装vim plug
+
+- 官方推荐方法
+
+  ```
+  $ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  ```
+
+- 直接下载到指定目录即可
+
+  ```
+  mkdir ~/.vim/autoload/
+  cd ~/.vim/autoload/
+  wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  ```
+
+
+#### 安装插件
+
+要安装插件，先在 Vim 配置文件中声明它们。一般 Vim 的配置文件是 `~/.vimrc`
+
+```
+call plug#begin('~/.vim/plugged')
+Plug 'itchyny/lightline.vim'
+call plug#end()
+```
+
+添加后重新加载插件
+ `:source ~/.vimrc`
+ 或者在vim命令中安装：
+
+```
+# 检查状态
+:PlugStatus
+# 安装插件
+:PlugInstall
+# 更新插件
+:PlugUpdate
+```
+
+更新插件后，按下 `d` 查看更改。或者， `:PlugDiff`。
+
+#### 审查插件
+
+如果更新的插件无法使用, 可以简单地回滚有问题的插件。输入 `:PlugDiff` 命令，然后按回车键查看上次 `:PlugUpdate`的更改，并在每个段落上按 `X` 将每个插件回滚到更新前的前一个状态。
+
+#### 删除插件
+
+注释掉 vim 配置文件中添加的 `plug` 命令。然后，运行 `:source ~/.vimrc` 或重启 Vim 编辑器。最后，运行以下命令卸载插件：
+
+```
+PlugClean #命令将删除 vim 配置文件中所有未声明的插件
+```
+
+#### 升级 Vim-plug
+
+要升级vim-plug本身，请输入：
+ `:PlugUpgrade`
+
+```
+vim ~/.vimrc
+```
+
+##  vim插件
+
+
 
 - vim-surround
 
@@ -331,3 +359,5 @@ number@<letter>
 - airline 显示git branch 必须安装 fugitive这个插件，官方文档里面一个屁都没放，mdzz
 
 - ctrl+s 终止屏幕输出（即停止回显）ctrl+q 恢复屏幕输出，
+
+   

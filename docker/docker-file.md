@@ -14,7 +14,7 @@
 
 **ENTRYPOINT**  类似CMD，　ENTRYPOINT非json则以ENTRYPOINT为准，如果ENTRYPOINT和CMD都是json则ENTRYPOINT + CMD 拼接成shell
 
-如果cmd和entrypoint都每一指定，则继承父镜像的指令，若祖辈都没有指定cmd或entrypoint，则容器无法运行
+如果cmd和entrypoint都未指定，则继承父镜像的指令，若祖辈都没有指定cmd或entrypoint，则容器无法运行
 
 **EXPOSE** 端口暴露，只将端口暴露给连接的服务，而不暴露给主机。需要在container run的时候指定端口才可以使得host能够访问，如果network为host模式，则会将端口随机绑定到host的端口上
 
