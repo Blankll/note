@@ -10,6 +10,8 @@ $@ 传入的所有参数
 
 $* 传入的所有参数
 
+$? 上一个命令执行返回值
+
 
 
 ```bash
@@ -142,6 +144,8 @@ extract parts of each line from a file, it is based on:
 
 ```bash
 awk [options] '[selection_criteria] {action}' input_file
+# selection criteria: pattern/condition
+# action: a logic to perform action on each row
 ```
 
 `-F script_file` specify a field separator(default separator is tab and space)
@@ -149,6 +153,50 @@ awk [options] '[selection_criteria] {action}' input_file
 `-f file` specify a file that contains awk script
 
 `-v var=value` declare a variable
+
+
+
+### tr
+
+tr short for translate to translate or delete given set of characters from the input
+
+```bash
+tr [options] [SET1] [SET2] <inputFile
+```
+
+Sets for translation:
+
+- [:lower:]
+- [a-z]
+- [:upper:]
+- [A-Z]
+- [:digit:]
+- [0-9]
+- [:space:] match for space, tab and new line
+
+options
+
+- `-d` deletes given sets of characters
+
+### tee
+
+used to display the output and also store it into a file
+
+Options 
+
+- `-a` append mode
+
+### comment
+
+```bash
+# comment content
+<< COMMENT
+coment content
+COMMENT
+: '
+comment content
+'
+```
 
 enhance shell by:
 
@@ -158,3 +206,4 @@ enhance shell by:
 - loops
 - funtions
 - Job scheduling and many more
+

@@ -1,6 +1,6 @@
 # vim
 
-<shift> + k (K) 跳转到函数的定义
+<shift> + k (K) 显示函数的定义
 
 ```
 :help key-notation
