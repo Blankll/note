@@ -119,3 +119,19 @@ Logical OR operator: `cmd1 || cmd2` run cmd2 only if cmd1 is failed
 
 Logical AND-OR operator: `cmd1 && cmd2 || cmd3` run cmd2 if cmd1 is success else run cmd3
 
+
+
+## block code
+
+```shell
+# same as ls; pwd; date, it will run independently
+{
+ls
+pwd
+date
+}
+{ ls ; pwd; date; }
+```
+
+
+
