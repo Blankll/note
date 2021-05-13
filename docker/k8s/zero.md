@@ -149,3 +149,38 @@ Service types:
 - NodePort
 - ClusterIp
 - LoadBalancer
+
+
+
+
+
+Scale:
+
+```bash
+kubectl scale -n default deployment express-learn-deployment --replicas=4
+```
+
+
+
+
+
+## volumes
+
+Persistent Volume
+
+Persistent Volume Claim
+
+Storage Class
+
+Storage doesn't depend on the pod lifecycle
+
+Storage available on all nodes
+
+Storage needs to service even if cluster crashes
+
+PV outside of the namespaces and can accessible to the whole cluster
+
+
+
+Local storage and remote storage
+
