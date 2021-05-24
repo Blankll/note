@@ -59,4 +59,20 @@ npm start -- --inspect
 
 
 
+## run jest test
+
+Run single file or a dir
+
+```bash
+npx jest -i path/to/dir/or/file
+```
+
+Run single it case
+
+```bash
+npx jest -i path/to/dir/or/file -t 'it case str'
+```
+
+
+
 https://github.com/microsoft/vscode-recipes
