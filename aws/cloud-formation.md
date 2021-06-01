@@ -181,6 +181,28 @@ optonal attributes
 - Outputs section declares optional outputs values that can import into other stacks
 - we can also view the outputs in the AWS Console or using in the AWS CLI
 - Use to perform some collaboration cross stacks
+- Use Fn::ImportValue to import the outputs content
+
+
+
+## CFN-Init
+
+EC2 **UserData**: user data script will be executed at the first boot of the instance
+
+- cfn-init: Used to retrieve and interpret the resource metadata, install packages, creating files and starting services
+- cfn-signal: a simple wrapper to signal an was CloudFormation CreationPolicy or WaitCondition, enabling to synchronize other resources in the stack with the application being ready
+- cfn-get-metadata: 
+- cfn-hup
+
+
+
+
+
+## Drift
+
+
+
+
 
 
 
