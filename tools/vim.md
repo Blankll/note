@@ -211,8 +211,6 @@ vim -O fileone  filetwo 垂直分屏打开两个文件
 
 number@<letter>
 
-
-
 ## 安装vim plug
 
 - 官方推荐方法

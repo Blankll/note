@@ -12,11 +12,15 @@ Application Load balancer
 - support for http/2 and websocket
 - support redirects
 
-
-
 Network Load Balancer
 
 - Layer 4
 - Forward TCP&UDP traffic to your insances
 - Handle millions of request per seconds
 - Less latency !100ms(vs 400 for ALB)
+
+
+
+
+
+Sticky session works for classic load balancer & application load balancers
