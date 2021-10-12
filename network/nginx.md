@@ -132,6 +132,7 @@ ln -s /etc/nginx/sites-available/three /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo nginx -s reload
 sudo service nginx restart
+sudo systemctl restart nginx # latest ubuntu release
 ```
 
 
