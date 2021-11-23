@@ -61,6 +61,17 @@ tips
 alias ipi='ipconfig getifaddr en0'
 ```
 
+### if
+
+### for
+
+```bash
+for fileName in $(ls ./)
+do
+cat $fileName >> all_in_one.sql && echo -e "\n\n" >> all_in_one.sql
+done
+```
+
 
 
 ## read file content

@@ -207,9 +207,17 @@ vim -O fileone  filetwo 垂直分屏打开两个文件
 
 ### vim macros
 
-**q<letter><command>q**
-
+```bash
+# record one macro
+# letter [a~z] charactters
+# command the command sequence we want to replay
+q<letter><command>q
+# replay the command
+# we can define the times we want to replay
 number@<letter>
+# list macros we have
+:reg
+```
 
 ## 安装vim plug
 

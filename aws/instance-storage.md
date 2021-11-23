@@ -12,11 +12,18 @@
 EBS Volume Types
 
 - gp2/gp3(SSD): General purpose Ssd volume that balances price and performance for a wide variety of workloads
-- Io1/io2(SSD): Highest-performance SSD volume for mission-critical low-latency or high-throughput workloads
+- Io1/io2(SSD): Highest-performance SSD volume for mission-critical low-latency or high-throughput workloads(when need more than 16000IOPS)
 - Stl(HDD): low cost HDD volume designed for frequently accessed throughput-intensive workloads
 - Scl(HDD): lowest cost HDD volume designed for less frequently accessed workloads
 
 Only gp2/gp3/io1/io2 can be used as boot volumes
+
+#### encrypt an unencrypted EBS volume
+
+1. Create an EBS snapshot of the volume
+2. copy and encrypt the EBS snapshot(kms key)
+3. Create new EBS volume from the encrypted snapshot
+4. Attach the encrypted volume to original instance
 
 
 
@@ -28,3 +35,4 @@ Only gp2/gp3/io1/io2 can be used as boot volumes
 - Uses NFSv4.I protocol
 - Uses security group to control access to EFS
 - Compatible with Linux based AMI(not support windows)
+
