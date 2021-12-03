@@ -212,3 +212,10 @@ usermod -d /var/lib/mysql/ mysql
 service mysql start # 此时可以成功启动了
 ```
 
+Edit docker volume from host
+
+```bash
+docker run -it --rm --name access_volume --volume volume_name:/data busybox /bin/sh
+# then edit /data content in container
+```
+

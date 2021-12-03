@@ -31,8 +31,18 @@ Only gp2/gp3/io1/io2 can be used as boot volumes
 
 - Managed NFS(network file system) that can be mounted on many EC2
 - EFS works with EC2 instances in multi-AZ
-- Highly available, scalable, expensive
+- Highly available, scalable, expensive(3x gp2)
 - Uses NFSv4.I protocol
 - Uses security group to control access to EFS
 - Compatible with Linux based AMI(not support windows)
+
+Performance  mode:
+
+- General purpose(default)
+- Max I/O
+
+Throughput mode
+
+- Bursting
+- Provision
 
