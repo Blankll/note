@@ -94,6 +94,14 @@ vim中使用 :s来进行字符的替换和
 
 如果查找特殊字符，如 ^、$、*、/ 和 .，需要在前面加 \ 来转义。
 
+turn off highlighting until the next search:
+
+```
+:noh
+```
+
+
+
 ### vim mark
 
 **m + character** 添加标记

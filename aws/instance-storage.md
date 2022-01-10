@@ -29,6 +29,8 @@ Only gp2/gp3/io1/io2 can be used as boot volumes
 
 ## EFS - Elastic File System
 
+a shared POSIX file system for Linux systems
+
 - Managed NFS(network file system) that can be mounted on many EC2
 - EFS works with EC2 instances in multi-AZ
 - Highly available, scalable, expensive(3x gp2)
@@ -46,3 +48,21 @@ Throughput mode
 - Bursting
 - Provision
 
+
+
+Amazon FSx
+
+Launch 3rd party high-performance file systems on aws
+
+fully managed service
+
+- FSx for Lustre(linux and cluster)
+  - for large scale computing, for ML, HPC
+  - its integrates with S3, When linked to an S3 bucket, an FSx for Lustre file system transparently presents S3 objects as files and allows you to write changed data back to S3. FSx for Lustre provides the ability to both process the 'hot data' in a parallel and distributed fashion as well as easily store the 'cold data' on Amazon S3. 
+- FSx for Wondows File Server
+  - supports SMP protocol & Windows NTFS
+  - Microsoft Active Directory integration, ACLs, user quotas
+  - Built on SSD scale up to 10s of GB/s
+  - Can be configured to be multi-AZ
+  - cant integrates with S3
+- FSx for NetApp ONTAP
