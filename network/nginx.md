@@ -59,7 +59,7 @@ server {
         root /var/www/html/trans;
         index index.html index.js;
         location /api {
-                add_header 'Access-Control-Allow-Origin' '*';
+                add_header 'Access-Control-Allow-Origin' "$http_origin";
                 #proxy_pass http://one.domain.com;
                 # 末尾不加/会将匹配的/api也加在后面，即代理后的uri和请求的uri一致
                 # 末尾加/就会将匹配到的/api去除，重定向后的uri为本次请求的uri去掉/api
@@ -132,7 +132,7 @@ ln -s /etc/nginx/sites-available/three /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo nginx -s reload
 sudo service nginx restart
-sudo systemctl restart nginx # latest ubuntu release
+sudo systemctl restart nginx.service # latest ubuntu release
 ```
 
 
@@ -163,7 +163,8 @@ server {
         location /api {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-                add_header 'Access-Control-Allow-Origin' '*';
+                # add_header 'Access-Control-Allow-Origin' '*';
+    						add_header 'Access-Control-Allow-Origin' "$http_origin";
                 # 末尾不加/会将匹配的/api也加在后面，即代理后的uri和请求的uri一致
                 # 末尾加/就会将匹配到的/api去除，重定向后的uri为本次请求的uri去掉/api
                 proxy_pass http://127.0.0.1:8000;
@@ -222,7 +223,7 @@ ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 ```bash
 sudo nginx -t
 sudo nginx -s reload
-sudo service nginx restart
+sudo systemctl restart nginx.service # latest ubuntu release
 ```
 
 ## nginx获取真实客户端地址
@@ -254,7 +255,7 @@ sudo service nginx restart
    ```bash
    sudo nginx -t
    sudo nginx -s reload
-   sudo service nginx restart
+   sudo systemctl restart nginx.service # latest ubuntu release
    ```
 
    
