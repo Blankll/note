@@ -28,6 +28,12 @@ grant all privileges on database dbname to username;
 revoke all privileges on database dbname from username;
 ```
 
+update password
+
+```sql
+ALTER USER user_name WITH PASSWORD 'new_password';
+```
+
 show table
 
 ```sql
