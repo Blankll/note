@@ -45,3 +45,7 @@
 | Ctrl+Shift+F6 | Type Migration   | 更改类型     |
 
 seven changes
+
+
+
+Parten serach & replace
