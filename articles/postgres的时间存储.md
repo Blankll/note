@@ -15,9 +15,24 @@ postgresql latest version(14) 所支持的时间日期类型如下：
 
 对于以上的时间和日期的值在传递给postgresql时都是一个string，pg在取得字段类型后根据类型对字符串进行解析
 
+在pg 落盘的时候最终存储的值是整型
 
+```c
+// src/include/datatype/timestamp.h
+typedef int64 Timestamp;
+typedef int64 TimestampTz;
+typedef int64 TimeOffset;
+typedef int32 fsec_t;			/* fractional seconds (in microseconds) */
 
+typedef struct
+{
+  TimeOffset	time;			/* all time units other than days, months and years */
+  int32		day;			    /* days, after time for alignment */
+  int32		month;			  /* months and years, after time for alignment */
+} Interval;
+```
 
+所以问题来了，TimestampTz是的time zone信息存储在哪里呢？
 
 
 
