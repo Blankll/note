@@ -72,3 +72,11 @@
     ```
  5. 修改完成后`git rebase --continue`继续下一个修改
 
+
+
+**git search deleted content**
+
+```bash
+git log -p -S 'content here'
+```
+

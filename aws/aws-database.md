@@ -6,7 +6,7 @@ RPO=Recovery Point Objective
 
 Amount of dataloss (due to disaster ) that can be tolerated. ie from start of disaster upto how much time back (data loss) can be tolerated
 
-
+Multi-AZ is using synchronous replication ensuring less than 1s RPO. Read replicas are assynchronous with lag up to 5 minutes in postgresql RDS
 
 No-RDS
 

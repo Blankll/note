@@ -4,11 +4,11 @@ buildkite是一个商业自持续集成/部署工具，市场上有很多类似�
 
 ## buildkite 基本架构
 
-buildkite主要为展示状态的website，执行任务的agent以及第三方的repository构成：
+buildkite主要有三个部分构成：web端的dashboard& armin page，执行任务的agent以及第三方的repository构成：
 
 ![image](../statics/buildkite-architect.png)
 
-开发人员在site上配置agent，构建pipeline同时将pipeline和repo进行关联，在repo的代码发生改变时，由vcs触发buildkite的构建，也可以手动在site中进行触发，还可以在一条pipeline中触发另一条pipeline的build。pipeline的构建步骤都会交给agent去处理，agent处理完成后将结果反馈给site服务。
+开发人员在armin page上配置agent，构建pipeline同时将pipeline和repo进行关联，在repo的代码发生改变时，由VCS触发buildkite的构建，也可以手动在site中进行触发，还可以在一条pipeline中触发另一条pipeline的build。pipeline的构建步骤都会交给agent去处理，agent处理完成后将结果反馈给site服务。
 
 ## buildkite 基本概念
 
