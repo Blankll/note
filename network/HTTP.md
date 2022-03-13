@@ -37,7 +37,17 @@ client: [ACK] Seq => server
 - OPTIONS
 - TRACE
 
+## HTTP 安全性([safe](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP))和幂等性([idempotent](https://developer.mozilla.org/en-US/docs/Glossary/Idempotent))
 
+安全性指请求不会更改服务&资源的状态，可以理解为一个请求是否安全看是否是一个只读请求
+
+安全方法：GET，HEAD，OPTIONS，TRACE
+
+所有的安全请求都是幂等的
+
+幂等的请求表示一次或多次相同的请求效果是一样的。
+
+幂等方法：[`GET`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET), [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD), [`PUT`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PUT), and [`DELETE`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/DELETE) 
 
 在资源移动之后还能找到
 
