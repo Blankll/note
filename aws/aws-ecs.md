@@ -19,6 +19,6 @@ EC2 instance profile
 ECS Task Role
 
 - Allow each task to have a specific role
-- Use different roles for the different ECS task
+- Use different roles for the different ECS service
 - Task role is defined in the task definition
 
