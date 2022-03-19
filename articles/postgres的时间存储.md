@@ -30,6 +30,7 @@ typedef struct
   int32		day;			    /* days, after time for alignment */
   int32		month;			  /* months and years, after time for alignment */
 } Interval;
+
 ```
 
 所以问题来了，TimestampTz是的time zone信息存储在哪里呢？
