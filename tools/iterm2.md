@@ -13,6 +13,6 @@ Run same command on  all  panes within a tab
 Quit this mod:
 
 ```
-option + command + shift + I.
+command + option + shift + I
 ```
 

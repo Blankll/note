@@ -227,6 +227,14 @@ number@<letter>
 :reg
 ```
 
+**format json**
+
+```
+:%!jq .
+```
+
+
+
 ## 安装vim plug
 
 - 官方推荐方法
@@ -364,7 +372,8 @@ vim ~/.vimrc
 
 - fzf.vim
 
-  
+
+
 
 ## 坑
 
