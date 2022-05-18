@@ -18,7 +18,7 @@ CORS 分为简单请求以及非简单请求。
 
 
 
-  可以在 chrome 的 Network 中看到多了一次 `Request Method` 为 `OPTIONS` 的请求
+可以在 chrome 的 Network 中看到多了一次 `Request Method` 为 `OPTIONS` 的请求
 
 非简单请求会在请求进行时提前进行一次OPTIONS请求，通常称之为预请求，只有预请求得到浏览器设置的`Access-Control-Allow-Methods:Method`返回头，浏览器才会进行真正的非简单请求。
 

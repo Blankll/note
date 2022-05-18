@@ -13,9 +13,7 @@ postgresql latest version(14) 所支持的时间日期类型如下：
 | time [ (p) ] with time zone             | 12 bytes     | time of day (no date), with time zone | 00:00:00+1559    | 24:00:00-1559   | 1 microsecond |
 | interval [ fields ] [ (p) ]             | 16 bytes     | time interval                         | -178000000 years | 178000000 years | 1 microsecond |
 
-对于以上的时间和日期的值在传递给postgresql时都是一个string，pg在取得字段类型后根据类型对字符串进行解析
-
-在pg 落盘的时候最终存储的值是整型
+对于以上的时间和日期的值在传递给postgresql时都是一个string，pg在取得字段类型后根据类型对字符串进行解析,最终在pg 落盘的时候最终存储的值是整型:
 
 ```c
 // src/include/datatype/timestamp.h
