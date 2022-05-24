@@ -1,12 +1,16 @@
 # 关于cookie你所需要知道的
 
-大家都知道HTTP是stateless的，但B/S应用很多时候我们需要在B和S端维护一些状态，最常见的比如用户登陆状态。那么如何在stateless的HTTP协议下维护state就成了一个问题，于是就有了cookie和session的机制来进行客户端和服务端的状态共享。session通过将信息存储于server端，可以是落盘到文件系统，也可以通过一些中间件如redis缓存等从而实现跨instance的分布式共享。 而cookie则是存储在client端(浏览器)，在每次请求时将valid的cookie放到header中已实现状态共享，由于cookie存储在客户端，对server而言相当于用户输入或者说请求参数，并不如session那样可控和可信，很容易被黑客利用，最常见的如[CSRF](https://developer.mozilla.org/en-US/docs/Glossary/CSRF), 于是cookie有了很多attributes以增强自身安全性。
+大家都知道HTTP是stateless的，但B/S应用很多时候我们需要在B和S端维护一些状态，最常见的比如用户登陆状态。那么如何在stateless的HTTP协议下维护state就成了一个问题，于是就有了cookie和session的机制来进行客户端和服务端的状态共享。session通过将信息存储于server端，可以是落盘到文件系统，也可以通过一些中间件如redis缓存等从而实现跨instance的分布式共享。 而cookie则是存储在client端(浏览器)，在每次请求时将valid的cookie放到header中已实现状态共享。
+
+但由于cookie存储在客户端，对server而言相当于用户输入或者说请求参数，因此很容易被黑客利用，最常见的如[CSRF](https://developer.mozilla.org/en-US/docs/Glossary/CSRF),简单来说: 如果你的网站没有对cookie的使用进行一定的限制，在一个用户登陆后在另一个恶意网站或弹窗等进行了操作，如果这个操作是像你的网站发送一个操作，即使是safe method, 若不加以限制，则有可能带上了用于authentication or authorization的cookie，这就是潜在的风险。于是cookie有了很多attributes以增强自身安全性。
 
 ## 关于cookie的前置知识
 
 在看cookie的attributes之前，需要对http的Same-origin机制和cookie的same-site机制做一个解释。
 
-### Same-origin policy & same-site
+### Same-origin policy
+
+HTTP通过 Same-origin  policy 来鉴定一个请求是否属于 CORS(Cross-Origin Resource Sharing)请求。
 
 **Same-origin**(同源策略)：如果两个URL的`protocol`,`host`,`port`(即协议、域名、端口)完全相同则为同源，否则就跨源(跨域)了。
 
@@ -40,7 +44,7 @@ CORS 分为[Simple requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/C
 >
 > A CORS request is an HTTP request that includes an `[`Origin`](https://fetch.spec.whatwg.org/#http-origin)` header. It cannot be reliably identified as participating in the [CORS protocol](https://fetch.spec.whatwg.org/#cors-protocol) as the `[`Origin`](https://fetch.spec.whatwg.org/#http-origin)` header is also included for all [requests](https://fetch.spec.whatwg.org/#concept-request) whose [method](https://fetch.spec.whatwg.org/#concept-request-method) is neither ``GET`` nor ``HEAD``.
 
-所以对于[**fetch**](https://github.com/node-fetch/node-fetch)来说，只要不是`GET`, `HEAD`和`OPTION(即preflight its self)`, 都会进行preflight验证。
+所以对于[**fetch**](https://github.com/node-fetch/node-fetch)来说，只要不是`GET`, `HEAD`,`TRACE` 和`OPTION(即preflight its self)`, 都会进行preflight验证。
 
 可能看上去比较绕，那么经过我的测试，结合上述(MSDN抄来的)其实总结起来就是:
 
@@ -58,6 +62,8 @@ location /api {
 
 此时response会返回`Access-Control-Allow-Origin `这个header，如果他的值是你的origin的url那么即validted，此时浏览器才发送真实的请求。
 
+### same-site
+
 [**same-site**](https://developer.mozilla.org/en-US/docs/Glossary/Site)(同站): 只要两个 URL 的 [eTLD](https://en.wikipedia.org/wiki/Public_Suffix_List#:~:text=Entries%20on%20the%20list%20are,Mozilla%20Public%20License%20(MPL).)(effective top-level domains 有效顶级域名 eg. .com、.co、.uk、.github.io)+1 相同即为same-site，可以不考虑协议和端口(依赖于浏览器的实现)。
 
 | Url1                     | Url2                     | is same-site? |
@@ -66,7 +72,9 @@ location /api {
 | http://store.company.com | https://news.company.com | Yes           |
 | http://example.com       | https://example.com      | Yes           |
 
-> - Cookies from the same domain are no longer considered to be from the same site if sent using a different scheme (`http:` or `https:`).
+随着越来越多的浏览器开始推进HTTPS化，很多浏览器开始将http和https视为非cross-site：
+
+> Cookies from the same domain are no longer considered to be from the same site if sent using a different scheme (`http:` or `https:`).
 
 ```
 "Same-site" and "cross-site" Requests
@@ -113,8 +121,8 @@ attribute in a "Lax"
 - Secure: 只有用https的请求才将携带有Secure的cookie
 - SameSite: 有三个可选值-Strict，Lax，None.
   - Strict: 只有same-site 的请求可以携带Strict的cookie
-  - Lax: corss-site的简单请求携带cookie，非简单请求则不会携带
+  - Lax: cross-site的简单请求携带cookie，非简单请求则不会携带
   - None: 最不安全的策略，cross-site的非简单请求也携带
 
-目前的主流浏览器都将SameSite的default值设为了Lax，且如果SameSite设置为None，则必须指定Secure，即SameSite=None的cookie只可以在https请求中携带
+目前的主流浏览器都将SameSite的default值设为了Lax，且如果SameSite设置为None，则必须指定Secure，即SameSite=None的cookie只可以在https请求中携带。
 
