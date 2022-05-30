@@ -4,9 +4,49 @@
 
 但由于cookie存储在客户端，对server而言相当于用户输入或者说请求参数，因此很容易被黑客利用，最常见的如[CSRF](https://developer.mozilla.org/en-US/docs/Glossary/CSRF),简单来说: 如果你的网站没有对cookie的使用进行一定的限制，在一个用户登陆后在另一个恶意网站或弹窗等进行了操作，如果这个操作是像你的网站发送一个操作，即使是safe method, 若不加以限制，则有可能带上了用于authentication or authorization的cookie，这就是潜在的风险。于是cookie有了很多attributes以增强自身安全性。
 
-## 关于cookie的前置知识
+## cookie的组成
 
-在看cookie的attributes之前，需要对http的Same-origin机制和cookie的same-site机制做一个解释。
+如果我们打开一个浏览器F12去看一下cookie，我们可以看到如下的attributes(chrome 为例):
+
+![cookie](../statics/cookie.png)
+
+其中 SameParty, Priority 都是google自己的chrome enhancement，PartitionKey则是firefox的，我就不研究这几个偏门了(一般也用不到且谨慎使用-兼容性)。
+
+而Name，Value，Size就是字面意思，非常的semantic, 我就不解释了。
+
+那么下面这几个就是非常common的且如果使用了cookie很可能需要考虑的attributes：
+
+- Domain：指定cookie可共享的(registrable domain)域名范围=> 如果值以.开头，那么自身及subdomain都可以携带该cookie，如果没有显示指定，默认为origin的域名且同级子域名不可共享(即开头没有.只有它自己可以访问)`Domain`的值一定是registrable domain或他的subdomain。
+- Path: URL的prefix match Path 才能携带该cookie，即路径本身和它的子路径可以携带eg. `/docs` match  `/docs/`, `/docs/Web/`
+- Expires/Max-Age: 设置cookie过期时间，Expires指定过期日期，Max-Age指定时长，只需要设置一个，如果两个都设置，Max-Age为最终有效值
+- HttpOnly: 禁止client的script访问和修改cookie，但script发起的请求仍有能力携带该cookie
+- Secure: 只有用https的请求才将携带有Secure的cookie
+- SameSite: 有三个可选值-Strict，Lax，None.
+  - Strict: 只有same-site 的请求可以携带Strict的cookie
+  - Lax: cross-site的简单请求携带cookie，非简单请求则不会携带
+  - None: 最不安全的策略，cross-site的非简单请求也携带
+
+### 一些组合使用的case
+
+目前的主流浏览器都将SameSite的default值设为了Lax，且如果SameSite设置为None，则必须指定Secure，即SameSite=None的cookie只可以在https请求中携带。
+
+![](../statics/aws/non-unsecure.png)
+
+在使用set-cookie 在server端添加 Strict 或者Lax的cookie时，Domain的值必须是host的`registrable domain` 否则会被浏览器block掉，[即浏览器不允许你的server给第三方设置cookie](https://stackoverflow.com/questions/6761415/how-to-set-a-cookie-for-another-domain)
+
+![](../statics/aws/third-party-domain.png)
+
+在SameSite为None的情感可以，你的server是可以给第三方设置cookie的(非redirect，直接在response中setcookie)。
+
+### and,,
+
+以上的一些测试来自chrome，一些behavior在不同浏览器之间并不一致，如unsecure , SameSite=None 的cookie在chrome中会直接忽略，但在firfox中却存储了下来并在后续请求中携带。
+
+![](../statics/cookie-browser.png)
+
+## 关于cookie的一些相关概念
+
+在看cookie的attributes时，可能同时需要对http的Same-origin机制和cookie的same-site机制做一个了解。
 
 ### Same-origin policy
 
@@ -57,7 +97,7 @@ location /api {
 	proxy_pass http://api.cross-site.com;
 }
 # express
-
+app.use(cors({origin: true, credentials: true}));
 ```
 
 此时response会返回`Access-Control-Allow-Origin `这个header，如果他的值是你的origin的url那么即validted，此时浏览器才发送真实的请求。
@@ -75,54 +115,4 @@ location /api {
 随着越来越多的浏览器开始推进HTTPS化，很多浏览器开始将http和https视为非cross-site：
 
 > Cookies from the same domain are no longer considered to be from the same site if sent using a different scheme (`http:` or `https:`).
-
-```
-"Same-site" and "cross-site" Requests
-
-   A request is "same-site" if its target's URI's origin's registrable
-   domain is an exact match for the request's initiator's "site for
-   cookies", and "cross-site" otherwise.  To be more precise, for a
-   given request ("request"), the following algorithm returns "same-
-   site" or "cross-site":
-
-   1.  If "request"'s client is "null", return "same-site".
-   2.  Let "site" be "request"'s client's "site for cookies" (as defined
-       in the following sections).
-   3.  Let "target" be the registrable domain of "request"'s current
-       url.
-   4.  If "site" is an exact match for "target", return "same-site".
-   5.  Return "cross-site".
-```
-
-```
-attribute in a "Lax"
-   enforcement mode that carves out an exception which sends same-site
-   cookies along with cross-site requests if and only if they are top-
-   level navigations which use a "safe" (in the [RFC7231] sense) HTTP
-   method.
-```
-
-## cookie的组成
-
-如果我们打开一个浏览器F12去看一下cookie，我们可以看到如下的attributes(chrome 为例):
-
-![cookie](../statics/cookie.png)
-
-其中 SameParty, Priority 都是google自己的chrome enhancement，PartitionKey则是firefox的，我就不研究这几个偏门了(一般也用不到且谨慎使用-兼容性)。
-
-而Name，Value，Size就是字面意思，非常的semantic, 我就不解释了。
-
-那么下面这几个就是非常common的且如果使用了cookie很可能需要考虑的attributes：
-
-- Domain：指定cookie可共享的(registrable domain)域名范围=> 如果值以.开头，那么自身及subdomain都可以携带该cookie，如果没有显示指定，默认为origin的域名且同级子域名不可共享(即开头没有.只有它自己可以访问)`Domain`的值一定是registrable domain或他的subdomain。
-- Path: URL的prefix match Path 才能携带该cookie，即路径本身和它的子路径可以携带eg. `/docs` match  `/docs/`, `/docs/Web/`
-- Expires/Max-Age: 设置cookie过期时间，Expires指定过期日期，Max-Age指定时长，只需要设置一个，如果两个都设置，Max-Age为最终有效值
-- HttpOnly: 禁止client的script访问和修改cookie，但script发起的请求仍有能力携带该cookie
-- Secure: 只有用https的请求才将携带有Secure的cookie
-- SameSite: 有三个可选值-Strict，Lax，None.
-  - Strict: 只有same-site 的请求可以携带Strict的cookie
-  - Lax: cross-site的简单请求携带cookie，非简单请求则不会携带
-  - None: 最不安全的策略，cross-site的非简单请求也携带
-
-目前的主流浏览器都将SameSite的default值设为了Lax，且如果SameSite设置为None，则必须指定Secure，即SameSite=None的cookie只可以在https请求中携带。
 
