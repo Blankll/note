@@ -6,7 +6,7 @@ Subnets
 
 Routetable
 
-internet gateway(IGW)
+### internet gateway(IGW)
 
 - allow resources in a VPC connect to the internet
 - Scales horizontally and is high available and redundent
@@ -15,6 +15,16 @@ internet gateway(IGW)
 - IGW on their own do not allow internet access
 - Route table must also be edit
 - 
+
+Internet Gateway (IGW) allows instances with public IPs to access the internet.
+NAT Gateway (NGW) allows instances with no public IPs to access the internet.
+
+### NAT Gateway
+
+1. It allows resources in a private subnet to access the internet (think yum updates, external database connections, wget calls, OS patch, etc).
+2. It only works one way. The internet at large cannot get through your NAT to your private resources unless you explicitly allow it.
+
+![](../statics/aws/vpc-nat-igw.png)
 
 
 
