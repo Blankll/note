@@ -10,6 +10,8 @@ Routetable
 
 ### internet gateway(IGW)
 
+> An internet gateway is a virtual router that connects a VPC to the internet
+
 - allow resources in a VPC connect to the internet
 - Scales horizontally and is high available and redundent
 - Must be create separately from a VPC
@@ -21,7 +23,7 @@ Routetable
 
 1. create VPC
 2. Create IGW -> attach IGW to VPC
-3. Create Route Table -> attach Route Table to subnets underr VPC
+3. Create Route Table -> associate  subnets(public subnets) underr VPC to  Route Table
 4. Edit Route Table add CIDRs destination to IGW
 
 
@@ -29,8 +31,11 @@ Routetable
 Internet Gateway (IGW) allows instances with Public IPs to access the internet.
 NAT Gateway (NGW) allows instances with Private IPs to access the internet.
 
+Public IP is assgined to NAT Gateway, IGW did not
+
 ### NAT Gateway
 
+- Created in a specific AZ, uses an Elastic Ip
 - It allows resources in a private subnet to access the internet (think yum updates, external database connections, wget calls, OS patch, etc).
 - It only works one way. The internet at large cannot get through your NAT to your private resources unless you explicitly allow it.
 - Nat Gateway is only resilient within a single AZ, must create Multi NAT Gateway in Multi AZs for fault-tolerrance
@@ -71,7 +76,7 @@ outated
 - Wont do anything unless enableDnsSupport=true
 - if true, puublic hostname to EC2 instance if it has a public IPv4
 - Default VPC true as default, False for created VPCs
-- If use custom DNS domain names in a Private Hosted Zone in Route 53, both enableDnsHostnames & enableDnsSupport be set to true
+- Wont do anything unless enableDnsSupport=true, and if enableDnsHostnames=ture a public hostname whill assgned to EC2 instance if it has a public IPv4
 
 ![](../statics/aws/dns-in-vpc.png)
 
@@ -105,6 +110,15 @@ outated
 - must uupdate route tables in each VPC's subnets to ensuure EC2 instances can communicate with each other
 - support cross accounts/regions
 - Can reference a security group in a peered VPC(works cross accounts but same region)
+
+**Steps:**
+
+1. Create peering connection
+2. select source Peer VPC 
+3. select target peer VPC(can from another anccont & region)
+4. Target VPC's accont owner accept request
+5. Update source's route table, spicify CIDRs that you want to connect to the target VPC, target set as  peer connection id
+6. update target's route table, spicify CIDRs you want to route traffic by Peering connection
 
 
 
@@ -174,7 +188,7 @@ connect aws VPC to on-premises data center
   - VPN concentrator on the aws side of the VPN connection
   - VGW is created and attached to the VPC from which you. want to create Site-to-Site VPN connection
   - Possibility to comitomize the ASN(autonomous System Number)
-- Customer Gateway
+- Customer Gateway(CGW)
   - Software application or physical device on customer side of the VPN connection
 
 Notice:
@@ -190,6 +204,8 @@ Notice:
 
 ### Direct Connect(DX)
 
+> Take month to setup
+
 - Provides a dedicated private connection from a rremote network to your VPC
 - Dedicated connection must be setup between your DC and AWS Direct Connect locations
 - required to setup a Virtual Private Gateway on VPC
@@ -200,9 +216,16 @@ Notice:
   - Hybrid env
   - support both IPV4 &IPV6
 
-he Amazon VPC console wizard provides the following four configurations:
+the Amazon VPC console wizard provides the following four configurations:
 
 1. VPC with a single public subnet 
 2. VPC with public and private subnets (NAT)
 3. VPC with public and private subnets and AWS Site-to-Site VPN access 
 4. VPC with a private subnet only and AWS Site-to-Site VPN access 
+
+
+
+### PrivateLink
+
+- Most secure & scalable way to expose a service to 1000s of VPC(own or other accounts)
+- No VPC peering, IGW, NAT, Route Table requires
