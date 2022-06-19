@@ -215,6 +215,9 @@ Notice:
   - More consistent network experience
   - Hybrid env
   - support both IPV4 &IPV6
+- Types:
+  - Dedicated connection 1GGBps and 10GBps capacity
+  - Hosted Connections: 50Mbps, 500Mbps, to 10GGBps
 
 the Amazon VPC console wizard provides the following four configurations:
 
@@ -223,9 +226,15 @@ the Amazon VPC console wizard provides the following four configurations:
 3. VPC with public and private subnets and AWS Site-to-Site VPN access 
 4. VPC with a private subnet only and AWS Site-to-Site VPN access 
 
+### Direct Connect Gateway 
 
+Connect one or more VPC in many different regions(same account)
 
 ### PrivateLink
 
 - Most secure & scalable way to expose a service to 1000s of VPC(own or other accounts)
 - No VPC peering, IGW, NAT, Route Table requires
+
+
+
+### Transit Gateway
