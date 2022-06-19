@@ -8,7 +8,7 @@
 
 如果我们打开一个浏览器F12去看一下cookie，我们可以看到如下的attributes(chrome 为例):
 
-![cookie](../statics/cookie.png)
+![cookie](../statics/cookie.jpg)
 
 其中 SameParty, Priority 都是google自己的chrome enhancement，PartitionKey则是firefox的，我就不研究这几个偏门了(一般也用不到且谨慎使用-兼容性)。
 
@@ -42,7 +42,7 @@
 
 以上的一些测试来自chrome，一些behavior在不同浏览器之间并不一致，如unsecure , SameSite=None 的cookie在chrome中会直接忽略，但在firfox中却存储了下来并在后续请求中携带。
 
-![](../statics/cookie-browser.png)
+![](../statics/cookie-browser.jpg)
 
 ## 关于cookie的一些相关概念
 
