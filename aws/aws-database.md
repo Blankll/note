@@ -1,3 +1,5 @@
+# database
+
 RTO=Recovery Time Objective
 
 Amount of time within which services must be restored ie from start of disaster upto how much time ahead elapsed for services to restore 
@@ -9,6 +11,33 @@ Amount of dataloss (due to disaster ) that can be tolerated. ie from start of di
 Multi-AZ is using synchronous replication ensuring less than 1s RPO. Read replicas are assynchronous with lag up to 5 minutes in postgresql RDS
 
 No-RDS
+
+### RDS
+
+- up to 5 Read replicas, supports Cross AZ or Cross Region(extra charge for Cross Region)
+- Multi AZ automatically failover
+
+### Amazon Aurora
+
+-  Proprietary from AWS
+- Postgres and MySQL compatible, clouud optimized
+- Aurora storage automatically grows in increments of 10GB, cup to 128GB
+
+HA
+
+- 6 copies across 3 AZ
+- shared storage Volume + Replication + self Healing + auuto expanding
+- One master takes writes(multi master support)
+- Automated failover for master in less than 30 seconds
+- master + up to 15 Read Replicas support for Cross Region replication
+- separeted writeendpint and read endpint=>route trafficcross allreplicas
+
+**Global Aurora**
+
+- c ross region replicas
+- 1 Primary Region(read/write) and up to 5 secondary(read-only)regions lag less 1 seconds
+- Up to 16 Read Replicas per second region
+- Promoting another region(for disaster recovery) has an RTO of < 1 minute
 
 ## Amazon ElastiCache
 

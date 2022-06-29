@@ -22,3 +22,8 @@ ECS Task Role
 - Use different roles for the different ECS service
 - Task role is defined in the task definition
 
+
+
+Fix for Lustre is not  supported 
+
+S3 cannot be munted as a file system

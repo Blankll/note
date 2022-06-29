@@ -77,3 +77,73 @@ fully managed service
   - Can be configured to be multi-AZ
   - cant integrates with S3
 - FSx for NetApp ONTAP
+
+
+
+
+
+## Tools
+
+### DataSync
+
+- move largeg amount of data from on-premises to AWS
+- Can synchronize to S3, EFS, Fsx
+- Move data from your NAS or file system via NFS or SMB
+- Replication tasks can be scheduled hourly, daily, weekly
+
+### Storage Gateway
+
+- Bridge between on-premises data and clouud data in s3
+- Use cases: disaster recovery, backup, restore
+- 3 types of Storage Gateway
+  - File Gateway
+  - Volume Gateway
+  - Tape Gateway
+
+**File Gateway**
+
+- configured S3 buckets are accessiible using NFS/SMB protocol from on-premises server
+- Support S3 standard S3 IA, S3 One Zone IA
+- Bucket access control by IAM roles  for each File Gateway
+- Most recently used data is cached in File Gateway, 
+- File Gateway can be mounted on many servers
+- support to integrate with Active Directory
+
+![file gateway](https://d1.awsstatic.com/cloud-storage/Amazon%20S3%20File%20Gateway%20How%20It%20Works%20Diagram.96e9f7180c6ec8b6212b4d6fadc4a9ac4507b421.png)
+
+**FSx File Gateway**
+
+- Native access to Amazon FSx for windows File Server
+- Local cache for frequently accessed data
+- Windows native compatibility(SMB, NTFS, Active Directory)
+- Useful for group file shares and home directories
+
+![fsx file gateway](https://d1.awsstatic.com/cloud-storage/Amazon%20FSx%20File%20Gateway%20How%20It%20Works%20Diagram.edbf58e4917d47d04e5a5c22132d44bd92733bf5.png)
+
+**Volume Gateway**
+
+- Block storage using iSCSI protocol backed by S3
+- able to copy volumes using AWS Backup to store data  as Amazon EBS snapshots, which benefits for data protection, recovery, migration ...
+
+Cached Volumes: low latency access to most recent data
+
+Stored Volumes: entire dataset iis on premise, scheduled backup to S3
+
+![volume gateway](https://d1.awsstatic.com/cloud-storage/volume-gateway-diagram.eedd58ab3fb8a5dcae088622b5c1595dac21a04b.png)
+
+**Tape Gateway**
+
+- for the company who usingg paysical tapes to backup
+- Company use same process but data  stored in S3
+
+![tape gateway](https://d1.awsstatic.com/product-marketing/Product-Page-Diagram_Tape-Gateway_HIW%402x%20(2).5ba3326ea93003722acc487804a34971613ec3c1.png)
+
+
+
+# AWS Transfer Family
+
+- Fully-manaegd service for file transfer into and out of S3 or EFS using FTP protocol
+- Supported protocols: FTP, FTPS, SFTP
+- Managed infrastructure, Scalable, Reliable, Highly Available
+
+![transfer family](https://d1.awsstatic.com/cloud-storage/product-page-diagram_AWS-Transfer-Family_HIW-Diagram.4af0b3b19477f22bc7e37995c43cf833b6db0ce9.png)

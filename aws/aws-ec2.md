@@ -77,3 +77,9 @@ A launch configuration is an instance configuration template that an Auto Scalin
 You cannot use a launch configuration to provision capacity across multiple instance types using both On-Demand Instances and Spot Instances. 
 
 It is not possible to modify a launch configuration once it is created. The correct option is to create a new launch configuration to use the correct instance type. Then modify the Auto Scaling group to use this new launch configuration. Lastly to clean-up, just delete the old launch configuration as it is no longer needed.
+
+
+
+### beanstalk
+
+- Managed service that automatically handle capacity provisioning, load balancing, scaling, application health monitoring, instance configuration...
