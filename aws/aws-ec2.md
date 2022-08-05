@@ -52,17 +52,21 @@ EC2 instances that run in a VPC on hardware that's dedicated to a single custome
 
   grouping of instances within a single Availability Zone. A cluster placement group can span peered VPCs in the same Region. Instances in the same cluster placement group enjoy a higher per-flow throughput limit for TCP/IP traffic and are placed in the same high-bisection bandwidth segment of the network.
 
+  ![placement group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/placement-group-cluster.png)
+
 - Partition placement group
 
   Partition placement groups help reduce the likelihood of correlated hardware failures for your application. When using partition placement groups, Amazon EC2 divides each group into logical segments called partitions. Amazon EC2 ensures that each partition within a placement group has its own set of racks. Each rack has its own network and power source. No two partitions within a placement group share the same racks, allowing you to isolate the impact of hardware failure within your application.
 
   can have a maximum of seven partitions per Availability Zone.
 
+  ![partiction placement group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/placement-group-partition.png)
+
 - Spread placement group
 
-   Grouping of instances that are each placed on distinct racks, with each rack having its own network and power source. You can have a maximum of seven running instances per Availability Zone per group.
+   A spread placement group is a group of instances that are each placed on distinct hardware. with each hardware having its own network and power source. You can have a maximum of seven running instances per Availability Zone per group.
 
-
+![spread placement group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/placement-group-spread.png)
 
 
 
