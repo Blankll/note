@@ -4,7 +4,7 @@ java虚拟机在执行java程序的过程中会把它所管理的内存划分为
 
 java虚拟机运行时的数据区域
 
-![jvm memory](../../statics/java/jvm-memory.png)
+![jvm memory](../../../statics/java/jvm-memory.png)
 
 
 

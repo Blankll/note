@@ -1,4 +1,4 @@
-# instance storage
+#  storage
 
 ## EBS
 
@@ -48,6 +48,7 @@ a shared POSIX file system for Linux systems
 - Uses NFSv4.I protocol
 - Uses security group to control access to EFS
 - Compatible with Linux based AMI(not support windows)
+-  EFS can be mounted to on-premises servers by enabling AWS Direct Connect
 
 Performance  mode:
 
@@ -61,7 +62,7 @@ Throughput mode
 
 
 
-Amazon FSx
+### Amazon FSx 
 
 Launch 3rd party high-performance file systems on aws
 
@@ -71,7 +72,7 @@ fully managed service
   - for large scale computing, for ML, HPC
   - its integrates with S3, When linked to an S3 bucket, an FSx for Lustre file system transparently presents S3 objects as files and allows you to write changed data back to S3. FSx for Lustre provides the ability to both process the 'hot data' in a parallel and distributed fashion as well as easily store the 'cold data' on Amazon S3. 
 - FSx for Wondows File Server
-  - supports SMP protocol & Windows NTFS
+  - supports SMB protocol & Windows NTFS
   - Microsoft Active Directory integration, ACLs, user quotas
   - Built on SSD scale up to 10s of GB/s
   - Can be configured to be multi-AZ
@@ -86,7 +87,7 @@ fully managed service
 
 ### DataSync
 
-- move largeg amount of data from on-premises to AWS
+- move large amount of data from on-premises to AWS
 - Can synchronize to S3, EFS, Fsx
 - Move data from your NAS or file system via NFS or SMB
 - Replication tasks can be scheduled hourly, daily, weekly
@@ -147,3 +148,4 @@ Stored Volumes: entire dataset iis on premise, scheduled backup to S3
 - Managed infrastructure, Scalable, Reliable, Highly Available
 
 ![transfer family](https://d1.awsstatic.com/cloud-storage/product-page-diagram_AWS-Transfer-Family_HIW-Diagram.4af0b3b19477f22bc7e37995c43cf833b6db0ce9.png)
+

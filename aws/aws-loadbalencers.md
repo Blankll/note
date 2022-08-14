@@ -19,7 +19,7 @@ Network Load Balancer
 - Handle millions of request per seconds
 - Less latency !100ms(vs 400 for ALB)
 
-
+NLB  has one static IP peer AZ, and support assigning  Elastic IP, helpful for whitelisting specific IP
 
 
 

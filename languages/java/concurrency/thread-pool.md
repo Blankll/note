@@ -9,7 +9,7 @@
 
 java.uitl.concurrent.ThreadPoolExecutor类是线程池中最核心的一个类
 
-![ThreadPoolExecutor uml](../../statics/java/ThreadPoolExecutor-uml.png)
+![ThreadPoolExecutor uml](../../../statics/java/ThreadPoolExecutor-uml.png)
 
 ```java
 public class ThreadPoolExecutor extends AbstractExecutorService {
@@ -77,7 +77,7 @@ ThreadPoolExecutor中定义了一个volatile变量，另外定义了几个static
 
 向线程池提交任务之后的流程如下：
 
-![thread pool excutor](../../statics/java/threadpool-excutor.png)
+![thread pool excutor](../../../statics/java/threadpool-excutor.png)
 
 拒绝时机：
 
