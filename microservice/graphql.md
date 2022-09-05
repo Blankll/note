@@ -54,3 +54,18 @@ Naming
 > conveys information on what the API probably does
 >
 > consistency is king of naming
+
+
+
+
+
+# [GraphQL: Non-nullable array/list](https://stackoverflow.com/questions/46770501/graphql-non-nullable-array-list)
+
+| declaration | null | []   | [null] | [{foo: 'BAR'}] |
+| ----------- | ---- | ---- | ------ | -------------- |
+| [Vote!]!    | no   | yes  | no     | yes            |
+| [Vote]!     | no   | yes  | yes    | yes            |
+| [Vote!]     | yes  | yes  | no     | yes            |
+| [Vote]      | yes  | yes  | yes    | yes            |
+
+
