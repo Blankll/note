@@ -46,3 +46,30 @@ See more in https://developers.google.com/protocol-buffers/docs/proto#scalar
 - enum
 - oneof
 - map
+
+
+
+
+
+example
+
+```protobuf
+syntax = "proto3";
+
+package todoPackage;
+
+service TodoService {
+    rpc createTodo(Todo) returns (Todo);
+    rpc readTodos(void) returns (Todos);
+}
+
+message Todo {
+    int32 id = 1;
+    string text = 2;
+}
+
+message Todos {
+    repeated Todo items = 1;
+}
+```
+
