@@ -47,10 +47,6 @@ See more in https://developers.google.com/protocol-buffers/docs/proto#scalar
 - oneof
 - map
 
-
-
-
-
 example
 
 ```protobuf
