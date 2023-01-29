@@ -55,10 +55,6 @@ Naming
 >
 > consistency is king of naming
 
-
-
-
-
 # [GraphQL: Non-nullable array/list](https://stackoverflow.com/questions/46770501/graphql-non-nullable-array-list)
 
 | declaration | null | []   | [null] | [{foo: 'BAR'}] |
@@ -68,4 +64,19 @@ Naming
 | [Vote!]     | yes  | yes  | no     | yes            |
 | [Vote]      | yes  | yes  | yes    | yes            |
 
+
+
+### pagenation
+
+Option 1: offset + page_size
+
+```
+query(limit:Int, page:Int)
+```
+
+Option 2: cursor
+
+```
+query(limit:Int, after:String)
+```
 

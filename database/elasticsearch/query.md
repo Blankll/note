@@ -2,6 +2,55 @@
 
 Query is the most important functionality for  ES.
 
+## before Query
+
+**create index**
+
+```
+PUT /your-index
+# create index with mapping
+PUT /event-es-index-v1
+{
+  "mappings": {
+    "dynamic": false,
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "username": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text"
+      }
+    }
+  },
+  "settings": {
+    "index":{
+      "refresh_interval": "1s"
+    }
+  }
+}
+```
+
+**insert data** 
+
+```
+POST /event-es-index-v1/_bulk
+{ "index" : { "_id" : "1" } }
+{ "id" : "1",  "username": "seven azss","title": "what is a title here", "desc": "a description for a sample document" }
+{ "index" : { "_id" : "2" } }
+{ "id" : "2",  "username": "eight bez","title": "what is a title here", "desc": "a description for a sample document" }
+```
+
+## Query DSL
+
+**list all indexes**
+
+```
+GET /_cat/indices
+```
+
 ### match_all
 
 search all  record，default response row is 10 maximum 10000
