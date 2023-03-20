@@ -138,6 +138,8 @@ turn off highlighting until the next search:
 
 `^ last exit insert position
 
+Ctrl - o: 	跳转到上一个文件
+
 ## vim分屏
 
 ### 打开文件时分屏
@@ -233,7 +235,15 @@ number@<letter>
 :%!jq .
 ```
 
+### copy past
 
+**copy to system clipboard:**
+
+ Enter visual mode by hitting `v`. Select the text you want to copy, then type:
+
+```bash
+"*y
+```
 
 ## 安装vim plug
 
@@ -343,6 +353,7 @@ vim ~/.vimrc
 
   - <leader>v 定位当前编辑的文件在文件夹中的位置
   - <leader>g 打开和关闭nerdTree
+  - <leader>r 刷新目录树
   
 - vim-abolish 装换命名法
 
@@ -369,10 +380,6 @@ vim ~/.vimrc
     ```
 
   - ``<leader>t`` togak打开与关闭
-
-- fzf.vim
-
-
 
 
 ## 坑

@@ -10,6 +10,9 @@ sudo iptables -I OUTPUT -p tcp --sport 28988 -m conntrack --ctstate ESTABLISHED 
 
 sudo iptables -I INPUT -p tcp --dport 6379 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 sudo iptables -I OUTPUT -p tcp --sport 6379 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+# allow TCP port 3306 connections
+sudo iptables -I INPUT -p tcp --dport 3306 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -I OUTPUT -p tcp --sport 3306 -m conntrack --ctstate ESTABLISHED -j ACCEPT
 ```
 
 

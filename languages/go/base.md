@@ -62,3 +62,5 @@ GO语言的并发编程模型基于一篇论文 Communication Sequential Process
 
 
 
+**By convention, an error value will be on the right and a result value will be on the left.**
+
