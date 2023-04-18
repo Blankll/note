@@ -81,18 +81,18 @@ elasticsearch 集群管理工具
 
 ## 基本概念
 
-1. **索引** index
+1. index
 
-   索引是文档的容器,时一类相似文档的集合(必须是小写)
+   >  OpenSearch organizes data into *indices*. Each index is a collection of JSON documents
 
    - index体现了逻辑空间的概念: 每个索引都有自己的mapping定义,用于定义包含的文档的字段名和字段类型
    - shard体现了物理空间的概念: 索引中的数据分散在Shard上
-   - Mapping定义文档字段的类型
-   - Setting定义不同的数据分布
+   - Mapping defines the type of index fields
+   - Setting defines 定义不同的数据分布
 
    
 
-2. **文档**
+2. **文档** document
 
    elasticsearch是面向文档的,文档是所有可搜索数据的最小单位(类似关系型数据库中的一条记录)
 
@@ -110,18 +110,18 @@ elasticsearch 集群管理工具
    - 可以自己指定id
    - 可以通过elasticsearch自动生成
 
-   元数据:用于标注文档的相关信息
+   meta data:用于标注文档的相关信息
 
    - _index 文档所属的索引名
    - _type 文档所属的类型名
-   - _id 文档唯一id
-   - _source 文档的原始json数据
-   - _version 文档的版本信息
-   - _score相关性打分
+   - _id: document unique id
+   - _source: raw json data
+   - _version document version
+   - _score: relation scores
 
-3. **集群:**  一个或者多个节点组织在一起
+3. **集群cluster:**  一个或者多个节点组织在一起
 
-4. **节点:**  一个节点是集群中的一个服务器,由一个名字来标识,默认是一个随机的漫画角色的名字(本质上是一个java进程)在生产环境中建议只在一台主机上运行一个节点
+4. **节点node:**  一个节点是集群中的一个服务器,由一个名字来标识,默认是一个随机的漫画角色的名字(本质上是一个java进程)在生产环境中建议只在一台主机上运行一个节点
 
    - **Master-eligiblenodes和Master Node:**
      - 每个节点启动后,默认就是一个Master eligible节点 可以设置 node.master: false禁止
@@ -152,23 +152,24 @@ elasticsearch 集群管理工具
      | coordinating only | 无          | 每个默认节点都是coordinating节点,设置其他类型全部为false |
      | machine learning  | node.ml     | true, (需要 enable xpack)                                |
 
-5. **分片:**  将索引划分为多份的能力,允许水平分割和扩展容量,多个分片响应请求,提高性能和吞吐量
+5. **分片shard:**  将索引划分为多份的能力,允许水平分割和扩展容量,多个分片响应请求,提高性能和吞吐量
+   
    - 主分片(Primary Shard): 用以解决数据水平扩展问题,可以将数据分布到集群内的所有节点之上
    - 主分片在索引创建时指定,后溪不允许修改,除非Reindex
    - 副本(Replica Shard): 用以解决数据的高可用问题 分片是主分片的拷贝
    - 副本分片数可以动态调整
    - 增加副本数,还可以在一定程度上提高服务的可用性(读取的吞吐)
+   
+6. **副本replica:**  创建分片的一份或多份的能力, 在一个节点失败时副本可以替换
 
-6. **副本:**  创建分片的一份或多份的能力, 在一个节点失败时副本可以替换
+>  A good rule of thumb is to keep shard size between 10–50 GB.
 
-
-
-| elasticsearch   | MySQL  |
-| --------------- | ------ |
-| index(索引)     | 数据库 |
-| type(类型)      | 表     |
-| documents(文档) | 行     |
-| fields          | 列     |
+| elasticsearch | MySQL    |
+| ------------- | -------- |
+| index         | Database |
+| type          | Table    |
+| documents     | Row      |
+| fields        | Column   |
 
 ### mapping
 

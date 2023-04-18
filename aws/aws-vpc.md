@@ -23,7 +23,7 @@ Routetable
 
 1. create VPC
 2. Create IGW -> attach IGW to VPC
-3. Create Route Table -> associate  subnets(public subnets) underr VPC to  Route Table
+3. Create Route Table -> associate  subnets(public subnets) under VPC to  Route Table
 4. Edit Route Table add CIDRs destination to IGW
 
 
@@ -40,7 +40,7 @@ Public IP is assgined to NAT Gateway, IGW did not
 - It only works one way. The internet at large cannot get through your NAT to your private resources unless you explicitly allow it.
 - Nat Gateway is only resilient within a single AZ, must create Multi NAT Gateway in Multi AZs for fault-tolerrance
 - Cant be used by EC2 instance in the same subnet(only from other subnets)
-- Requirers an IGGW (outbound from Private Subnet => NATGW => IGW)
+- Requirers an IGW (outbound from Private Subnet => NATGW => IGW)
 
 Steps:
 
@@ -74,8 +74,8 @@ outated
 **DNS Hostnames(enableDnsHostnames)** `enable public dns record`
 
 - Wont do anything unless enableDnsSupport=true
-- if true, puublic hostname to EC2 instance if it has a public IPv4
-- Default VPC true as default, False for created VPCs
+- if true, public hostname to EC2 instance if it has a public IPv4
+- true for Default VPC, False for created VPCs
 - Wont do anything unless enableDnsSupport=true, and if enableDnsHostnames=ture a public hostname whill assgned to EC2 instance if it has a public IPv4
 
 ![](../statics/aws/dns-in-vpc.png)
@@ -105,9 +105,9 @@ outated
 
 - Privately connect two vpcs using aws's network
 - Make the behave as if they were in the same network
-- Muust not have overlapping CIDRs
+- Must not have overlapping CIDRs
 - VPC Peeringg connection is not transitive(must be established for each VPC that need to communicate with one another)
-- must uupdate route tables in each VPC's subnets to ensuure EC2 instances can communicate with each other
+- must update route tables in each VPC's subnets to ensure EC2 instances can communicate with each other
 - support cross accounts/regions
 - Can reference a security group in a peered VPC(works cross accounts but same region)
 
@@ -238,3 +238,5 @@ Connect one or more VPC in many different regions(same account)
 
 
 ### Transit Gateway
+
+> AWS Transit Gateway connects your Amazon Virtual Private Clouds (VPCs) and on-premises networks through a central hub.
