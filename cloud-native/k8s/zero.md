@@ -1,8 +1,10 @@
 # kubernetes
 
-worker machine in k8s cluster
+### Cluster Architecture
 
-work Node: worker nods do the actual work
+Kubernetes cluster consists of a set of nodes that host applications in the form of containers
+
+**work Node**: host application as containers
 
 - Each node has multiple Pods on it
 - 3 processes must be installed on every node
@@ -10,7 +12,7 @@ work Node: worker nods do the actual work
   - Kubelet interacts with both - the container and node, kubelet start the pod with a container inside
   - Kube proxy: 
 
-Master node: schedule pod, monitor, re-schedule/re-start pods, join a new node
+**Master node:** Manage, Plan Schedule, Monitor nodes
 
 4 process run on every master node:
 
@@ -149,8 +151,6 @@ Service types:
 - NodePort
 - ClusterIp
 - LoadBalancer
-
-
 
 
 
