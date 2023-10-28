@@ -11,3 +11,9 @@
   
 8. unix
 9. tools
+
+
+
+
+
+great power comes great complexity
