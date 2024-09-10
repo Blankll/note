@@ -38,8 +38,6 @@ Spring IOC容器启动时做的准备：
 
 IOC配置元信息的读取和解析，IOC容器生命周期，Spring事件发布国际化等
 
-
-
 - BeanDefinition 元信息
 
   | 属性(Property)           | 说明                                         |
@@ -69,7 +67,7 @@ IOC配置元信息的读取和解析，IOC容器生命周期，Spring事件发�
 
 bean在Spring容器中从创建到销毁经历了若干阶段，每一阶段都可以针对Spring如何管理bean进行个性化定制。
 
-![bean_life_cycle](../../statics/java/bean_life_cycle.png)
+![bean_life_cycle](../../../statics/java/bean_life_cycle.png)
 
 1. Spring 对bean进行实例化
 2. Spring 将值和bean的引用注入到bean对应的属性中

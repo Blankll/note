@@ -10,10 +10,6 @@
 
 ## 创建springboot应用
 
-
-
-
-
 ### 启动spring 项目
 
 mvn spring-boot:run
