@@ -8,6 +8,8 @@
 
   Elasticsearch以集群为单位向外提供服务，集群由一个或者多个节点组织在一起
 
+![](../../statics/database/elasticsearch/elasticsearch.drawio.png)
+
 ### 节点node
 
 一个节点是集群中的一个服务器,由一个名字来标识,默认是一个随机的漫画角色的名字(本质上是一个java进程)在生产环境中建议只在一台主机上运行一个节点
@@ -119,12 +121,3 @@ PUT /users
   }
 }
 ```
-
-
-
-| elasticsearch | MySQL            |
-| ------------- | ---------------- |
-| index         | table            |
-| mapping       | Table defination |
-| documents     | Row              |
-| fields        | Column           |
